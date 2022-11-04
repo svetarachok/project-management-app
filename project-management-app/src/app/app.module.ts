@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { BoardsModule } from './boards/boards.module';
 
@@ -22,7 +21,6 @@ import { BoardsModule } from './boards/boards.module';
     MaterialModule,
     AuthModule,
     CoreModule,
-    SharedModule,
     UserModule,
     BoardsModule
   ],
