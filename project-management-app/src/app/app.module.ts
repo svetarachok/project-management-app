@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 import { BoardsModule } from './boards/boards.module';
+
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
@@ -18,9 +21,11 @@ import { BoardsModule } from './boards/boards.module';
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
+    BrowserAnimationsModule,
+    StoreModule,
+    StoreDevtoolsModule,
     AuthModule,
     CoreModule,
-    SharedModule,
     UserModule,
     BoardsModule
   ],
