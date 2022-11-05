@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../material.module';
+
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
@@ -13,7 +15,12 @@ import { WelcomePageComponent } from './pages/welcome-page/welcome-page.componen
     WelcomePageComponent
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule, 
+    MaterialModule,
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+  ],
 })
 export class CoreModule { }

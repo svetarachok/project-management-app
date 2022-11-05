@@ -1,0 +1,31 @@
+:host {
+  height: 4rem;
+  background-color: #202020;
+  padding: 1rem 2.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
+.rs-logo {
+  width: 6rem;
+  background-color: white;
+  padding: 0.5rem;
+}
+
+.team-github {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  .author {
+    font-weight: 700;
+  }
+}
