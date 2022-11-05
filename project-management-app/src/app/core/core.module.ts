@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     RouterModule
   ]
 })
