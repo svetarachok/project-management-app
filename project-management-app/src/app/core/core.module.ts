@@ -6,6 +6,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './store/reducers/app.reducers';
+
 
 
 @NgModule({
@@ -17,6 +20,7 @@ import { WelcomePageComponent } from './pages/welcome-page/welcome-page.componen
   imports: [
     CommonModule, 
     MaterialModule,
+    StoreModule.forRoot(appReducers),
   ],
   exports: [
     HeaderComponent,
