@@ -8,7 +8,6 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { catchError, switchMap, throwError } from 'rxjs';
 import { User } from '../../models/auth.model';
 import { GetTokenService } from '../../services/get-token.service';
@@ -38,7 +37,6 @@ export class SignupPageComponent {
   constructor(
     private registrationService: RegistrationService,
     private getTokenService: GetTokenService,
-    private router: Router
   ) {}
 
   passValidator(regex: RegExp): ValidatorFn {
@@ -66,10 +64,7 @@ export class SignupPageComponent {
           password: this.signUpForm.controls.password.value as string
         })),
         catchError(this.handleError)
-      ).subscribe(({ token }) => {
-        localStorage.setItem('team4-token', token);
-        this.router.navigateByUrl('/');
-      });
+      ).subscribe();
     }
   }
 }
