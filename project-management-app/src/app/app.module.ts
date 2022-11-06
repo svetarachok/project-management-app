@@ -13,6 +13,9 @@ import { BoardsModule } from './boards/boards.module';
 
 import { AppComponent } from './app.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './core/services/interceptors'; 
+
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -29,9 +32,10 @@ import { environment } from 'src/environments/environment';
     AuthModule,
     CoreModule,
     UserModule,
-    BoardsModule
+    BoardsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

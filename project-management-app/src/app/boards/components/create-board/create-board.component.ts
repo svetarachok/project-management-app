@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms'; 
 import { Store } from '@ngrx/store';
-import { BoardsState } from 'src/app/core/store/state/boards.state';
-import { ModalsService } from 'src/app/shared/services/modals/modals.service';
+import { BoardsState } from '../../../core/store/state/boards.state';
+import { ModalsService } from '../../../core/services/modals-services/modals.service';
 import * as BoardActions from '../../../core/store/actions/boards.actions';
 
-import { FormErrors } from '../../../shared/utils/form-errors-enum';
+import { FormErrors } from '../../models/form-errors-enum';
 
 @Component({
   selector: 'app-create-board',
