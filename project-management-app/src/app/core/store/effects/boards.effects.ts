@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { mergeMap, map } from 'rxjs';
+import { mergeMap, map, tap } from 'rxjs/operators';
 
 import * as BoardsActions from '../actions/boards.actions';
 
@@ -17,7 +17,6 @@ export class BoardsEffects {
         return this.boardsService.createNewBoard({ title: action.title, description: action.description })
           .pipe(
             map(boards => {
-              console.log(boards);
               return BoardsActions.createNewBoardSuccess({ boards: boards });
             }),
           );

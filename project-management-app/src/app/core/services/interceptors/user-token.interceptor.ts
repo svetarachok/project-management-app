@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class UserTokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlZTE1MTlmYi0yNjQ1LTRhZjAtODY5NS01YzkyZDdlY2VlMTciLCJsb2dpbiI6InVzZXIwMDIiLCJpYXQiOjE2Njc3NDU3MjF9.whiJFXiJ-ILsNEM8t_GXlT_TGvVf5ZAnsgWnuIU_sQM';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlZTE1MTlmYi0yNjQ1LTRhZjAtODY5NS01YzkyZDdlY2VlMTciLCJsb2dpbiI6InVzZXIwMDIiLCJpYXQiOjE2Njc3NjM0MzV9.AD5w21wUEa4qiBgVWjaV6RCUoHZXOzvDnhuJaBDINeg';
       req = req.clone({
         setHeaders: {Authorization: `Bearer ${token}`}
       });
