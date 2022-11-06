@@ -10,6 +10,7 @@ import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
 import { BoardsModule } from './boards/boards.module';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
 
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './core/services/interceptors'; 
 
 import { environment } from 'src/environments/environment';
+import { BoardsEffects } from './core/store/effects/boards.effects';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { environment } from 'src/environments/environment';
     UserModule,
     BoardsModule,
     HttpClientModule,
+    EffectsModule.forRoot([BoardsEffects]),
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
