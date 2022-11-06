@@ -2,18 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-
-interface SignUpResponse {
-  "id": string;
-  "name": string;
-  "login": string;
-}
-
-export interface User {
-  "name"?: string;
-  "login": string;
-  "password": string;
-}
+import { SignUpResponse, User } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'

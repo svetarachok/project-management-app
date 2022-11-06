@@ -10,8 +10,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, switchMap, throwError } from 'rxjs';
+import { User } from '../../models/auth.model';
 import { GetTokenService } from '../../services/get-token.service';
-import { RegistrationService, User } from '../../services/registration.service';
+import { RegistrationService } from '../../services/registration.service';
 
 @Component({
   selector: 'app-signup-page',
