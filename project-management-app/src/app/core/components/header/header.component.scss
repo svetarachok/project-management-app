@@ -1,0 +1,47 @@
+
+.header {
+  display: flex;
+  height: 4rem;
+  padding: 1rem 2.2rem;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #b0b0b0;
+  &_logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  &_authorized {
+    display: flex;
+    align-items: center;
+    width: 80%;
+  }
+  &_create-board {
+    display: flex;
+    align-items: center;
+    margin-left: 30%;
+    p {
+      margin-bottom: 0;
+      padding-right: 1rem;
+    }
+  }
+  &_language {
+    margin-left: auto;
+    margin-right: 2rem;
+    .lang-btn {
+      border-radius: 50%;
+      padding: 0.5rem;
+      line-height: 1rem;
+      min-width: auto;
+    }
+  }
+  &_user {
+    display: flex;
+    gap: 0.5rem;
+  }
+  &_user-unauth {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+}

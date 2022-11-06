@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class MainPageComponent {
 
+  boards = [
+    {title: 'Board 1'},
+    {title: 'Board 2'},
+  ]
+
+  removeBoard(i: number) {
+    this.boards = this.boards.filter((board, index) => index !== i)
+  }
 }

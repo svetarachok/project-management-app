@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-
-
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
+  exports: [
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatListModule,
+    MatDividerModule,
+    MatIconModule,
     MatInputModule,
     MatCardModule
-  ],
-  exports: [MatInputModule, MatButtonModule, MatCardModule]
+  ]
 })
 export class MaterialModule { }
