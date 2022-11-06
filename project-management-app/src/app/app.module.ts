@@ -13,6 +13,8 @@ import { BoardsModule } from './boards/boards.module';
 
 import { AppComponent } from './app.component';
 
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -23,7 +25,7 @@ import { AppComponent } from './app.component';
     MaterialModule,
     BrowserAnimationsModule,
     StoreModule,
-    StoreDevtoolsModule,
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     AuthModule,
     CoreModule,
     UserModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalsService } from 'src/app/shared/services/modals/modals.service';
 
 @Component({
   selector: 'app-main-page',
@@ -12,7 +13,13 @@ export class MainPageComponent {
     {title: 'Board 2'},
   ]
 
+  constructor(public modalsService: ModalsService) {}
+
   removeBoard(i: number) {
     this.boards = this.boards.filter((board, index) => index !== i)
+  }
+
+  onCreateNewBoard() {
+    this.modalsService.showCreateBoardModal = true;
   }
 }

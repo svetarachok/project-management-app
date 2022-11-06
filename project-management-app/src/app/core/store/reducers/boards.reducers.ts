@@ -5,5 +5,5 @@ import * as BoardsActions from '../actions/boards.actions';
 
 export const boardsReducer = createReducer(
   initialBoardState,
-  on(BoardsActions.createNewBoard, (state, board) => ({ ... state, boards: [...state.boards, board.board]}))
+  on(BoardsActions.createNewBoard, (state, { title, description }) => ({ boards: [...state.boards, { title, description}]}))
 );
