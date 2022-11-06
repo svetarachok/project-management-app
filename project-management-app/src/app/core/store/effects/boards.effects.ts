@@ -14,7 +14,7 @@ export class BoardsEffects {
     return this.actions$.pipe(
       ofType(BoardsActions.CREATE_BOARD),
       mergeMap((action: Board) => {
-        return this.boardsService.createNewBoard(action)
+        return this.boardsService.createNewBoard({ title: action.title, description: action.description })
           .pipe(
             map(boards => {
               console.log(boards);
