@@ -1,8 +1,8 @@
-import { SignUpResponse } from "../../../auth/models/auth.model";
+import { User } from "../../../user/models/user.model";
 
 export interface UserState {
   isAuth: boolean;
-  user: SignUpResponse | null;
+  user: User | null;
 }
 
 export const initialUserState: UserState = {

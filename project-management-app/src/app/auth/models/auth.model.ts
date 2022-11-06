@@ -1,10 +1,4 @@
-export interface SignUpResponse {
-  "id": string;
-  "name": string;
-  "login": string;
-}
-
-export interface User {
+export interface NewUser {
   "name"?: string;
   "login": string;
   "password": string;

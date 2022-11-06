@@ -11,7 +11,7 @@ import {
 import { Store } from '@ngrx/store';
 import { catchError, switchMap, throwError } from 'rxjs';
 import { UserState } from '../../../core/store/state/user.state';
-import { User } from '../../models/auth.model';
+import { NewUser } from '../../models/auth.model';
 import { GetTokenService } from '../../services/get-token.service';
 import { RegistrationService } from '../../services/registration.service';
 
@@ -63,7 +63,7 @@ export class SignupPageComponent {
 
   onSubmit() {
     if(this.signUpForm.valid) {
-      this.registrationService.signup(this.signUpForm.value as User).pipe(
+      this.registrationService.signup(this.signUpForm.value as NewUser).pipe(
         switchMap(( newUser ) => {
           this.store.dispatch(UserActions.setUser({ user: newUser }));
 
