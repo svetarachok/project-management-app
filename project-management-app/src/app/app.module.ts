@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -13,6 +14,7 @@ import { BoardsModule } from './boards/boards.module';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
+
 
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './core/services/interceptors'; 
@@ -26,9 +28,9 @@ import { BoardsEffects } from './core/store/effects/boards.effects';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule,
     StoreModule,
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     AuthModule,
