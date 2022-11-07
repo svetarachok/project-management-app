@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalsService } from '../../services/modals-services/modals.service';
 
 @Component({
   selector: 'app-header',
@@ -9,4 +10,9 @@ export class HeaderComponent {
 
   isUserAuthorized: boolean = true;
 
+  constructor(private modalsService: ModalsService) {}
+
+  onCreateNewBoard() {
+    this.modalsService.showCreateBoardModal = true;
+  }
 }

@@ -3,7 +3,7 @@
   <div *ngIf="isUserAuthorized, else unathorized" class="header_authorized">
     <div class="header_create-board" >
       <p>New board</p>
-      <button mat-fab color="primary">+</button>
+      <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
     </div>
     <div class="header_language">
       <button mat-stroked-button color="primary" class="lang-btn">EN</button>
