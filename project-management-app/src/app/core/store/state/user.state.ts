@@ -1,4 +1,4 @@
-import { User } from '../../../user/models/user.model';
+import { User } from '../../models/user.model';
 
 export interface UserState {
   isAuth: boolean;

@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment.prod';
 import { TokenModel, NewUser } from '../models/auth.model';
 import { Store } from '@ngrx/store';
 import { UserState } from '../../core/store/state/user.state';
-import { User } from '../../user/models/user.model';
+import { User } from '../../core/models/user.model';
 
 import * as UserActions from '../../core/store/actions/user.actions';
 
