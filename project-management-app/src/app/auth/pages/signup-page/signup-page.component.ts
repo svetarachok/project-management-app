@@ -8,14 +8,10 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { catchError, switchMap, throwError } from 'rxjs';
-import { UserState } from '../../../core/store/state/user.state';
 import { NewUser } from '../../models/auth.model';
-import { GetTokenService } from '../../services/get-token.service';
-import { RegistrationService } from '../../services/registration.service';
-
-import * as UserActions from '../../../core/store/actions/user.actions';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-page',
@@ -44,11 +40,7 @@ export class SignupPageComponent {
     { updateOn: 'submit' }
   );
 
-  constructor(
-    private registrationService: RegistrationService,
-    private getTokenService: GetTokenService,
-    private store: Store<UserState>
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   passValidator(regex: RegExp): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -73,20 +65,18 @@ export class SignupPageComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      this.registrationService
+      this.authService
         .signup(this.signUpForm.value as NewUser)
         .pipe(
-          switchMap(newUser => {
-            this.store.dispatch(UserActions.setUser({ user: newUser }));
-
-            return this.getTokenService.login({
+          switchMap(() => {
+            return this.authService.login({
               login: this.signUpForm.controls.login.value as string,
               password: this.signUpForm.controls.password.value as string,
             });
           }),
           catchError(this.handleError)
         )
-        .subscribe();
+        .subscribe(() => this.router.navigateByUrl('/'));
     }
   }
 }
