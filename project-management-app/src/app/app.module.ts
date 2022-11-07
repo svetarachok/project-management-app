@@ -7,7 +7,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { MaterialModule } from './material.module';
-import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
 import { BoardsModule } from './boards/boards.module';
@@ -25,7 +24,6 @@ import { environment } from 'src/environments/environment';
     MaterialModule,
     StoreModule,
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
-    AuthModule,
     CoreModule,
     UserModule,
     BoardsModule,
