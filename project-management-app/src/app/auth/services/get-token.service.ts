@@ -19,7 +19,7 @@ export class GetTokenService {
     private store: Store<UserState>
   ) {}
 
-  getToken(user: NewUser): Observable<void> {
+  login(user: NewUser): Observable<void> {
     return this.http.post<TokenModel>(environment.apiUrl + 'signin', user).pipe(
       map(({ token }) => {
         localStorage.setItem('team4-token', token);

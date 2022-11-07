@@ -79,7 +79,7 @@ export class SignupPageComponent {
           switchMap(newUser => {
             this.store.dispatch(UserActions.setUser({ user: newUser }));
 
-            return this.getTokenService.getToken({
+            return this.getTokenService.login({
               login: this.signUpForm.controls.login.value as string,
               password: this.signUpForm.controls.password.value as string,
             });
