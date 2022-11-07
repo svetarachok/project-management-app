@@ -10,16 +10,22 @@ import { UserState } from '../../core/store/state/user.state';
 import * as UserActions from '../../core/store/actions/user.actions';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GetTokenService {
-  constructor(private http: HttpClient, private router: Router, private store: Store<UserState>) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store<UserState>
+  ) {}
 
   getToken(user: NewUser): Observable<void> {
-    return this.http.post<TokenModel>(environment.apiUrl + 'signin', user).pipe(map(({ token }) => {
-      localStorage.setItem('team4-token', token);
-      this.store.dispatch(UserActions.setAuth({ isAuth: true }));
-      this.router.navigateByUrl('/');
-    }))
-   }
+    return this.http.post<TokenModel>(environment.apiUrl + 'signin', user).pipe(
+      map(({ token }) => {
+        localStorage.setItem('team4-token', token);
+        this.store.dispatch(UserActions.setAuth({ isAuth: true }));
+        this.router.navigateByUrl('/');
+      })
+    );
+  }
 }

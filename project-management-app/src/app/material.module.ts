@@ -16,7 +16,7 @@ import { MatCardModule } from '@angular/material/card';
     MatDividerModule,
     MatIconModule,
     MatInputModule,
-    MatCardModule
-  ]
+    MatCardModule,
+  ],
 })
-export class MaterialModule { }
+export class MaterialModule {}

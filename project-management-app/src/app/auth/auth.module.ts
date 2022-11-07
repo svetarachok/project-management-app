@@ -6,17 +6,13 @@ import { MaterialModule } from '../material.module';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
-  declarations: [
-    AuthPageComponent,
-    SignupPageComponent
-  ],
+  declarations: [AuthPageComponent, SignupPageComponent],
   imports: [
     CommonModule,
     MaterialModule,
     AuthRoutingModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

@@ -1,4 +1,4 @@
-import { User } from "../../../user/models/user.model";
+import { User } from '../../../user/models/user.model';
 
 export interface UserState {
   isAuth: boolean;
@@ -8,4 +8,4 @@ export interface UserState {
 export const initialUserState: UserState = {
   isAuth: false,
   user: null,
-}
+};

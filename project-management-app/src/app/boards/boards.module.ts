@@ -6,19 +6,12 @@ import { MaterialModule } from '../material.module';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 
-
-
 @NgModule({
-  declarations: [
-    MainPageComponent,
-    BoardPageComponent
-  ],
+  declarations: [MainPageComponent, BoardPageComponent],
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule.forChild([
-      { path: '', component: MainPageComponent },
-    ]),
-  ]
+    RouterModule.forChild([{ path: '', component: MainPageComponent }]),
+  ],
 })
-export class BoardsModule { }
+export class BoardsModule {}

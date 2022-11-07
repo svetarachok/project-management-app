@@ -17,9 +17,7 @@ import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -30,9 +28,9 @@ import { environment } from 'src/environments/environment';
     AuthModule,
     CoreModule,
     UserModule,
-    BoardsModule
+    BoardsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -9,14 +9,14 @@ export const userReducer = createReducer(
     UserActions.setAuth,
     (state, { isAuth }): UserState => ({
       ...state,
-      isAuth
+      isAuth,
     })
   ),
   on(
     UserActions.setUser,
     (state, { user }): UserState => ({
       ...state,
-      user
+      user,
     })
-  ),
+  )
 );
