@@ -1,0 +1,49 @@
+<mat-card class="mat-card-signup">
+  <mat-card-title>Sign up</mat-card-title>
+  <mat-card-subtitle>
+    One project management tool for the whole company, from marketing to engineering and more.
+  </mat-card-subtitle>
+  <mat-card-content>
+    <form class="form" [formGroup]="signUpForm" (submit)="onSubmit()">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input id="name" matInput formControlName="name">
+        <mat-error *ngIf="signUpForm?.controls?.name?.errors?.['required']">
+          Please enter your name
+        </mat-error>
+        <mat-error *ngIf="signUpForm?.controls?.name?.errors?.['maxlength']">
+          Your name is too long
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Login</mat-label>
+        <input id="login" matInput formControlName="login">
+        <mat-error *ngIf="signUpForm?.controls?.login?.errors?.['required']">
+          Please enter a login
+        </mat-error>
+        <mat-error *ngIf="signUpForm?.controls?.login?.errors?.['minlength']">
+          Your login is too short
+        </mat-error>
+        <mat-error *ngIf="signUpForm?.controls?.login?.errors?.['maxlength']">
+          Your login is too long
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input id="password" type="password" matInput formControlName="password">
+        <mat-error *ngIf="signUpForm?.controls?.password?.errors?.['required']">
+          Please enter a password
+        </mat-error>
+        <mat-error *ngIf="signUpForm?.controls?.password?.errors?.['password'] && !signUpForm?.controls?.password?.errors?.['required']">
+          At least 8 chars with numbers, uppercase, special char !@#?]
+        </mat-error>
+      </mat-form-field>
+
+      <button class="form__btn full-width" type="submit" color="accent" mat-flat-button>Sign Up</button>
+
+      <mat-card-footer>
+        Already have an account? <a routerLink="/auth/login">Log In</a>
+      </mat-card-footer>
+    </form>
+  </mat-card-content>
+</mat-card>
