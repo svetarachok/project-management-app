@@ -21,13 +21,6 @@ export class UserEffects {
     )
   );
 
-  setUser$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(UserActions.setUser),
-      map(() => UserActions.setAuth({ isAuth: true }))
-    )
-  );
-
   logout$ = createEffect(
     () =>
       this.actions$.pipe(
