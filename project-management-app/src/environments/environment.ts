@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://peaceful-shore-92717.herokuapp.com/'
+  apiUrl: 'https://peaceful-shore-92717.herokuapp.com/',
 };
 
 /*

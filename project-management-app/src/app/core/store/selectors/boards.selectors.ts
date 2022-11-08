@@ -6,5 +6,5 @@ export const getBaordsSelector =
 
 export const getBoards = createSelector(
   getBaordsSelector,
-  (boards) => boards.boards,
+  boards => boards.boards
 );

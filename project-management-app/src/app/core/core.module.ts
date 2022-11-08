@@ -11,14 +11,8 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store/reducers/app.reducers';
 
-
-
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    WelcomePageComponent
-  ],
+  declarations: [HeaderComponent, FooterComponent, WelcomePageComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -26,9 +20,6 @@ import { appReducers } from './store/reducers/app.reducers';
     MaterialModule,
     StoreModule.forRoot(appReducers),
   ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-  ],
+  exports: [HeaderComponent, FooterComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

@@ -1,7 +1,7 @@
 export interface NewUser {
-  "name"?: string;
-  "login": string;
-  "password": string;
+  name?: string;
+  login: string;
+  password: string;
 }
 
 export interface TokenModel {

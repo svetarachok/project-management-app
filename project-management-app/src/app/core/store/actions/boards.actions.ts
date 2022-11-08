@@ -7,7 +7,13 @@ export const GET_BOARDS = '[Boards Service] Get user boards';
 export const DELETE_BOARD = '[Main Page] Delete chosen board';
 export const DELETE_BOARD_SUCCESS = '[Main Page] Board deleted';
 
-export const createNewBoard = createAction(CREATE_BOARD, props<{ title: string, description: string }>());
-export const createNewBoardSuccess = createAction(CREATE_BOARD_SUCCESS, props<{ boards: Board[] }>());
+export const createNewBoard = createAction(
+  CREATE_BOARD,
+  props<{ title: string; description: string }>()
+);
+export const createNewBoardSuccess = createAction(
+  CREATE_BOARD_SUCCESS,
+  props<{ boards: Board[] }>()
+);
 export const getBoards = createAction(GET_BOARDS, props<{ boards: Board[] }>());
 export const deleteBoards = createAction(DELETE_BOARD, props<{ id: string }>());

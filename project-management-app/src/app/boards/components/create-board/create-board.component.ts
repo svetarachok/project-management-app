@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms'; 
+import {
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BoardsState } from '../../../core/store/state/boards.state';
 import { ModalsService } from '../../../core/services/modals-services/modals.service';
@@ -10,13 +15,15 @@ import { FormErrors } from '../../models/form-errors-enum';
 @Component({
   selector: 'app-create-board',
   templateUrl: './create-board.component.html',
-  styleUrls: ['./create-board.component.scss']
+  styleUrls: ['./create-board.component.scss'],
 })
 export class CreateBoardComponent implements OnInit {
-
   createBoardForm!: FormGroup;
 
-  constructor(private store: Store<BoardsState>, private modalsService: ModalsService) { }
+  constructor(
+    private store: Store<BoardsState>,
+    private modalsService: ModalsService
+  ) {}
 
   ngOnInit(): void {
     this.createBoardForm = new FormGroup({
@@ -35,7 +42,12 @@ export class CreateBoardComponent implements OnInit {
 
   onSubmit(formDirective: FormGroupDirective) {
     if (this.createBoardForm.valid) {
-      this.store.dispatch(BoardActions.createNewBoard({ title: this.title?.value, description: this.description?.value }))
+      this.store.dispatch(
+        BoardActions.createNewBoard({
+          title: this.title?.value,
+          description: this.description?.value,
+        })
+      );
       this.createBoardForm.reset();
       formDirective.resetForm();
       this.modalsService.showCreateBoardModal = false;
@@ -43,15 +55,16 @@ export class CreateBoardComponent implements OnInit {
   }
 
   get titleErrorMessage(): string {
-    return this.title!.hasError('required') ? FormErrors.TITLE_REQUIRED : '' ;
+    return this.title!.hasError('required') ? FormErrors.TITLE_REQUIRED : '';
   }
 
   get descriptionErrorMessage(): string {
-    return this.description!.hasError('required') ? FormErrors.DESCRIPTION_REQUIRED : '' ;
+    return this.description!.hasError('required')
+      ? FormErrors.DESCRIPTION_REQUIRED
+      : '';
   }
 
   onCloseModal() {
     this.modalsService.showCreateBoardModal = false;
   }
-
 }

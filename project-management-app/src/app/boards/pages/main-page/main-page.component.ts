@@ -11,17 +11,20 @@ import { BoardService } from '../../services/board-service/board.service';
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+  styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit, OnDestroy {
-
   boards$!: Observable<Board[]>;
 
   getBaordsSubscription!: Subscription;
 
   deleteBoardsSubscription!: Subscription;
 
-  constructor(public modalsService: ModalsService, private store: Store<BoardsState>, private boardsService: BoardService) {
+  constructor(
+    public modalsService: ModalsService,
+    private store: Store<BoardsState>,
+    private boardsService: BoardService
+  ) {
     this.getBaordsSubscription = this.boardsService.getBoards();
   }
 
@@ -31,8 +34,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   removeBoard(id: string) {
     this.boards$ = this.boards$.pipe(
-      map(boards => boards.filter(board => board.id !== id)
-      )
+      map(boards => boards.filter(board => board.id !== id))
     );
     this.deleteBoardsSubscription = this.boardsService.deleteBoard(id);
   }
@@ -43,6 +45,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.getBaordsSubscription.unsubscribe();
-    this.deleteBoardsSubscription.unsubscribe();
+    if (this.deleteBoardsSubscription) {
+      this.deleteBoardsSubscription.unsubscribe();
+    }
   }
 }

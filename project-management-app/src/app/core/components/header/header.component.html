@@ -1,7 +1,7 @@
 <div class="header">
   <div class="header_logo">PM-App</div>
-  <div *ngIf="isUserAuthorized, else unathorized" class="header_authorized">
-    <div class="header_create-board" >
+  <div *ngIf="isUserAuthorized; else unathorized" class="header_authorized">
+    <div class="header_create-board">
       <p>New board</p>
       <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
     </div>
@@ -9,14 +9,20 @@
       <button mat-stroked-button color="primary" class="lang-btn">EN</button>
     </div>
     <div class="header_user">
-        <button mat-flat-button color="primary">Edit porfile</button>
-        <button mat-stroked-button color="primary">Logout</button>
+      <button mat-flat-button color="primary">Edit porfile</button>
+      <button mat-stroked-button color="primary" (click)="logout()">
+        Logout
+      </button>
     </div>
   </div>
   <ng-template #unathorized>
     <div class="header_user-unauth">
-      <button mat-flat-button color="primary">Login</button>
-      <button mat-stroked-button color="primary">Sign-in</button>
+      <button routerLink="/auth/login" mat-flat-button color="primary">
+        Login
+      </button>
+      <button routerLink="/auth/sign-up" mat-stroked-button color="primary">
+        Sign Up
+      </button>
     </div>
   </ng-template>
 </div>

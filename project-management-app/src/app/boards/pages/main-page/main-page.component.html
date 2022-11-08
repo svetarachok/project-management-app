@@ -2,15 +2,21 @@
 <ng-template #noboards>
   <div class="no-boards">
     <p>You haven't created any board yet</p>
-    <button mat-flat-button  (click)="onCreateNewBoard()" color="primary">Create new board</button>
+    <button mat-flat-button (click)="onCreateNewBoard()" color="primary">
+      Create new board
+    </button>
   </div>
 </ng-template>
-<mat-nav-list *ngIf="(boards$! | async)!.length !== 0, else noboards" class="boards-list">
+<mat-nav-list
+  *ngIf="(boards$! | async)!.length !== 0; else noboards"
+  class="boards-list">
   <h3 class="boards-list_header">Boards</h3>
-  <mat-list-item class="boards-list_item" *ngFor="let board of ( boards$ | async), let i =index">
+  <mat-list-item
+    class="boards-list_item"
+    *ngFor="let board of boards$ | async; let i = index">
     <a routerLink="/first-component" class="boards-list_link">
       <mat-icon matListIcon class="item-icon" color="accent">folder</mat-icon>
-      <h4 matLine> {{board.title}} </h4>
+      <h4 matLine>{{ board.title }}</h4>
     </a>
     <button mat-mini-fab class="remove-btn" (click)="removeBoard(board.id!)">
       <mat-icon>remove</mat-icon>
