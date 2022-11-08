@@ -1,0 +1,21 @@
+<form [formGroup]="createBoardForm" (ngSubmit)="onSubmit(formDirective)" #formDirective="ngForm" class="create-board">
+  <div class="create-board_container">
+    <h2>Create new Board</h2>
+    <div class="create-board_inputs-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Board title" formControlName="title" required>
+        <mat-error *ngIf="title!.invalid">{{ titleErrorMessage }}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+        <mat-error *ngIf="description!.invalid">{{ descriptionErrorMessage }}</mat-error>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" type="submit">Create board</button>
+    <button mat-icon-button (click)="onCloseModal()" class="close-modal-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</form>

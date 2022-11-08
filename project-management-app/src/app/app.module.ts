@@ -14,8 +14,12 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './core/services/interceptors';
+
 import { environment } from 'src/environments/environment';
 import { UserEffects } from './core/store/effects/user.effects';
+import { BoardsEffects } from './core/store/effects/boards.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,9 +33,10 @@ import { UserEffects } from './core/store/effects/user.effects';
     CoreModule,
     UserModule,
     BoardsModule,
-    EffectsModule.forRoot([UserEffects]),
+    HttpClientModule,
+    EffectsModule.forRoot([BoardsEffects, UserEffects]),
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
