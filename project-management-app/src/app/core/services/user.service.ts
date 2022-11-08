@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -23,17 +22,7 @@ export class UserService {
     if (token) {
       const decodedToken = this.getInfoFromToken(token);
 
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        }),
-      };
-
-      return this.http.get<User>(
-        environment.apiUrl + `users/${decodedToken?.userId}`,
-        httpOptions
-      );
+      return this.http.get<User>(`/users/${decodedToken?.userId}`);
     }
 
     return throwError(() => new Error('Wrong token or userId!'));
