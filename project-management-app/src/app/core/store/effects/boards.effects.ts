@@ -31,13 +31,11 @@ export class BoardsEffects {
     return this.actions$.pipe(
       ofType(BoardsActions.DELETE_BOARD),
       mergeMap((action: Board) => {
-        return this.boardsService
-          .deleteBoard(action.id!)
-          .pipe(
-            map(boards => {
-              return BoardsActions.deleteBoardsSuccess({ id: action.id! })
-            })
-          );
+        return this.boardsService.deleteBoard(action.id!).pipe(
+          map(() => {
+            return BoardsActions.deleteBoardsSuccess({ id: action.id! });
+          })
+        );
       })
     );
   });

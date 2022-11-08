@@ -32,14 +32,12 @@ export class BoardService {
   }
 
   deleteBoard(id: string) {
-    return this.http
-      .delete(`/boards/${id}`)
-      .pipe(
-        tap(res => {
-          console.log(res);
-          this.store.dispatch(deleteBoards({ id }));
-        })
-      )
-      // .subscribe();
+    return this.http.delete(`/boards/${id}`).pipe(
+      tap(res => {
+        console.log(res);
+        this.store.dispatch(deleteBoards({ id }));
+      })
+    );
+    // .subscribe();
   }
 }
