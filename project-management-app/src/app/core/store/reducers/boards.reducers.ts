@@ -9,9 +9,9 @@ export const boardsReducer = createReducer(
     boards: [...state.boards, { title, description }],
   })),
   on(BoardsActions.getBoards, (state, boards) => ({
-    boards: [...state.boards, ...boards.boards],
+    boards: [...boards.boards],
   })),
-  on(BoardsActions.deleteBoards, (state, { id }) => ({
+  on(BoardsActions.deleteBoardsSuccess, (state, { id }) => ({
     boards: [...state.boards].filter(board => board.id !== id),
   }))
 );

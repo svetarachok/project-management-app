@@ -4,6 +4,7 @@ import { getBoards } from 'src/app/core/store/selectors/boards.selectors';
 import { Board } from '../../models/board.interface';
 import { Store } from '@ngrx/store';
 import { BoardsState } from 'src/app/core/store/state/boards.state';
+import * as boardsActions from '../../../core/store/actions/boards.actions';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BoardService } from '../../services/board-service/board.service';
@@ -17,8 +18,6 @@ export class MainPageComponent implements OnInit, OnDestroy {
   boards$!: Observable<Board[]>;
 
   getBaordsSubscription!: Subscription;
-
-  deleteBoardsSubscription!: Subscription;
 
   constructor(
     public modalsService: ModalsService,
@@ -36,7 +35,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     this.boards$ = this.boards$.pipe(
       map(boards => boards.filter(board => board.id !== id))
     );
-    this.deleteBoardsSubscription = this.boardsService.deleteBoard(id);
+    this.store.dispatch(boardsActions.deleteBoards({ id: id}));
   }
 
   onCreateNewBoard() {
@@ -45,8 +44,5 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.getBaordsSubscription.unsubscribe();
-    if (this.deleteBoardsSubscription) {
-      this.deleteBoardsSubscription.unsubscribe();
-    }
   }
 }

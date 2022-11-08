@@ -27,5 +27,20 @@ export class BoardsEffects {
     );
   });
 
+  deleteBoard$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardsActions.DELETE_BOARD),
+      mergeMap((action: Board) => {
+        return this.boardsService
+          .deleteBoard(action.id!)
+          .pipe(
+            map(boards => {
+              return BoardsActions.deleteBoardsSuccess({ id: action.id! })
+            })
+          );
+      })
+    );
+  });
+
   constructor(private actions$: Actions, private boardsService: BoardService) {}
 }
