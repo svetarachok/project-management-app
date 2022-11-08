@@ -17,3 +17,4 @@ export const createNewBoardSuccess = createAction(
 );
 export const getBoards = createAction(GET_BOARDS, props<{ boards: Board[] }>());
 export const deleteBoards = createAction(DELETE_BOARD, props<{ id: string }>());
+export const deleteBoardsSuccess = createAction(DELETE_BOARD_SUCCESS, props<{ id: string }>());

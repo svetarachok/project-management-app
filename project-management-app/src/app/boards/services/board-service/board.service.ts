@@ -25,7 +25,6 @@ export class BoardService {
       .get<Board[]>('/boards')
       .pipe(
         map(boards => {
-          console.log(boards);
           this.store.dispatch(getBoards({ boards: boards }));
         })
       )
@@ -41,6 +40,6 @@ export class BoardService {
           this.store.dispatch(deleteBoards({ id }));
         })
       )
-      .subscribe();
+      // .subscribe();
   }
 }
