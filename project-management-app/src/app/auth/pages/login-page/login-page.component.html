@@ -1,1 +1,38 @@
-<p>auth-page works!</p>
+<mat-card class="mat-card-login">
+  <mat-card-title>Hello</mat-card-title>
+  <mat-card-subtitle>Log in to your account</mat-card-subtitle>
+  <mat-card-content>
+    <form class="form" [formGroup]="loginForm" (submit)="onSubmit()">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Login</mat-label>
+        <input id="login" matInput formControlName="login" />
+        <mat-error *ngIf="loginForm?.controls?.login?.errors?.['required']">
+          Please enter a login
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          id="password"
+          type="password"
+          matInput
+          formControlName="password" />
+        <mat-error *ngIf="loginForm?.controls?.password?.errors?.['required']">
+          Please enter a password
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        class="form__btn full-width"
+        type="submit"
+        color="accent"
+        mat-flat-button>
+        Login
+      </button>
+
+      <mat-card-footer>
+        No account? <a routerLink="/auth/sign-up">Sign Up</a>
+      </mat-card-footer>
+    </form>
+  </mat-card-content>
+</mat-card>
