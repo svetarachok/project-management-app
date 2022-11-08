@@ -8,12 +8,17 @@ import { UserState } from '../../core/store/state/user.state';
 import { User } from '../../core/models/user.model';
 
 import * as UserActions from '../../core/store/actions/user.actions';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient, private store: Store<UserState>) {}
+  constructor(
+    private http: HttpClient,
+    private store: Store<UserState>,
+    private userService: UserService
+  ) {}
 
   signup(user: NewUser): Observable<User> {
     return this.http
@@ -29,7 +34,11 @@ export class AuthService {
     return this.http.post<TokenModel>(environment.apiUrl + 'signin', user).pipe(
       map(({ token }) => {
         localStorage.setItem('team4-token', token);
-        this.store.dispatch(UserActions.setAuth({ isAuth: true }));
+        const { userId, name, login } =
+          this.userService.getInfoFromToken(token)!;
+        this.store.dispatch(
+          UserActions.setUser({ user: { id: userId, name, login } })
+        );
       })
     );
   }
