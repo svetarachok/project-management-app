@@ -10,10 +10,12 @@ import { MaterialModule } from './material.module';
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
 import { BoardsModule } from './boards/boards.module';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
 
 import { environment } from 'src/environments/environment';
+import { UserEffects } from './core/store/effects/user.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +29,7 @@ import { environment } from 'src/environments/environment';
     CoreModule,
     UserModule,
     BoardsModule,
+    EffectsModule.forRoot([UserEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent],
