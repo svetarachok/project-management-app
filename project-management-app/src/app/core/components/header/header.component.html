@@ -10,13 +10,19 @@
     </div>
     <div class="header_user">
       <button mat-flat-button color="primary">Edit porfile</button>
-      <button mat-stroked-button color="primary">Logout</button>
+      <button mat-stroked-button color="primary" (click)="logout()">
+        Logout
+      </button>
     </div>
   </div>
   <ng-template #unathorized>
     <div class="header_user-unauth">
-      <button mat-flat-button color="primary">Login</button>
-      <button mat-stroked-button color="primary">Sign-in</button>
+      <button routerLink="/auth/login" mat-flat-button color="primary">
+        Login
+      </button>
+      <button routerLink="/auth/sign-up" mat-stroked-button color="primary">
+        Sign Up
+      </button>
     </div>
   </ng-template>
 </div>
