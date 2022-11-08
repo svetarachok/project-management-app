@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { TokenModel, NewUser } from '../models/auth.model';
 import { Store } from '@ngrx/store';
 import { UserState } from '../../core/store/state/user.state';
@@ -20,24 +20,15 @@ export class AuthService {
   ) {}
 
   signup(user: NewUser): Observable<User> {
-    return this.http
-      .post<User>('/signup', user)
-      .pipe(
-        tap(newUser =>
-          this.store.dispatch(UserActions.setUser({ user: newUser }))
-        )
-      );
+    return this.http.post<User>('/auth/signup', user);
   }
 
   login(user: NewUser): Observable<void> {
-    return this.http.post<TokenModel>('/signin', user).pipe(
+    return this.http.post<TokenModel>('/auth/signin', user).pipe(
       map(({ token }) => {
         localStorage.setItem('team4-token', token);
-        const { userId, name, login } =
-          this.userService.getInfoFromToken(token)!;
-        this.store.dispatch(
-          UserActions.setUser({ user: { id: userId, name, login } })
-        );
+        const { id, login } = this.userService.getInfoFromToken(token)!;
+        this.store.dispatch(UserActions.setUser({ user: { _id: id, login } }));
       })
     );
   }

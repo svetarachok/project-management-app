@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
 
 interface DecodedTokenModel {
-  userId: string;
-  name: string;
+  id: string;
   login: string;
+  iat: number;
+  exp: number;
 }
 
 @Injectable({
@@ -21,8 +22,7 @@ export class UserService {
     const token = this.getTokenFromLS();
     if (token) {
       const decodedToken = this.getInfoFromToken(token);
-
-      return this.http.get<User>(`/users/${decodedToken?.userId}`);
+      return this.http.get<User>(`/users/${decodedToken?.id}`);
     }
 
     return throwError(() => new Error('Wrong token or userId!'));
