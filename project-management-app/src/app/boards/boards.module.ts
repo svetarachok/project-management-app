@@ -8,6 +8,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { CreateBoardComponent } from './components/create-board/create-board.component';
 import { BoardComponent } from './pages/main-page/board/board.component';
+import { CreateColumnModalComponent } from './components/create-column-modal/create-column-modal.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { BoardComponent } from './pages/main-page/board/board.component';
     BoardPageComponent,
     CreateBoardComponent,
     BoardComponent,
+    CreateColumnModalComponent,
   ],
   imports: [
     CommonModule,

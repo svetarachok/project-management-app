@@ -22,7 +22,6 @@ export class BoardsEffects {
           })
           .pipe(
             map(board => {
-              console.log(board);
               return BoardsActions.createNewBoardSuccess({ board });
             })
           );
