@@ -14,7 +14,7 @@ export const createNewBoard = createAction(
 );
 export const createNewBoardSuccess = createAction(
   CREATE_BOARD_SUCCESS,
-  props<{ boards: Board[] }>()
+  props<{ board: Board }>()
 );
 
 export const getBoards = createAction(GET_BOARDS, props<{ id: string }>());

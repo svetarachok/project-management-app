@@ -1,0 +1,22 @@
+.board {
+  &_item {
+    width: 50%;
+  }
+  &_link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  &_item-icon {
+    padding-right: 1.5rem !important;
+  }
+  &_header {
+    margin: 0;
+    padding-right: 1.5rem;
+    font-weight: 700;
+  }
+  &_remove-btn {
+    box-shadow: none;
+    margin-left: auto;
+  }
+}

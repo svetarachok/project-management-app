@@ -5,8 +5,8 @@ import * as BoardsActions from '../actions/boards.actions';
 
 export const boardsReducer = createReducer(
   initialBoardState,
-  on(BoardsActions.createNewBoard, (state, { title, owner, users }) => ({
-    boards: [...state.boards, { title, owner, users }],
+  on(BoardsActions.createNewBoardSuccess, (state, { board }) => ({
+    boards: [...state.boards, board],
   })),
   on(BoardsActions.getBoardsSuccess, (state, boards) => ({
     boards: [...boards.boards],

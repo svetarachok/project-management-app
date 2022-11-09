@@ -2,11 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { map, tap } from 'rxjs/operators';
 import { catchError, throwError } from 'rxjs';
-import { getBoards } from 'src/app/core/store/actions/boards.actions';
-import { BoardsState } from '../../../core/store/state/boards.state';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -23,11 +19,7 @@ export class LoginPageComponent {
     { updateOn: 'submit' }
   );
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private boardsStore: Store<BoardsState>
-  ) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   handleError(error: HttpErrorResponse) {
     if (error.status === 0) {

@@ -14,8 +14,8 @@ import { BoardsState } from '../../../core/store/state/boards.state';
 export class BoardService {
   constructor(private http: HttpClient, private store: Store<BoardsState>) {}
 
-  createNewBoard(newBoard: Board): Observable<Board[]> {
-    return this.http.post<Board[]>('/boards', newBoard);
+  createNewBoard(newBoard: Board): Observable<Board> {
+    return this.http.post<Board>('/boards', newBoard);
   }
 
   getBoards(id: string) {
