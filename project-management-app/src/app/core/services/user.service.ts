@@ -30,7 +30,7 @@ export class UserService {
 
   logout(): void {
     localStorage.removeItem('team4-token');
-    this.router.navigateByUrl('/auth');
+    this.router.navigateByUrl('/welcome');
   }
 
   getInfoFromToken(token: string): DecodedTokenModel | null {
