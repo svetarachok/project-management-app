@@ -28,7 +28,6 @@ export class CreateBoardComponent implements OnInit {
   ngOnInit(): void {
     this.createBoardForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
     });
   }
 
@@ -36,16 +35,14 @@ export class CreateBoardComponent implements OnInit {
     return this.createBoardForm.get('title');
   }
 
-  get description() {
-    return this.createBoardForm.get('description');
-  }
-
   onSubmit(formDirective: FormGroupDirective) {
+    const userId = '636aa99c18256515c0ef7d0d';
     if (this.createBoardForm.valid) {
       this.store.dispatch(
         BoardActions.createNewBoard({
           title: this.title?.value,
-          description: this.description?.value,
+          owner: userId,
+          users: [],
         })
       );
       this.createBoardForm.reset();
@@ -56,12 +53,6 @@ export class CreateBoardComponent implements OnInit {
 
   get titleErrorMessage(): string {
     return this.title!.hasError('required') ? FormErrors.TITLE_REQUIRED : '';
-  }
-
-  get descriptionErrorMessage(): string {
-    return this.description!.hasError('required')
-      ? FormErrors.DESCRIPTION_REQUIRED
-      : '';
   }
 
   onCloseModal() {

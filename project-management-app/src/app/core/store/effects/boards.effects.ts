@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { mergeMap, map } from 'rxjs/operators';
@@ -16,7 +17,8 @@ export class BoardsEffects {
         return this.boardsService
           .createNewBoard({
             title: action.title,
-            description: action.description,
+            owner: action.owner,
+            users: action.users,
           })
           .pipe(
             map(boards => {
@@ -31,13 +33,11 @@ export class BoardsEffects {
     return this.actions$.pipe(
       ofType(BoardsActions.DELETE_BOARD),
       mergeMap((action: Board) => {
-        return this.boardsService
-          .deleteBoard(action.id!)
-          .pipe(
-            map(boards => {
-              return BoardsActions.deleteBoardsSuccess({ id: action.id! })
-            })
-          );
+        return this.boardsService.deleteBoard(action._id!).pipe(
+          map(boards => {
+            return BoardsActions.deleteBoardsSuccess({ _id: action._id! });
+          })
+        );
       })
     );
   });

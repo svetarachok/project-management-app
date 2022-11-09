@@ -9,12 +9,18 @@ export const DELETE_BOARD_SUCCESS = '[Main Page] Board deleted';
 
 export const createNewBoard = createAction(
   CREATE_BOARD,
-  props<{ title: string; description: string }>()
+  props<{ title: string; owner: string; users: string[] }>()
 );
 export const createNewBoardSuccess = createAction(
   CREATE_BOARD_SUCCESS,
   props<{ boards: Board[] }>()
 );
 export const getBoards = createAction(GET_BOARDS, props<{ boards: Board[] }>());
-export const deleteBoards = createAction(DELETE_BOARD, props<{ id: string }>());
-export const deleteBoardsSuccess = createAction(DELETE_BOARD_SUCCESS, props<{ id: string }>());
+export const deleteBoards = createAction(
+  DELETE_BOARD,
+  props<{ _id: string }>()
+);
+export const deleteBoardsSuccess = createAction(
+  DELETE_BOARD_SUCCESS,
+  props<{ _id: string }>()
+);

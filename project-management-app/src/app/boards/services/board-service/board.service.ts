@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Board } from '../../models/board.interface';
@@ -32,14 +33,10 @@ export class BoardService {
   }
 
   deleteBoard(id: string) {
-    return this.http
-      .delete(`/boards/${id}`)
-      .pipe(
-        tap(res => {
-          console.log(res);
-          this.store.dispatch(deleteBoards({ id }));
-        })
-      )
-      // .subscribe();
+    return this.http.delete(`/boards/${id}`).pipe(
+      tap(res => {
+        return this.store.dispatch(deleteBoards({ _id: id }));
+      })
+    );
   }
 }

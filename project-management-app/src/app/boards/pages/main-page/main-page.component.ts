@@ -33,9 +33,9 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
   removeBoard(id: string) {
     this.boards$ = this.boards$.pipe(
-      map(boards => boards.filter(board => board.id !== id))
+      map(boards => boards.filter(board => board._id !== id))
     );
-    this.store.dispatch(boardsActions.deleteBoards({ id: id}));
+    this.store.dispatch(boardsActions.deleteBoards({ _id: id }));
   }
 
   onCreateNewBoard() {
