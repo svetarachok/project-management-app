@@ -1,1 +1,2 @@
-export const apiUrl = 'https://peaceful-shore-92717.herokuapp.com';
+export const apiUrl =
+  'https://final-task-backend-production-acb6.up.railway.app';

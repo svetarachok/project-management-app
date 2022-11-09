@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://peaceful-shore-92717.herokuapp.com/',
+  apiUrl: 'https://final-task-backend-production-acb6.up.railway.app',
 };
