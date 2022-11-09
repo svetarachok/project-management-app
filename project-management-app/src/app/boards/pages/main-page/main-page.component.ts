@@ -1,48 +1,46 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalsService } from '../../../core/services/modals-services/modals.service';
-import { getBoards } from 'src/app/core/store/selectors/boards.selectors';
+import { getBoards } from '../../../core/store/selectors/boards.selectors';
 import { Board } from '../../models/board.interface';
 import { Store } from '@ngrx/store';
-import { BoardsState } from 'src/app/core/store/state/boards.state';
+import { BoardsState } from '../../../core/store/state/boards.state';
 import * as boardsActions from '../../../core/store/actions/boards.actions';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BoardService } from '../../services/board-service/board.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit, OnDestroy {
+export class MainPageComponent implements OnInit {
   boards$!: Observable<Board[]>;
 
-  getBaordsSubscription!: Subscription;
+  userId: string = '';
 
   constructor(
     public modalsService: ModalsService,
-    private store: Store<BoardsState>,
-    private boardsService: BoardService
-  ) {
-    this.getBaordsSubscription = this.boardsService.getBoards();
-  }
+    private boardsStore: Store<BoardsState>,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.boards$ = this.store.select(getBoards);
+    this.boards$ = this.boardsStore.select(getBoards);
   }
 
   removeBoard(id: string) {
     this.boards$ = this.boards$.pipe(
-      map(boards => boards.filter(board => board.id !== id))
+      map(boards => boards.filter(board => board._id !== id))
     );
-    this.store.dispatch(boardsActions.deleteBoards({ id: id }));
+    this.boardsStore.dispatch(boardsActions.deleteBoards({ _id: id }));
   }
 
   onCreateNewBoard() {
     this.modalsService.showCreateBoardModal = true;
   }
 
-  ngOnDestroy(): void {
-    this.getBaordsSubscription.unsubscribe();
+  navigateToBoard(boardId: string) {
+    this.router.navigate(['/', boardId]);
   }
 }

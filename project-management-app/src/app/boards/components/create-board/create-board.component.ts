@@ -11,6 +11,8 @@ import { ModalsService } from '../../../core/services/modals-services/modals.ser
 import * as BoardActions from '../../../core/store/actions/boards.actions';
 
 import { FormErrors } from '../../models/form-errors-enum';
+import { UserState } from 'src/app/core/store/state/user.state';
+import { getUserId } from 'src/app/core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-create-board',
@@ -20,24 +22,25 @@ import { FormErrors } from '../../models/form-errors-enum';
 export class CreateBoardComponent implements OnInit {
   createBoardForm!: FormGroup;
 
+  userId: string = '';
+
   constructor(
     private store: Store<BoardsState>,
+    private userStore: Store<UserState>,
     private modalsService: ModalsService
   ) {}
 
   ngOnInit(): void {
     this.createBoardForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
     });
+    this.userStore
+      .select(getUserId)
+      .subscribe(user => (this.userId = user!._id));
   }
 
   get title() {
     return this.createBoardForm.get('title');
-  }
-
-  get description() {
-    return this.createBoardForm.get('description');
   }
 
   onSubmit(formDirective: FormGroupDirective) {
@@ -45,7 +48,8 @@ export class CreateBoardComponent implements OnInit {
       this.store.dispatch(
         BoardActions.createNewBoard({
           title: this.title?.value,
-          description: this.description?.value,
+          owner: this.userId,
+          users: [],
         })
       );
       this.createBoardForm.reset();
@@ -56,12 +60,6 @@ export class CreateBoardComponent implements OnInit {
 
   get titleErrorMessage(): string {
     return this.title!.hasError('required') ? FormErrors.TITLE_REQUIRED : '';
-  }
-
-  get descriptionErrorMessage(): string {
-    return this.description!.hasError('required')
-      ? FormErrors.DESCRIPTION_REQUIRED
-      : '';
   }
 
   onCloseModal() {

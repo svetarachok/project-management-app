@@ -1,13 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Board } from '../../models/board.interface';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import {
-  deleteBoards,
-  getBoards,
-} from '../../../core/store/actions/boards.actions';
+import { deleteBoards } from '../../../core/store/actions/boards.actions';
 import { BoardsState } from '../../../core/store/state/boards.state';
 
 @Injectable({
@@ -20,24 +18,15 @@ export class BoardService {
     return this.http.post<Board[]>('/boards', newBoard);
   }
 
-  getBoards() {
-    return this.http
-      .get<Board[]>('/boards')
-      .pipe(
-        map(boards => {
-          this.store.dispatch(getBoards({ boards: boards }));
-        })
-      )
-      .subscribe(boards => boards);
+  getBoards(id: string) {
+    return this.http.get<Board[]>(`/boardsSet/${id}`);
   }
 
   deleteBoard(id: string) {
     return this.http.delete(`/boards/${id}`).pipe(
       tap(res => {
-        console.log(res);
-        this.store.dispatch(deleteBoards({ id }));
+        return this.store.dispatch(deleteBoards({ _id: id }));
       })
     );
-    // .subscribe();
   }
 }

@@ -14,7 +14,10 @@ import { CreateBoardComponent } from './components/create-board/create-board.com
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
-    RouterModule.forChild([{ path: '', component: MainPageComponent }]),
+    RouterModule.forChild([
+      { path: '', component: MainPageComponent },
+      { path: ':id', component: BoardPageComponent },
+    ]),
   ],
 })
 export class BoardsModule {}

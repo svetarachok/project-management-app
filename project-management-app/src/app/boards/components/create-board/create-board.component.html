@@ -15,13 +15,6 @@
           required />
         <mat-error *ngIf="title!.invalid">{{ titleErrorMessage }}</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description"></textarea>
-        <mat-error *ngIf="description!.invalid">{{
-          descriptionErrorMessage
-        }}</mat-error>
-      </mat-form-field>
     </div>
     <button mat-raised-button color="primary" type="submit">
       Create board
