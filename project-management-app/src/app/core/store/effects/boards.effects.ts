@@ -42,5 +42,18 @@ export class BoardsEffects {
     );
   });
 
+  getBoards$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardsActions.GET_BOARDS),
+      mergeMap((action: { id: string }) => {
+        return this.boardsService.getBoards(action.id!).pipe(
+          map(boards => {
+            return BoardsActions.getBoardsSuccess({ boards: boards });
+          })
+        );
+      })
+    );
+  });
+
   constructor(private actions$: Actions, private boardsService: BoardService) {}
 }

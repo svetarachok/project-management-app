@@ -11,6 +11,8 @@ import { ModalsService } from '../../../core/services/modals-services/modals.ser
 import * as BoardActions from '../../../core/store/actions/boards.actions';
 
 import { FormErrors } from '../../models/form-errors-enum';
+import { UserState } from 'src/app/core/store/state/user.state';
+import { getUserId } from 'src/app/core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-create-board',
@@ -20,8 +22,11 @@ import { FormErrors } from '../../models/form-errors-enum';
 export class CreateBoardComponent implements OnInit {
   createBoardForm!: FormGroup;
 
+  userId: string = '';
+
   constructor(
     private store: Store<BoardsState>,
+    private userStore: Store<UserState>,
     private modalsService: ModalsService
   ) {}
 
@@ -29,6 +34,9 @@ export class CreateBoardComponent implements OnInit {
     this.createBoardForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
     });
+    this.userStore
+      .select(getUserId)
+      .subscribe(user => (this.userId = user!._id));
   }
 
   get title() {
@@ -36,12 +44,11 @@ export class CreateBoardComponent implements OnInit {
   }
 
   onSubmit(formDirective: FormGroupDirective) {
-    const userId = '636aa99c18256515c0ef7d0d';
     if (this.createBoardForm.valid) {
       this.store.dispatch(
         BoardActions.createNewBoard({
           title: this.title?.value,
-          owner: userId,
+          owner: this.userId,
           users: [],
         })
       );

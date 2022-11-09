@@ -3,23 +3,35 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserService } from '../../services/user.service';
 
 import * as UserActions from '../actions/user.actions';
-import { catchError, map, switchMap, of, tap } from 'rxjs';
+import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { BoardsState } from '../state/boards.state';
+import * as BaordsActions from '../actions/boards.actions';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class UserEffects {
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(
+    private actions$: Actions,
+    private userService: UserService,
+    private BoardsStore: Store<BoardsState>
+  ) {}
 
-  fetchUserOnInitApp$ = createEffect(() =>
-    this.actions$.pipe(
+  fetchUserOnInitApp$ = createEffect(() => {
+    return this.actions$.pipe(
       ofType(UserActions.fetchUser),
-      switchMap(() =>
+      mergeMap(() =>
         this.userService.fetchUser().pipe(
-          map(currentUser => UserActions.setUser({ user: currentUser })),
+          map(currentUser => {
+            this.BoardsStore.dispatch(
+              BaordsActions.getBoards({ id: currentUser._id })
+            );
+            return UserActions.setUser({ user: currentUser });
+          }),
           catchError(() => of(UserActions.logoutUser()))
         )
       )
-    )
-  );
+    );
+  });
 
   logout$ = createEffect(
     () =>
