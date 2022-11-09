@@ -13,11 +13,10 @@
   <h3 class="boards-list_header">Boards</h3>
   <mat-list-item
     class="boards-list_item"
-    *ngFor="let board of boards$ | async; let i = index">
-    <a routerLink="/first-component" class="boards-list_link">
-      <mat-icon matListIcon class="item-icon" color="accent">folder</mat-icon>
-      <h4 matLine>{{ board.title }}</h4>
-    </a>
+    *ngFor="let board of boards$ | async; let i = index"
+    (click)="navigateToBoard(board._id!)">
+    <mat-icon matListIcon class="item-icon" color="accent">folder</mat-icon>
+    <h4 matLine>{{ board.title }}</h4>
     <button mat-mini-fab class="remove-btn" (click)="removeBoard(board._id!)">
       <mat-icon>remove</mat-icon>
     </button>

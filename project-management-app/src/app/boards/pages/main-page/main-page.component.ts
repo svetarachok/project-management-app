@@ -7,7 +7,7 @@ import { BoardsState } from '../../../core/store/state/boards.state';
 import * as boardsActions from '../../../core/store/actions/boards.actions';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UserState } from 'src/app/core/store/state/user.state';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -22,7 +22,7 @@ export class MainPageComponent implements OnInit {
   constructor(
     public modalsService: ModalsService,
     private boardsStore: Store<BoardsState>,
-    private userStore: Store<UserState>
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -38,5 +38,9 @@ export class MainPageComponent implements OnInit {
 
   onCreateNewBoard() {
     this.modalsService.showCreateBoardModal = true;
+  }
+
+  navigateToBoard(boardId: string) {
+    this.router.navigate(['/', boardId]);
   }
 }
