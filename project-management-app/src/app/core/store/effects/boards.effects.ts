@@ -21,8 +21,9 @@ export class BoardsEffects {
             users: action.users,
           })
           .pipe(
-            map(boards => {
-              return BoardsActions.createNewBoardSuccess({ boards: boards });
+            map(board => {
+              console.log(board);
+              return BoardsActions.createNewBoardSuccess({ board });
             })
           );
       })

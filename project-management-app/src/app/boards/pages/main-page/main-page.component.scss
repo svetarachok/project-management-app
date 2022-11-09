@@ -3,26 +3,6 @@
   height: 100%;
 }
 
-.boards-list {
-  width: 50%;
-  &_link {
-    display: flex;
-    align-items: center;
-  }
-  .mat-list-icon {
-    padding-right: 1.5rem !important;
-  }
-  .mat-line {
-    margin: 0;
-    padding-right: 1.5rem;
-    font-weight: 700;
-  }
-  .remove-btn {
-    box-shadow: none;
-    margin-left: auto;
-  }
-}
-
 .no-boards {
   display: flex;
   flex-direction: column;

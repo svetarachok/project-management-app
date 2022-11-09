@@ -9,7 +9,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MaterialModule } from './material.module';
 import { CoreModule } from './core/core.module';
 import { UserModule } from './user/user.module';
-import { BoardsModule } from './boards/boards.module';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
@@ -32,7 +31,6 @@ import { BoardsEffects } from './core/store/effects/boards.effects';
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     CoreModule,
     UserModule,
-    BoardsModule,
     HttpClientModule,
     EffectsModule.forRoot([BoardsEffects, UserEffects]),
   ],
