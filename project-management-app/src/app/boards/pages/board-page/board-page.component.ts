@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { ColumnsState } from '../../../core/store/state/columns.state';
+import * as columnsActions from '../../../core/store/actions/columns.actions';
 import { getBoards } from '../../../core/store/selectors/boards.selectors';
 import { BoardsState } from '../../../core/store/state/boards.state';
 import { CreateColumnModalComponent } from '../../components/create-column-modal/create-column-modal.component';
@@ -21,11 +23,15 @@ export class BoardPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private boardsStore: Store<BoardsState>,
+    private columnStore: Store<ColumnsState>,
     public dialog: Dialog
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => (this.boardId = params['id']));
+    this.columnStore.dispatch(
+      columnsActions.getBoardIdToStore({ boardId: this.boardId })
+    );
     this.boardsStore
       .pipe(
         select(getBoards),

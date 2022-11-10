@@ -3,6 +3,10 @@ import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormErrors } from '../../models/form-errors-enum';
 
+import { ColumnsState } from 'src/app/core/store/state/columns.state';
+import { Store } from '@ngrx/store';
+import * as columnsActions from '../../../core/store/actions/columns.actions';
+
 @Component({
   selector: 'app-create-column-modal',
   templateUrl: './create-column-modal.component.html',
@@ -13,11 +17,11 @@ export class CreateColumnModalComponent implements OnInit {
 
   constructor(
     @Inject(DIALOG_DATA) public data: { id: string },
-    public dialogRef: DialogRef
+    public dialogRef: DialogRef,
+    private columnStore: Store<ColumnsState>
   ) {}
 
   ngOnInit(): void {
-    console.log(this.data.id);
     this.createColumnFrom = new FormGroup({
       title: new FormControl('', [Validators.required]),
     });
@@ -32,7 +36,16 @@ export class CreateColumnModalComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.createColumnFrom);
+    if (this.createColumnFrom.valid) {
+      this.columnStore.dispatch(
+        columnsActions.createNewColumn({
+          title: this.title?.value,
+          order: 0,
+          boardId: this.data.id,
+        })
+      );
+      this.dialogRef.close();
+    }
   }
 
   onClose() {

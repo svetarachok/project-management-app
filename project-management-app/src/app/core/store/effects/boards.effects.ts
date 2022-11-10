@@ -5,8 +5,8 @@ import { mergeMap, map } from 'rxjs/operators';
 
 import * as BoardsActions from '../actions/boards.actions';
 
-import { BoardService } from 'src/app/boards/services/board-service/board.service';
-import { Board } from 'src/app/boards/models/board.interface';
+import { BoardService } from '../../../boards/services/board-service/board.service';
+import { Board } from '../../../boards/models/board.interface';
 
 @Injectable()
 export class BoardsEffects {
