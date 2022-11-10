@@ -1,2 +1,6 @@
-<h1 *ngIf="board">{{ board.title }}</h1>
-<button (click)="onColumnCreate()">Create Column</button>
+<h1 *ngIf="board">
+  Board: <b>{{ board.title }}</b>
+</h1>
+<button mat-raised-button color="accent" (click)="onColumnCreate()">
+  Create Column
+</button>

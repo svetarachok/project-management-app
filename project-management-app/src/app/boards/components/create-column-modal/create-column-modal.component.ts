@@ -5,7 +5,7 @@ import { FormErrors } from '../../models/form-errors-enum';
 
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
 import { Store } from '@ngrx/store';
-import * as columnsActions from '../../../core/store/actions/columns.actions';
+import * as ColumnsActions from '../../../core/store/actions/columns.actions';
 
 @Component({
   selector: 'app-create-column-modal',
@@ -37,8 +37,9 @@ export class CreateColumnModalComponent implements OnInit {
 
   onSubmit() {
     if (this.createColumnFrom.valid) {
+      console.log(this.createColumnFrom.valid);
       this.columnStore.dispatch(
-        columnsActions.createNewColumn({
+        ColumnsActions.createNewColumn({
           title: this.title?.value,
           order: 0,
           boardId: this.data.id,

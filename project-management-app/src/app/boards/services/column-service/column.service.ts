@@ -15,6 +15,7 @@ export class ColumnService {
       title: title,
       order: order,
     };
+    console.log(column);
     const url = `/boards/${boardId}/columns`;
     return this.http.post<Column>(url, column);
   }

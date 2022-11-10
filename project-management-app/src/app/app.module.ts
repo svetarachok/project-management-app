@@ -19,6 +19,7 @@ import { httpInterceptorProviders } from './core/services/interceptors';
 import { environment } from 'src/environments/environment';
 import { UserEffects } from './core/store/effects/user.effects';
 import { BoardsEffects } from './core/store/effects/boards.effects';
+import { ColumnsEffects } from './core/store/effects/columns.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,7 @@ import { BoardsEffects } from './core/store/effects/boards.effects';
     CoreModule,
     UserModule,
     HttpClientModule,
-    EffectsModule.forRoot([BoardsEffects, UserEffects]),
+    EffectsModule.forRoot([BoardsEffects, UserEffects, ColumnsEffects]),
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],

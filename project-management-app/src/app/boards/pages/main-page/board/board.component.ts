@@ -19,7 +19,6 @@ export class BoardComponent {
   ) {}
 
   navigateToBoard(boardId: string) {
-    console.log(this.board);
     this.router.navigate(['/board', boardId]);
   }
 
