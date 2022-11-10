@@ -2,6 +2,23 @@
   height: 100%;
   padding: 3rem;
   display: flex;
+  flex-direction: column;
+}
+
+.board_header {
+  display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.columns {
+  &_container {
+    min-width: 100%;
+    min-height: 90%;
+    display: flex;
+    background: #dddddd;
+    padding: 1rem;
+    gap: 5px;
+    overflow-x: scroll;
+  }
 }

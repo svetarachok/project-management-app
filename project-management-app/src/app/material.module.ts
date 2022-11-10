@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 
 import { DialogModule } from '@angular/cdk/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [],
@@ -20,6 +21,7 @@ import { DialogModule } from '@angular/cdk/dialog';
     MatInputModule,
     MatCardModule,
     DialogModule,
+    DragDropModule,
   ],
 })
 export class MaterialModule {}

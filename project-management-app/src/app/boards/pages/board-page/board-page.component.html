@@ -1,6 +1,18 @@
-<h1 *ngIf="board">
-  Board: <b>{{ board.title }}</b>
-</h1>
-<button mat-raised-button color="accent" (click)="onColumnCreate()">
-  Create Column
-</button>
+<div class="board_header">
+  <h1 *ngIf="board">
+    Board: <b>{{ board.title }}</b>
+  </h1>
+  <button mat-raised-button color="accent" (click)="onColumnCreateClick()">
+    Create Column
+  </button>
+</div>
+<div
+  class="columns_container"
+  cdkDropList
+  (cdkDropListDropped)="dropColumns($event)">
+  <app-column-component
+    *ngFor="let column of columns"
+    [column]="column"
+    cdkDrag
+    cdkDragLockAxis="x"></app-column-component>
+</div>

@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { mergeMap, map } from 'rxjs/operators';
 
 import * as columnsActions from '../actions/columns.actions';
 
 import { ColumnService } from '../../../boards/services/column-service/column.service';
 import { Column } from '../../../boards/models/column.interface';
+import { Action } from '@ngrx/store';
+import { ColumnsState } from '../state/columns.state';
 
 @Injectable()
 export class ColumnsEffects {
@@ -17,12 +19,23 @@ export class ColumnsEffects {
         return this.columnsService
           .createColumn(action.title, action.order, action.boardId!)
           .pipe(
-            tap(column => console.log(column)),
             map(column => {
-              console.log(column);
               return columnsActions.createNewColumnSuccess({ column });
             })
           );
+      })
+    );
+  });
+
+  getColumns$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(columnsActions.GET_COLUMNS),
+      mergeMap((action: ColumnsState) => {
+        return this.columnsService.getColumns(action.boardId).pipe(
+          map(columns => {
+            return columnsActions.getColumnsSuccess({ columns });
+          })
+        );
       })
     );
   });
