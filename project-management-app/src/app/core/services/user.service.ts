@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user.model';
-import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
 
 interface DecodedTokenModel {
@@ -16,21 +15,31 @@ interface DecodedTokenModel {
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   fetchUser(): Observable<User> {
     const token = this.getTokenFromLS();
-    if (token) {
-      const decodedToken = this.getInfoFromToken(token);
-      return this.http.get<User>(`/users/${decodedToken?.id}`);
+    if (!token) {
+      return throwError(() => new Error('User is not authorized!'));
     }
 
-    return throwError(() => new Error('Wrong token or userId!'));
+    const decodedToken = this.getInfoFromToken(token);
+
+    if (!decodedToken) {
+      return throwError(() => new Error('Bad token!'));
+    }
+
+    const isTokenExpire = this.tokenExpirationCheck(decodedToken.exp);
+
+    if (isTokenExpire) {
+      return throwError(() => new Error('Token expired!'));
+    }
+
+    return this.http.get<User>(`/users/${decodedToken?.id}`);
   }
 
-  logout(): void {
+  clearToken(): void {
     localStorage.removeItem('team4-token');
-    this.router.navigateByUrl('/welcome');
   }
 
   getInfoFromToken(token: string): DecodedTokenModel | null {
@@ -43,5 +52,11 @@ export class UserService {
 
   getTokenFromLS(): string | null {
     return localStorage.getItem('team4-token');
+  }
+
+  tokenExpirationCheck(timestamp: number) {
+    const currentDate = new Date();
+    const tokenDateExp = new Date(timestamp * 1000);
+    return tokenDateExp < currentDate;
   }
 }

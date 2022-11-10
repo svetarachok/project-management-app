@@ -3,6 +3,7 @@ import { ModalsService } from '../../services/modals-services/modals.service';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 import * as fromUser from '../../store/selectors/user.selectors';
 import * as UserActions from '../../store/actions/user.actions';
@@ -20,7 +21,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private modalsService: ModalsService,
     private store: Store,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -34,8 +36,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userService.logout();
+    this.userService.clearToken();
     this.store.dispatch(UserActions.removeUser());
+    this.router.navigateByUrl('/welcome');
   }
 
   ngOnDestroy(): void {
