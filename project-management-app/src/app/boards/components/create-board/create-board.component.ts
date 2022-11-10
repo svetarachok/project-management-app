@@ -22,7 +22,7 @@ import { getUserId } from 'src/app/core/store/selectors/user.selectors';
 export class CreateBoardComponent implements OnInit {
   createBoardForm!: FormGroup;
 
-  userId: string = '';
+  userId: string | undefined = '';
 
   constructor(
     private store: Store<BoardsState>,
@@ -36,7 +36,7 @@ export class CreateBoardComponent implements OnInit {
     });
     this.userStore
       .select(getUserId)
-      .subscribe(user => (this.userId = user!._id));
+      .subscribe(user => (this.userId = user?._id));
   }
 
   get title() {
@@ -48,7 +48,7 @@ export class CreateBoardComponent implements OnInit {
       this.store.dispatch(
         BoardActions.createNewBoard({
           title: this.title?.value,
-          owner: this.userId,
+          owner: this.userId!,
           users: [],
         })
       );
