@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
+import { catchError, finalize, throwError } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -21,6 +21,8 @@ export class LoginPageComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  submited = false;
+
   handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
@@ -37,13 +39,20 @@ export class LoginPageComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.submited = true;
       this.authService
         .login({
           login: this.loginForm.controls.login.value as string,
           password: this.loginForm.controls.password.value as string,
         })
-        .pipe(catchError(this.handleError))
-        .subscribe(() => this.router.navigateByUrl('/'));
+        .pipe(
+          finalize(() => {
+            this.submited = false;
+            this.router.navigateByUrl('/');
+          }),
+          catchError(this.handleError)
+        )
+        .subscribe();
     }
   }
 }
