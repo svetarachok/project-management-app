@@ -8,13 +8,17 @@ import { BoardsState } from '../state/boards.state';
 import * as BaordsActions from '../actions/boards.actions';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private BoardsStore: Store<BoardsState>
+    private BoardsStore: Store<BoardsState>,
+    private router: Router,
+    private snackBarService: SnackBarService
   ) {}
 
   fetchUserOnInitApp$ = createEffect(() => {
@@ -30,9 +34,11 @@ export class UserEffects {
           }),
           catchError(err => {
             if (err instanceof HttpErrorResponse) {
-              console.error(err.error.statusCode + ' ' + err.error.message);
+              this.snackBarService.openSnackBar(
+                `${err.error.statusCode}: ${err.error.message}`
+              );
             }
-
+            this.router.navigateByUrl('/welcome');
             return of(UserActions.clearData());
           })
         )

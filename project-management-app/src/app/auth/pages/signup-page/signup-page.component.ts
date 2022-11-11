@@ -12,6 +12,7 @@ import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { NewUser } from '../../models/auth.model';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SnackBarService } from '../../../core/services/snack-bar.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -43,7 +44,11 @@ export class SignupPageComponent {
     { updateOn: 'submit' }
   );
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackBarService: SnackBarService
+  ) {}
 
   passValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -106,16 +111,12 @@ export class SignupPageComponent {
   }
 
   handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error('An error occurred:', error.error);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, body was: `,
-        error.error.message
-      );
-    }
+    this.snackBarService.openSnackBar(
+      `${error.error.statusCode}: ${error.error.message}`
+    );
+
     return throwError(
-      () => new Error('Something bad happened; please try again later.')
+      () => new Error(`${error.error.statusCode}: ${error.error.message}`)
     );
   }
 
@@ -127,7 +128,6 @@ export class SignupPageComponent {
         .pipe(
           finalize(() => {
             this.submited = false;
-            this.router.navigateByUrl('/');
           }),
           switchMap(() => {
             return this.authService.login({
@@ -135,9 +135,11 @@ export class SignupPageComponent {
               password: this.signUpForm.controls.password.value as string,
             });
           }),
-          catchError(this.handleError)
+          catchError(err => this.handleError(err))
         )
-        .subscribe();
+        .subscribe(() => {
+          this.router.navigateByUrl('/');
+        });
     }
   }
 }
