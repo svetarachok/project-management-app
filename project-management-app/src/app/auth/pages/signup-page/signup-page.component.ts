@@ -8,7 +8,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { catchError, finalize, switchMap, throwError } from 'rxjs';
 import { NewUser } from '../../models/auth.model';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -19,22 +19,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup-page.component.scss'],
 })
 export class SignupPageComponent {
+  submited = false;
+
   signUpForm = new FormGroup(
     {
       name: new FormControl('', [
         Validators.required,
+        Validators.minLength(2),
         Validators.maxLength(30),
+        this.ownValidator(/^([A-Za-zА-ЯЁа-яё]+)( ?)([A-Za-zА-ЯЁа-яё]+)?$/i),
       ]),
       login: new FormControl('', [
         Validators.required,
-        Validators.minLength(4),
+        Validators.minLength(2),
         Validators.maxLength(30),
+        this.ownValidator(/^([A-Za-z0-9]+)$/i),
       ]),
       password: new FormControl('', [
         Validators.required,
-        this.passValidator(
-          /(?=.*\d)(?=.*[a-z])(?=.*[ !@#?])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}/i
-        ),
+        this.passValidator(),
       ]),
     },
     { updateOn: 'submit' }
@@ -42,10 +45,63 @@ export class SignupPageComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  passValidator(regex: RegExp): ValidatorFn {
+  passValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const allowed = regex.test(control.value);
-      return allowed ? null : { password: true };
+      const value = control.value;
+      const errorMessage = {
+        errorMsg: {
+          hasMinLength: '',
+          hasUpperCase: '',
+          hasNumeric: '',
+          hasSpecSymbol: '',
+        },
+      };
+
+      if (!value) {
+        return null;
+      }
+
+      const hasMinLength = /^.{8,}$/.test(value);
+
+      if (!hasMinLength) {
+        errorMessage.errorMsg.hasMinLength =
+          'Minimum password length 8 characters';
+      }
+
+      const hasUpperCase = /[A-Z]/.test(value);
+
+      if (!hasUpperCase) {
+        errorMessage.errorMsg.hasUpperCase =
+          'Password must contain uppercase letters';
+      }
+
+      const hasNumeric = /[0-9]/.test(value);
+
+      if (!hasNumeric) {
+        errorMessage.errorMsg.hasNumeric = 'Password must contain numbers';
+      }
+      const hasSpecSymbol = /[!@#?\]]/.test(value);
+
+      if (!hasSpecSymbol) {
+        errorMessage.errorMsg.hasSpecSymbol =
+          'Password must contain special chars: ! @ # ? ]';
+      }
+
+      return hasMinLength && hasUpperCase && hasNumeric && hasSpecSymbol
+        ? null
+        : errorMessage;
+    };
+  }
+
+  ownValidator(regex: RegExp): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value || (value && value.length < 2)) {
+        return null;
+      }
+
+      const allowed = regex.test(value);
+      return allowed ? null : { errorMsg: true };
     };
   }
 
@@ -65,9 +121,14 @@ export class SignupPageComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
+      this.submited = true;
       this.authService
         .signup(this.signUpForm.value as NewUser)
         .pipe(
+          finalize(() => {
+            this.submited = false;
+            this.router.navigateByUrl('/');
+          }),
           switchMap(() => {
             return this.authService.login({
               login: this.signUpForm.controls.login.value as string,
@@ -76,7 +137,7 @@ export class SignupPageComponent {
           }),
           catchError(this.handleError)
         )
-        .subscribe(() => this.router.navigateByUrl('/'));
+        .subscribe();
     }
   }
 }
