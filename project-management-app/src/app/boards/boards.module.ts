@@ -8,6 +8,7 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { CreateBoardComponent } from './components/create-board/create-board.component';
 import { BoardComponent } from './pages/main-page/board/board.component';
+import { ExpCheckGuard } from '../core/guards/exp-check.guard';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,11 @@ import { BoardComponent } from './pages/main-page/board/board.component';
     MaterialModule,
     RouterModule.forChild([
       { path: '', component: MainPageComponent },
-      { path: 'board/:id', component: BoardPageComponent },
+      {
+        path: 'board/:id',
+        component: BoardPageComponent,
+        canActivate: [ExpCheckGuard],
+      },
     ]),
   ],
 })
