@@ -1,8 +1,18 @@
 <div class="column-title">
-  <h2>{{ column.title }}</h2>
+  <form
+    [formGroup]="formTitleInput"
+    (ngSubmit)="onTitleChanged()"
+    class="column-title_form">
+    <mat-form-field class="column-title_input">
+      <input matInput formControlName="columnTitle" required />
+      <mat-error *ngIf="columnTitle!.invalid">{{
+        titleErrorMessage
+      }}</mat-error>
+    </mat-form-field>
+  </form>
+  <button mat-raised-button color="primary">Add task</button>
 </div>
 <div>
-  <button mat-raised-button color="primary">Add task</button>
   <button
     mat-raised-button
     color="accent"

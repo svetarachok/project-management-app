@@ -1,6 +1,6 @@
 :host{
   min-width: 15rem;
-  padding: 20px 10px;
+  padding: 10px;
   border: dashed 1px #ccc;
   display: flex;
   flex-direction: column;
@@ -15,8 +15,16 @@
 .column-title {
   width: 100%;
   padding: 0.5rem;
-  h2{
+  &_input{
     font-weight: 600;
     font-size: 14px;
   }
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+     height: 0px !important;
+  }
+
+::ng-deep .mat-form-field-infix {
+  padding: 0 !important;
 }
