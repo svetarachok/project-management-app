@@ -6,6 +6,8 @@ export const CREATE_COLUMN = '[Board Page] Create New Column';
 export const CREATE_COLUMN_SUCCESS = '[Board Page] New Column Created';
 export const GET_COLUMNS = '[Board Page] Request Columns';
 export const GET_COLUMNS_SUCCESS = '[Board Page] Request Columns Success';
+export const DELETE_COLUMN = '[Board Page] Delete Column';
+
 
 export const getBoardIdToStore = createAction(
   GET_BOARD_ID,
@@ -28,5 +30,10 @@ export const getColumns = createAction(
 
 export const getColumnsSuccess = createAction(
   GET_COLUMNS_SUCCESS,
+  props<{ columns: Column[] }>()
+);
+
+export const deleteColumn = createAction(
+  DELETE_COLUMN,
   props<{ columns: Column[] }>()
 );

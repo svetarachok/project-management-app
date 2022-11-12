@@ -14,7 +14,7 @@ export const columnsReducer = createReducer(
     boardId: state.boardId,
   })),
   on(ColumnsActions.getColumnsSuccess, (state, { columns }) => ({
-    columns: [...state.columns, ...columns],
+    columns: [...columns],
     boardId: state.boardId,
   }))
 );

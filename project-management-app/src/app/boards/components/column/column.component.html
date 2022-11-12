@@ -3,4 +3,10 @@
 </div>
 <div>
   <button mat-raised-button color="primary">Add task</button>
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="onRemoveColumnClick(column._id!)">
+    Remove column
+  </button>
 </div>

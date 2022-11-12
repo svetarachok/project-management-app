@@ -1,7 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -21,6 +21,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./board-page.component.scss'],
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
+  // eslint-disable-next-line @angular-eslint/no-input-rename
+
   board!: Board;
 
   boardId!: string;
@@ -62,11 +64,14 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.subs = this.columnStore
       .select(getColumns)
       .pipe(map(columns => [...columns].sort((a, b) => a.order - b.order)))
-      .subscribe(columns => (this.columns = [...columns]));
+      .subscribe(columns => (this.columns = columns));
   }
 
   dropColumns(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+    console.log('What is dragged: ', this.columns[event.currentIndex]);
+    console.log('El current index: ', event.currentIndex);
+    console.log('El prev index: ', event.previousIndex);
     console.log(this.columns);
   }
 

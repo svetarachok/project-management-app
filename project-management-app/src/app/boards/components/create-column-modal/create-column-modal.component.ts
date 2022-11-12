@@ -27,8 +27,7 @@ export class CreateColumnModalComponent implements OnInit {
   ngOnInit(): void {
     this.columnStore
       .pipe(select(getColumnsQuantity))
-      .subscribe(quantity => (this.order = quantity + 1));
-    console.log(this.order);
+      .subscribe(quantity => (this.order = quantity));
     this.createColumnFrom = new FormGroup({
       title: new FormControl('', [Validators.required]),
     });
