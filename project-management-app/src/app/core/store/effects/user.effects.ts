@@ -7,13 +7,18 @@ import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { BoardsState } from '../state/boards.state';
 import * as BaordsActions from '../actions/boards.actions';
 import { Store } from '@ngrx/store';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private BoardsStore: Store<BoardsState>
+    private BoardsStore: Store<BoardsState>,
+    private router: Router,
+    private snackBarService: SnackBarService
   ) {}
 
   fetchUserOnInitApp$ = createEffect(() => {
@@ -27,18 +32,26 @@ export class UserEffects {
             );
             return UserActions.setUser({ user: currentUser });
           }),
-          catchError(() => of(UserActions.logoutUser()))
+          catchError(err => {
+            if (err instanceof HttpErrorResponse) {
+              this.snackBarService.openSnackBar(
+                `${err.error.statusCode}: ${err.error.message}`
+              );
+            }
+            this.router.navigateByUrl('/welcome');
+            return of(UserActions.clearData());
+          })
         )
       )
     );
   });
 
-  logout$ = createEffect(
+  clearData$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(UserActions.logoutUser),
+        ofType(UserActions.clearData),
         tap(() => {
-          this.userService.logout();
+          this.userService.clearToken();
         })
       ),
     { dispatch: false }

@@ -9,6 +9,23 @@
     font-size: 1.6rem;
     font-weight: 700;
     text-transform: uppercase;
+
+    a {
+      display: flex;
+      align-items: center;
+      color: #000;
+      text-decoration: none;
+
+      transition: opacity 100ms linear;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:active {
+        opacity: 0.7;
+      }
+    }
   }
   &_authorized {
     display: flex;

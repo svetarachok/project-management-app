@@ -19,6 +19,18 @@
   margin: 30px 0px -20px 0;
 }
 
+.mat-error ul {
+  margin-top: 4px;
+
+  .bullet {
+    font-size: 16px;
+  }
+}
+
 .form__btn {
   height: 44px;
+}
+
+.mb50 {
+  margin-bottom: 50px;
 }

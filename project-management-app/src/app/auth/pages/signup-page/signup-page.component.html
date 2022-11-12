@@ -9,43 +9,63 @@
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Name</mat-label>
         <input id="name" matInput formControlName="name" />
-        <mat-error *ngIf="signUpForm?.controls?.name?.errors?.['required']">
+        <mat-error *ngIf="signUpForm.controls.name.errors?.['required']">
           Please enter your name
         </mat-error>
-        <mat-error *ngIf="signUpForm?.controls?.name?.errors?.['maxlength']">
+        <mat-error *ngIf="signUpForm.controls.name.errors?.['minlength']">
+          Your name is too short
+        </mat-error>
+        <mat-error *ngIf="signUpForm.controls.name.errors?.['maxlength']">
           Your name is too long
+        </mat-error>
+        <mat-error *ngIf="signUpForm.controls.name.errors?.['errorMsg']">
+          Latin or Cyrillic letters only, i.e: Ivan Ivanov
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Login</mat-label>
         <input id="login" matInput formControlName="login" />
-        <mat-error *ngIf="signUpForm?.controls?.login?.errors?.['required']">
+        <mat-error *ngIf="signUpForm.controls.login.errors?.['required']">
           Please enter a login
         </mat-error>
-        <mat-error *ngIf="signUpForm?.controls?.login?.errors?.['minlength']">
+        <mat-error *ngIf="signUpForm.controls.login.errors?.['minlength']">
           Your login is too short
         </mat-error>
-        <mat-error *ngIf="signUpForm?.controls?.login?.errors?.['maxlength']">
+        <mat-error *ngIf="signUpForm.controls.login.errors?.['maxlength']">
           Your login is too long
         </mat-error>
+        <mat-error *ngIf="signUpForm.controls.login.errors?.['errorMsg']">
+          Login can only consist of latin letters and numbers
+        </mat-error>
       </mat-form-field>
-      <mat-form-field class="full-width" appearance="outline">
+      <mat-form-field
+        [ngClass]="{ mb50: signUpForm.controls.password.errors?.['errorMsg'] }"
+        class="full-width"
+        appearance="outline">
         <mat-label>Password</mat-label>
         <input
           id="password"
           type="password"
           matInput
           formControlName="password" />
-        <mat-error *ngIf="signUpForm?.controls?.password?.errors?.['required']">
+        <mat-error *ngIf="signUpForm.controls.password.errors?.['required']">
           Please enter a password
         </mat-error>
-        <mat-error
-          *ngIf="signUpForm?.controls?.password?.errors?.['password'] && !signUpForm?.controls?.password?.errors?.['required']">
+        <mat-error *ngIf="signUpForm.controls.password.errors?.['errorMsg']">
           At least 8 chars with numbers, uppercase, special char !@#?]
+          <ul>
+            <ng-container
+              *ngFor="let err of signUpForm.controls.password.errors?.['errorMsg'] | keyvalue">
+              <li *ngIf="err.value">
+                {{ err.value }}
+              </li>
+            </ng-container>
+          </ul>
         </mat-error>
       </mat-form-field>
 
       <button
+        [disabled]="submited"
         class="form__btn full-width"
         type="submit"
         color="accent"

@@ -10,9 +10,15 @@ import { RouterModule } from '@angular/router';
 
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store/reducers/app.reducers';
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, WelcomePageComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    WelcomePageComponent,
+    NotFoundPageComponent,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
