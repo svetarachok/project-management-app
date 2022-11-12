@@ -21,9 +21,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
+    MatSnackBarModule,
     DialogModule,
     DragDropModule,
-    MatSnackBarModule,
   ],
 })
 export class MaterialModule {}
