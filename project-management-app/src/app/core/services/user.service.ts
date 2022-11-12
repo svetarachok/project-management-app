@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { User } from '../models/user.model';
 import jwt_decode from 'jwt-decode';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+
+import * as UserActions from '../store/actions/user.actions';
 
 interface DecodedTokenModel {
   id: string;
@@ -15,7 +19,11 @@ interface DecodedTokenModel {
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private store: Store,
+    private router: Router
+  ) {}
 
   fetchUser(): Observable<User> {
     const token = this.getTokenFromLS();
@@ -38,8 +46,9 @@ export class UserService {
     return this.http.get<User>(`/users/${decodedToken?.id}`);
   }
 
-  clearToken(): void {
+  logout(): void {
     localStorage.removeItem('team4-token');
+    this.store.dispatch(UserActions.removeUser());
   }
 
   getInfoFromToken(token: string): DecodedTokenModel | null {
@@ -54,7 +63,7 @@ export class UserService {
     return localStorage.getItem('team4-token');
   }
 
-  tokenExpirationCheck(timestamp: number) {
+  tokenExpirationCheck(timestamp: number): boolean {
     const currentDate = new Date();
     const tokenDateExp = new Date(timestamp * 1000);
     return tokenDateExp < currentDate;

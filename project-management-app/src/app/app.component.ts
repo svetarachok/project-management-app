@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(UserAction.fetchUser());
+    if (localStorage.getItem('team4-token')) {
+      this.store.dispatch(UserAction.fetchUser());
+    }
   }
 }

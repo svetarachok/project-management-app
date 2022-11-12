@@ -12,6 +12,7 @@ import { BoardComponent } from './pages/main-page/board/board.component';
 import { CreateColumnModalComponent } from './components/create-column-modal/create-column-modal.component';
 import { ColumnComponentComponent } from './components/column/column-component/column-component.component';
 import { ExpCheckGuard } from '../core/guards/exp-check.guard';
+import { NotAuthGuard } from '../core/guards/not-auth.guard';
 
 @NgModule({
   declarations: [
@@ -27,11 +28,15 @@ import { ExpCheckGuard } from '../core/guards/exp-check.guard';
     ReactiveFormsModule,
     MaterialModule,
     RouterModule.forChild([
-      { path: '', component: MainPageComponent },
+      {
+        path: '',
+        component: MainPageComponent,
+        canActivate: [NotAuthGuard, ExpCheckGuard],
+      },
       {
         path: 'board/:id',
         component: BoardPageComponent,
-        canActivate: [ExpCheckGuard],
+        canActivate: [NotAuthGuard, ExpCheckGuard],
       },
     ]),
   ],
