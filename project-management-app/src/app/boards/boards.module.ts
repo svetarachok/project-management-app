@@ -10,7 +10,7 @@ import { CreateBoardComponent } from './components/create-board/create-board.com
 import { BoardComponent } from './pages/main-page/board/board.component';
 import { ExpCheckGuard } from '../core/guards/exp-check.guard';
 import { CreateColumnModalComponent } from './components/create-column-modal/create-column-modal.component';
-import { ColumnComponentComponent } from './components/column/column-component/column-component.component';
+import { ColumnComponent } from './components/column/column.component';
 import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { TaskComponent } from './components/task/task.component';
     CreateBoardComponent,
     BoardComponent,
     CreateColumnModalComponent,
-    ColumnComponentComponent,
+    ColumnComponent,
     TaskComponent,
   ],
   imports: [

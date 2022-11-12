@@ -3,10 +3,10 @@ import { Column } from 'src/app/boards/models/column.interface';
 
 @Component({
   selector: 'app-column-component',
-  templateUrl: './column-component.component.html',
-  styleUrls: ['./column-component.component.scss'],
+  templateUrl: './column.component.html',
+  styleUrls: ['./column.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponentComponent {
+export class ColumnComponent {
   @Input() column!: Column;
 }

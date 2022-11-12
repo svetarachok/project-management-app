@@ -61,11 +61,13 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   getAllColumns() {
     this.subs = this.columnStore
       .select(getColumns)
+      .pipe(map(columns => [...columns].sort((a, b) => a.order - b.order)))
       .subscribe(columns => (this.columns = [...columns]));
   }
 
   dropColumns(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+    console.log(this.columns);
   }
 
   ngOnDestroy() {

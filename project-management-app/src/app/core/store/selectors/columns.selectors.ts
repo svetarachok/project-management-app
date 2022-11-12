@@ -8,3 +8,8 @@ export const getColumns = createSelector(
   getColumnsSelector,
   columns => columns.columns
 );
+
+export const getColumnsQuantity = createSelector(
+  getColumnsSelector,
+  columns => columns.columns.length
+);

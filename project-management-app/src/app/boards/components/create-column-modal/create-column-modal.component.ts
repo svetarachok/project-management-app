@@ -4,8 +4,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormErrors } from '../../models/form-errors-enum';
 
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import * as ColumnsActions from '../../../core/store/actions/columns.actions';
+import { getColumnsQuantity } from '../../../core/store/selectors/columns.selectors';
 
 @Component({
   selector: 'app-create-column-modal',
@@ -15,6 +16,8 @@ import * as ColumnsActions from '../../../core/store/actions/columns.actions';
 export class CreateColumnModalComponent implements OnInit {
   createColumnFrom!: FormGroup;
 
+  order!: number;
+
   constructor(
     @Inject(DIALOG_DATA) public data: { id: string },
     public dialogRef: DialogRef,
@@ -22,6 +25,10 @@ export class CreateColumnModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.columnStore
+      .pipe(select(getColumnsQuantity))
+      .subscribe(quantity => (this.order = quantity + 1));
+    console.log(this.order);
     this.createColumnFrom = new FormGroup({
       title: new FormControl('', [Validators.required]),
     });
@@ -37,11 +44,10 @@ export class CreateColumnModalComponent implements OnInit {
 
   onSubmit() {
     if (this.createColumnFrom.valid) {
-      console.log(this.createColumnFrom.valid);
       this.columnStore.dispatch(
         ColumnsActions.createNewColumn({
           title: this.title?.value,
-          order: 0,
+          order: this.order,
           boardId: this.data.id,
         })
       );
