@@ -1,4 +1,4 @@
 export enum FormErrors {
   TITLE_REQUIRED = 'Please enter a board title',
-  DESCRIPTION_REQUIRED = 'Please enter a board description',
+  COLUMN_TITLE_REQUIRED = 'Please enter a board title',
 }
