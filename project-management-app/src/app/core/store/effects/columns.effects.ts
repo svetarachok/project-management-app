@@ -40,6 +40,21 @@ export class ColumnsEffects {
     );
   });
 
+  deleteColumns$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(columnsActions.DELETE_COLUMN),
+      mergeMap((action: Column) => {
+        return this.columnsService
+          .deleteColumn(action._id!, action.boardId!)
+          .pipe(
+            map(() => {
+              return columnsActions.deleteColumnSuccess({ _id: action._id! });
+            })
+          );
+      })
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private columnsService: ColumnService

@@ -7,6 +7,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Column } from 'src/app/boards/models/column.interface';
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
+import * as columnsActions from '../../../core/store/actions/columns.actions';
 
 @Component({
   selector: 'app-column-component',
@@ -17,12 +18,17 @@ import { ColumnsState } from 'src/app/core/store/state/columns.state';
 export class ColumnComponent implements OnInit {
   @Input() column!: Column;
 
-  constructor(private columnsStore: Store<ColumnsState>) {}
-  ngOnInit() {
+  boardId!: string;
 
+  constructor(private columnsStore: Store<ColumnsState>) {}
+
+  ngOnInit() {
+    this.boardId = this.column.boardId!;
   }
 
   onRemoveColumnClick(id: string) {
-    console.log('deleted', id);
+    this.columnsStore.dispatch(
+      columnsActions.deleteColumn({ _id: id, boardId: this.boardId })
+    );
   }
 }
