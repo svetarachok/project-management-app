@@ -6,7 +6,7 @@ import { mergeMap, map } from 'rxjs/operators';
 import * as columnsActions from '../actions/columns.actions';
 
 import { ColumnService } from '../../../boards/services/column-service/column.service';
-import { Column } from '../../../boards/models/column.interface';
+import { Column, ColumnsOrder } from '../../../boards/models/column.interface';
 import { Action } from '@ngrx/store';
 import { ColumnsState } from '../state/columns.state';
 
@@ -51,6 +51,19 @@ export class ColumnsEffects {
               return columnsActions.deleteColumnSuccess({ _id: action._id! });
             })
           );
+      })
+    );
+  });
+
+  updateColumnsOrder$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(columnsActions.UPDATE_COLUMNS_ORDER),
+      mergeMap((action: { columns: ColumnsOrder[]; type: string }) => {
+        return this.columnsService.updateColumns(action.columns).pipe(
+          map(columns => {
+            return columnsActions.updateColumnsOrderSuccess({ columns });
+          })
+        );
       })
     );
   });

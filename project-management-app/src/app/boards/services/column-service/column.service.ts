@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ColumnsState } from '../../../core/store/state/columns.state';
 import * as columnsActions from '../../../core/store/actions/columns.actions';
-import { Column } from '../../models/column.interface';
+import { Column, ColumnsOrder } from '../../models/column.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -41,5 +41,9 @@ export class ColumnService {
         );
       })
     );
+  }
+
+  updateColumns(columns: ColumnsOrder[]) {
+    return this.http.patch<Column[]>('/columnsSet', columns);
   }
 }

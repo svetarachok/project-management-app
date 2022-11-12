@@ -1,7 +1,7 @@
 import { Dialog } from '@angular/cdk/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { getBoards } from '../../../core/store/selectors/boards.selectors';
 import { BoardsState } from '../../../core/store/state/boards.state';
 import { CreateColumnModalComponent } from '../../components/create-column-modal/create-column-modal.component';
 import { Board } from '../../models/board.interface';
-import { Column } from '../../models/column.interface';
+import { Column, ColumnsOrder } from '../../models/column.interface';
 import { getColumns } from '../../../core/store/selectors/columns.selectors';
 import { Subscription } from 'rxjs';
 
@@ -21,8 +21,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./board-page.component.scss'],
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-
   board!: Board;
 
   boardId!: string;
@@ -60,22 +58,25 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  getAllColumns() {
+  getAllColumns(): void {
     this.subs = this.columnStore
       .select(getColumns)
       .pipe(map(columns => [...columns].sort((a, b) => a.order - b.order)))
       .subscribe(columns => (this.columns = columns));
   }
 
-  dropColumns(event: CdkDragDrop<string[]>) {
+  dropColumns(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
-    console.log('What is dragged: ', this.columns[event.currentIndex]);
-    console.log('El current index: ', event.currentIndex);
-    console.log('El prev index: ', event.previousIndex);
-    console.log(this.columns);
+    const newColumnsOrder: ColumnsOrder[] = [];
+    this.columns.map((column, index) =>
+      newColumnsOrder.push({ _id: column._id!, order: index })
+    );
+    this.columnStore.dispatch(
+      columnsActions.updateColumnsOrder({ columns: newColumnsOrder })
+    );
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 }

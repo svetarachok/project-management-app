@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Column } from 'src/app/boards/models/column.interface';
+import { Column, ColumnsOrder } from 'src/app/boards/models/column.interface';
 
 export const GET_BOARD_ID = '[Board Page] Send Board ID to state';
 export const CREATE_COLUMN = '[Board Page] Create New Column';
@@ -8,6 +8,9 @@ export const GET_COLUMNS = '[Board Page] Request Columns';
 export const GET_COLUMNS_SUCCESS = '[Board Page] Request Columns Success';
 export const DELETE_COLUMN = '[Board Page] Delete Column';
 export const DELETE_COLUMN_SUCCESS = '[Board Page] Delete Column Success';
+export const UPDATE_COLUMNS_ORDER = '[Board Page] Update Columns Order';
+export const UPDATE_COLUMNS_ORDER_SUCCESS =
+  '[Board Page] Update Columns Order Success';
 
 export const getBoardIdToStore = createAction(
   GET_BOARD_ID,
@@ -41,4 +44,14 @@ export const deleteColumn = createAction(
 export const deleteColumnSuccess = createAction(
   DELETE_COLUMN_SUCCESS,
   props<{ _id: string }>()
+);
+
+export const updateColumnsOrder = createAction(
+  UPDATE_COLUMNS_ORDER,
+  props<{ columns: ColumnsOrder[] }>()
+);
+
+export const updateColumnsOrderSuccess = createAction(
+  UPDATE_COLUMNS_ORDER_SUCCESS,
+  props<{ columns: Column[] }>()
 );
