@@ -10,6 +10,7 @@ import { CreateBoardComponent } from './components/create-board/create-board.com
 import { BoardComponent } from './pages/main-page/board/board.component';
 import { CreateColumnModalComponent } from './components/create-column-modal/create-column-modal.component';
 import { ColumnComponentComponent } from './components/column/column-component/column-component.component';
+import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ColumnComponentComponent } from './components/column/column-component/c
     BoardComponent,
     CreateColumnModalComponent,
     ColumnComponentComponent,
+    TaskComponent,
   ],
   imports: [
     CommonModule,
