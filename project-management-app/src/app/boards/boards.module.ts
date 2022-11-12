@@ -8,6 +8,9 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { CreateBoardComponent } from './components/create-board/create-board.component';
 import { BoardComponent } from './pages/main-page/board/board.component';
+
+import { CreateColumnModalComponent } from './components/create-column-modal/create-column-modal.component';
+import { ColumnComponentComponent } from './components/column/column-component/column-component.component';
 import { ExpCheckGuard } from '../core/guards/exp-check.guard';
 
 @NgModule({
@@ -16,6 +19,8 @@ import { ExpCheckGuard } from '../core/guards/exp-check.guard';
     BoardPageComponent,
     CreateBoardComponent,
     BoardComponent,
+    CreateColumnModalComponent,
+    ColumnComponentComponent,
   ],
   imports: [
     CommonModule,
