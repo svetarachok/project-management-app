@@ -102,12 +102,12 @@ export class UserPageComponent implements OnInit {
         )
         .subscribe(() => {
           this.isSuccessSubmited = true;
+          formDirective.resetForm();
           this.ProfileForm.setValue({
             name: this.currentUser.name!,
             login: this.currentUser.login,
             password: '',
           });
-          formDirective.resetForm();
 
           setTimeout(() => {
             this.isSuccessSubmited = false;
