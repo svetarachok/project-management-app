@@ -14,6 +14,7 @@ import { CreateColumnModalComponent } from './components/create-column-modal/cre
 import { ColumnComponent } from './components/column/column.component';
 import { TaskComponent } from './components/task/task.component';
 import { NotAuthGuard } from '../core/guards/not-auth.guard';
+import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { NotAuthGuard } from '../core/guards/not-auth.guard';
     CreateColumnModalComponent,
     ColumnComponent,
     TaskComponent,
+    CreateTaskModalComponent,
   ],
   imports: [
     CommonModule,

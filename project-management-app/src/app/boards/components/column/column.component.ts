@@ -1,3 +1,4 @@
+import { Dialog } from '@angular/cdk/dialog';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -5,6 +6,7 @@ import { Column } from 'src/app/boards/models/column.interface';
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
 import * as columnsActions from '../../../core/store/actions/columns.actions';
 import { FormErrors } from '../../models/form-errors-enum';
+import { CreateTaskModalComponent } from '../create-task-modal/create-task-modal.component';
 
 @Component({
   selector: 'app-column-component',
@@ -20,7 +22,10 @@ export class ColumnComponent implements OnInit {
 
   isFocused: boolean = false;
 
-  constructor(private columnsStore: Store<ColumnsState>) {}
+  constructor(
+    private columnsStore: Store<ColumnsState>,
+    public dialog: Dialog
+  ) {}
 
   ngOnInit() {
     this.boardId = this.column.boardId!;
@@ -67,5 +72,11 @@ export class ColumnComponent implements OnInit {
     this.columnsStore.dispatch(
       columnsActions.deleteColumn({ _id: id, boardId: this.boardId })
     );
+  }
+
+  onTaskAddClick() {
+    this.dialog.open(CreateTaskModalComponent, {
+      data: { columnId: this.column._id, boardId: this.boardId },
+    });
   }
 }
