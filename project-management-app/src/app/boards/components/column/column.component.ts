@@ -49,10 +49,24 @@ export class ColumnComponent implements OnInit {
 
   onCloseTitleInput() {
     this.isFocused = false;
+    this.formTitleInput.patchValue({ columnTitle: this.column.title });
   }
 
   onTitleChanged() {
-    console.log(this.columnTitle);
+    if (this.formTitleInput.valid) {
+      const columnToUpdate: Column = {
+        title: this.columnTitle!.value,
+        order: this.column.order,
+      };
+      this.columnsStore.dispatch(
+        columnsActions.updateColumnTitle({
+          boardId: this.boardId,
+          column: columnToUpdate,
+          columnId: this.column._id!,
+        })
+      );
+      this.isFocused = false;
+    }
   }
 
   onRemoveColumnClick(id: string) {
@@ -60,5 +74,4 @@ export class ColumnComponent implements OnInit {
       columnsActions.deleteColumn({ _id: id, boardId: this.boardId })
     );
   }
-
 }

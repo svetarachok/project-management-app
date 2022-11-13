@@ -11,6 +11,9 @@ export const DELETE_COLUMN_SUCCESS = '[Board Page] Delete Column Success';
 export const UPDATE_COLUMNS_ORDER = '[Board Page] Update Columns Order';
 export const UPDATE_COLUMNS_ORDER_SUCCESS =
   '[Board Page] Update Columns Order Success';
+export const UPDATE_COLUMN_TITLE = '[Column Component] Update Column Title';
+export const UPDATE_COLUMN_TITLE_SUCCESS =
+  '[Column Component] Update Column Title Success';
 
 export const getBoardIdToStore = createAction(
   GET_BOARD_ID,
@@ -54,4 +57,14 @@ export const updateColumnsOrder = createAction(
 export const updateColumnsOrderSuccess = createAction(
   UPDATE_COLUMNS_ORDER_SUCCESS,
   props<{ columns: Column[] }>()
+);
+
+export const updateColumnTitle = createAction(
+  UPDATE_COLUMN_TITLE,
+  props<{ boardId: string; column: Column; columnId: string }>()
+);
+
+export const updateColumnTitleSuccess = createAction(
+  UPDATE_COLUMN_TITLE_SUCCESS,
+  props<{ column: Column }>()
 );

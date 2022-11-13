@@ -68,6 +68,28 @@ export class ColumnsEffects {
     );
   });
 
+  updateColumnTitle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(columnsActions.UPDATE_COLUMN_TITLE),
+      mergeMap(
+        (action: {
+          boardId: string;
+          column: Column;
+          columnId: string;
+          type: string;
+        }) => {
+          return this.columnsService
+            .updateColumnTitle(action.boardId!, action.column, action.columnId)
+            .pipe(
+              map(column => {
+                return columnsActions.updateColumnTitleSuccess({ column });
+              })
+            );
+        }
+      )
+    );
+  });
+
   constructor(
     private actions$: Actions,
     private columnsService: ColumnService

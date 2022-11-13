@@ -16,14 +16,20 @@
         required
         class="column-title_input"/>
       <div class="column-title_buttons">
-        <button mat-icon-button matSuffix color="accent" class="button">
+        <button
+          mat-icon-button
+          matSuffix
+          color="accent"
+          class="button"
+          type="submit">
           <mat-icon class="icon">done</mat-icon>
         </button>
         <button
           mat-icon-button
           matSuffix
           class="button"
-          (click)="onCloseTitleInput()">
+          (click)="onCloseTitleInput()"
+          type="button">
           <mat-icon class="icon">close</mat-icon>
         </button>
       </div>

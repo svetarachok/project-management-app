@@ -24,5 +24,12 @@ export const columnsReducer = createReducer(
   on(ColumnsActions.updateColumnsOrderSuccess, (state, { columns }) => ({
     columns: [...columns],
     boardId: state.boardId,
+  })),
+  on(ColumnsActions.updateColumnTitleSuccess, (state, { column }) => ({
+    columns: [
+      ...state.columns.filter(columnState => columnState._id !== column._id),
+      column,
+    ],
+    boardId: state.boardId,
   }))
 );

@@ -46,4 +46,11 @@ export class ColumnService {
   updateColumns(columns: ColumnsOrder[]) {
     return this.http.patch<Column[]>('/columnsSet', columns);
   }
+
+  updateColumnTitle(boardId: string, column: Column, columnId: string) {
+    return this.http.put<Column>(
+      `/boards/${boardId}/columns/${columnId}`,
+      column
+    );
+  }
 }
