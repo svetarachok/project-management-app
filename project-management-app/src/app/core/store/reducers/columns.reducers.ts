@@ -31,5 +31,6 @@ export const columnsReducer = createReducer(
       column,
     ],
     boardId: state.boardId,
-  }))
-);
+  })),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  on(ColumnsActions.clearColumnsStore, state => initialColumnState));
