@@ -18,7 +18,9 @@
       <button mat-stroked-button color="primary" class="lang-btn">EN</button>
     </div>
     <div class="header_user">
-      <button mat-flat-button color="primary">Edit porfile</button>
+      <button routerLink="/profile" mat-flat-button color="primary">
+        Edit porfile
+      </button>
       <button mat-stroked-button color="primary" (click)="logout()">
         Logout
       </button>

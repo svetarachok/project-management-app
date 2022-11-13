@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import { ExpCheckGuard } from './core/guards/exp-check.guard';
+import { NotAuthGuard } from './core/guards/not-auth.guard';
 import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
 import { WelcomePageComponent } from './core/pages/welcome-page/welcome-page.component';
 
@@ -19,6 +21,11 @@ const routes: Routes = [
     path: 'welcome',
     component: WelcomePageComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    canActivate: [NotAuthGuard, ExpCheckGuard],
   },
   {
     path: '404',
