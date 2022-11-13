@@ -6,7 +6,6 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
 import * as fromUser from '../../store/selectors/user.selectors';
-import * as UserActions from '../../store/actions/user.actions';
 
 @Component({
   selector: 'app-header',
@@ -36,8 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.userService.clearToken();
-    this.store.dispatch(UserActions.removeUser());
+    this.userService.logout();
     this.router.navigateByUrl('/welcome');
   }
 

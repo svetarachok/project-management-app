@@ -30,7 +30,7 @@ export class ExpCheckGuard implements CanActivate {
       const decodedToken = this.userService.getInfoFromToken(token);
 
       if (!decodedToken) {
-        this.userService.clearToken();
+        this.userService.logout();
         return this.router.parseUrl('/welcome');
       }
 
@@ -39,7 +39,7 @@ export class ExpCheckGuard implements CanActivate {
       );
 
       if (isTokenExpire) {
-        this.userService.clearToken();
+        this.userService.logout();
         return this.router.parseUrl('/welcome');
       }
 

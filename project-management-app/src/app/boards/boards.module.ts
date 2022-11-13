@@ -8,10 +8,12 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { CreateBoardComponent } from './components/create-board/create-board.component';
 import { BoardComponent } from './pages/main-page/board/board.component';
+
 import { ExpCheckGuard } from '../core/guards/exp-check.guard';
 import { CreateColumnModalComponent } from './components/create-column-modal/create-column-modal.component';
 import { ColumnComponent } from './components/column/column.component';
 import { TaskComponent } from './components/task/task.component';
+import { NotAuthGuard } from '../core/guards/not-auth.guard';
 
 @NgModule({
   declarations: [
@@ -28,11 +30,15 @@ import { TaskComponent } from './components/task/task.component';
     ReactiveFormsModule,
     MaterialModule,
     RouterModule.forChild([
-      { path: '', component: MainPageComponent },
+      {
+        path: '',
+        component: MainPageComponent,
+        canActivate: [NotAuthGuard, ExpCheckGuard],
+      },
       {
         path: 'board/:id',
         component: BoardPageComponent,
-        canActivate: [ExpCheckGuard],
+        canActivate: [NotAuthGuard, ExpCheckGuard],
       },
     ]),
   ],

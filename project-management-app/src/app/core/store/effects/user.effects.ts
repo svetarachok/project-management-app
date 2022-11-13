@@ -39,7 +39,7 @@ export class UserEffects {
               );
             }
             this.router.navigateByUrl('/welcome');
-            return of(UserActions.clearData());
+            return of(UserActions.userLogout());
           })
         )
       )
@@ -49,9 +49,9 @@ export class UserEffects {
   clearData$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(UserActions.clearData),
+        ofType(UserActions.userLogout),
         tap(() => {
-          this.userService.clearToken();
+          this.userService.logout();
         })
       ),
     { dispatch: false }
