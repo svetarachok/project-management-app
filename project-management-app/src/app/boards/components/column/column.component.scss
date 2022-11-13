@@ -1,0 +1,54 @@
+:host{
+  max-width: 15rem;
+  width: 100%;
+  padding: 10px;
+  border: dashed 1px #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  font-size: 14px;
+  background-color: white;
+}
+
+.column-title {
+  padding: 0.5rem;
+  &_header { 
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: -0.2em;
+  }
+  &_form {
+    display: flex;
+    position: relative;
+  }
+  &_input {
+    width: 75%;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+  }
+  &_buttons {
+    position: absolute;
+    right: 0;
+    top: 3px;
+    display: flex;
+    .button {
+      width: 1.2rem;
+      line-height: 1.2rem;
+      height: 1.2rem;
+    }
+    .icon {
+      font-size: 1rem;
+      width: 1rem;
+      height: 1rem;
+      line-height: 1;
+    }
+  }
+}
+
+::ng-deep .column-title .mat-form-field-infix {
+  border-top: 0 !important;
+}

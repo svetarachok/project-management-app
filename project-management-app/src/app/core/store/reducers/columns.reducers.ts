@@ -14,7 +14,24 @@ export const columnsReducer = createReducer(
     boardId: state.boardId,
   })),
   on(ColumnsActions.getColumnsSuccess, (state, { columns }) => ({
-    columns: [...state.columns, ...columns],
+    columns: [...columns],
     boardId: state.boardId,
-  }))
+  })),
+  on(ColumnsActions.deleteColumnSuccess, (state, { _id: id }) => ({
+    columns: [...state.columns].filter(column => column._id !== id),
+    boardId: state.boardId,
+  })),
+  on(ColumnsActions.updateColumnsOrderSuccess, (state, { columns }) => ({
+    columns: [...columns],
+    boardId: state.boardId,
+  })),
+  on(ColumnsActions.updateColumnTitleSuccess, (state, { column }) => ({
+    columns: [
+      ...state.columns.filter(columnState => columnState._id !== column._id),
+      column,
+    ],
+    boardId: state.boardId,
+  })),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  on(ColumnsActions.clearColumnsStore, state => initialColumnState)
 );

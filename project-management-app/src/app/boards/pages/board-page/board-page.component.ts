@@ -11,7 +11,7 @@ import { getBoards } from '../../../core/store/selectors/boards.selectors';
 import { BoardsState } from '../../../core/store/state/boards.state';
 import { CreateColumnModalComponent } from '../../components/create-column-modal/create-column-modal.component';
 import { Board } from '../../models/board.interface';
-import { Column } from '../../models/column.interface';
+import { Column, ColumnsOrder } from '../../models/column.interface';
 import { getColumns } from '../../../core/store/selectors/columns.selectors';
 import { Subscription } from 'rxjs';
 
@@ -21,13 +21,15 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./board-page.component.scss'],
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
-  board!: Board;
+  board: Board | null = null;
 
-  boardId!: string;
+  boardId: string = '';
 
-  columns!: Column[] | [];
+  columns: Column[] = [];
 
-  subs!: Subscription;
+  subscriptionColumns!: Subscription;
+
+  subscriptionBoard!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +43,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.columnStore.dispatch(
       columnsActions.getColumns({ boardId: this.boardId })
     );
-    this.boardsStore
+    this.subscriptionBoard = this.boardsStore
       .pipe(
         select(getBoards),
         map(boards => {
@@ -54,21 +56,34 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   onColumnCreateClick(): void {
     this.dialog.open(CreateColumnModalComponent, {
-      data: { id: this.board._id },
+      data: { id: this.boardId },
     });
   }
 
-  getAllColumns() {
-    this.subs = this.columnStore
+  getAllColumns(): void {
+    this.subscriptionColumns = this.columnStore
       .select(getColumns)
-      .subscribe(columns => (this.columns = [...columns]));
+      .pipe(map(columns => [...columns].sort((a, b) => a.order - b.order)))
+      .subscribe(columns => (this.columns = columns));
   }
 
-  dropColumns(event: CdkDragDrop<string[]>) {
+  dropColumns(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+    const newColumnsOrder: ColumnsOrder[] = [];
+    this.columns.map((column, index) =>
+      newColumnsOrder.push({ _id: column._id!, order: index })
+    );
+    this.columnStore.dispatch(
+      columnsActions.updateColumnsOrder({ columns: newColumnsOrder })
+    );
   }
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
+  ngOnDestroy(): void {
+    this.boardId = '';
+    this.columns = [];
+    this.board = null;
+    this.subscriptionColumns.unsubscribe();
+    this.subscriptionBoard.unsubscribe();
+    this.columnStore.dispatch(columnsActions.clearColumnsStore());
   }
 }

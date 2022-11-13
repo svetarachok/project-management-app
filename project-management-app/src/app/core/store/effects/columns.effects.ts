@@ -6,7 +6,7 @@ import { mergeMap, map } from 'rxjs/operators';
 import * as columnsActions from '../actions/columns.actions';
 
 import { ColumnService } from '../../../boards/services/column-service/column.service';
-import { Column } from '../../../boards/models/column.interface';
+import { Column, ColumnsOrder } from '../../../boards/models/column.interface';
 import { Action } from '@ngrx/store';
 import { ColumnsState } from '../state/columns.state';
 
@@ -37,6 +37,56 @@ export class ColumnsEffects {
           })
         );
       })
+    );
+  });
+
+  deleteColumns$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(columnsActions.DELETE_COLUMN),
+      mergeMap((action: Column) => {
+        return this.columnsService
+          .deleteColumn(action._id!, action.boardId!)
+          .pipe(
+            map(() => {
+              return columnsActions.deleteColumnSuccess({ _id: action._id! });
+            })
+          );
+      })
+    );
+  });
+
+  updateColumnsOrder$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(columnsActions.UPDATE_COLUMNS_ORDER),
+      mergeMap((action: { columns: ColumnsOrder[]; type: string }) => {
+        return this.columnsService.updateColumns(action.columns).pipe(
+          map(columns => {
+            return columnsActions.updateColumnsOrderSuccess({ columns });
+          })
+        );
+      })
+    );
+  });
+
+  updateColumnTitle$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(columnsActions.UPDATE_COLUMN_TITLE),
+      mergeMap(
+        (action: {
+          boardId: string;
+          column: Column;
+          columnId: string;
+          type: string;
+        }) => {
+          return this.columnsService
+            .updateColumnTitle(action.boardId!, action.column, action.columnId)
+            .pipe(
+              map(column => {
+                return columnsActions.updateColumnTitleSuccess({ column });
+              })
+            );
+        }
+      )
     );
   });
 

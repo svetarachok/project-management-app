@@ -11,7 +11,8 @@ import { BoardComponent } from './pages/main-page/board/board.component';
 
 import { ExpCheckGuard } from '../core/guards/exp-check.guard';
 import { CreateColumnModalComponent } from './components/create-column-modal/create-column-modal.component';
-import { ColumnComponentComponent } from './components/column/column-component/column-component.component';
+import { ColumnComponent } from './components/column/column.component';
+import { TaskComponent } from './components/task/task.component';
 import { NotAuthGuard } from '../core/guards/not-auth.guard';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { NotAuthGuard } from '../core/guards/not-auth.guard';
     CreateBoardComponent,
     BoardComponent,
     CreateColumnModalComponent,
-    ColumnComponentComponent,
+    ColumnComponent,
+    TaskComponent,
   ],
   imports: [
     CommonModule,
