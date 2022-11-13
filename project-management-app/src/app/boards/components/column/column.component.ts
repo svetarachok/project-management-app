@@ -24,6 +24,8 @@ export class ColumnComponent implements OnInit {
 
   formTitleInput!: FormGroup;
 
+  isFocused: boolean = false;
+
   constructor(private columnsStore: Store<ColumnsState>) {}
 
   ngOnInit() {
@@ -43,6 +45,10 @@ export class ColumnComponent implements OnInit {
     return this.columnTitle!.hasError('required')
       ? FormErrors.TITLE_REQUIRED
       : '';
+  }
+
+  onCloseTitleInput() {
+    this.isFocused = false;
   }
 
   onTitleChanged() {
