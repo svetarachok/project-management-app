@@ -55,9 +55,18 @@ export class UserService {
     );
   }
 
-  logout(): void {
+  deleteUser(id: string) {
+    return this.http.delete<User>(`/users/${id}`).pipe(
+      map(() => {
+        this.logout();
+      })
+    );
+  }
+
+  logout() {
     localStorage.removeItem('team4-token');
     this.store.dispatch(UserActions.removeUser());
+    return this.router.navigateByUrl('/welcome');
   }
 
   getInfoFromToken(token: string): DecodedTokenModel | null {
