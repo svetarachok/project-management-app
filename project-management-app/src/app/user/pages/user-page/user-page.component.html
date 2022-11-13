@@ -93,7 +93,11 @@
       </ng-template>
 
       <mat-card-footer>
-        <button type="button" color="basic" mat-flat-button>
+        <button
+          (click)="openConfirmModal()"
+          type="button"
+          color="basic"
+          mat-flat-button>
           <mat-icon
             color="warn"
             aria-hidden="true"

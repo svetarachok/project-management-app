@@ -6,7 +6,6 @@ import {
   FormGroupDirective,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { catchError, finalize, throwError } from 'rxjs';
 import { UserService } from '../../../core/services/user.service';
@@ -16,6 +15,8 @@ import { ownValidator, passValidator } from '../../../shared/utils/validators';
 
 import * as UserAction from '../../../core/store/actions/user.actions';
 import { User } from 'src/app/core/models/user.model';
+import { MatDialog } from '@angular/material/dialog';
+import { openDialog } from '../../../core/components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-user-page',
@@ -50,7 +51,7 @@ export class UserPageComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private router: Router,
+    private dialog: MatDialog,
     private snackBarService: SnackBarService,
     private store: Store
   ) {}
@@ -114,5 +115,13 @@ export class UserPageComponent implements OnInit {
           }, 3000);
         });
     }
+  }
+
+  openConfirmModal() {
+    openDialog(
+      this.dialog,
+      this.userService.deleteUser(this.currentUser._id),
+      'account'
+    );
   }
 }
