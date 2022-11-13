@@ -38,7 +38,7 @@ export class UserEffects {
                 `${err.error.statusCode}: ${err.error.message}`
               );
             }
-            this.router.navigateByUrl('/welcome');
+
             return of(UserActions.userLogout());
           })
         )
