@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { map, Observable, throwError } from 'rxjs';
 import { User } from '../models/user.model';
 import jwt_decode from 'jwt-decode';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 
 import * as UserActions from '../store/actions/user.actions';
+import { NewUser } from 'src/app/auth/models/auth.model';
 
 interface DecodedTokenModel {
   id: string;
@@ -46,9 +47,26 @@ export class UserService {
     return this.http.get<User>(`/users/${decodedToken?.id}`);
   }
 
-  logout(): void {
+  updateUser(userData: NewUser, id: string) {
+    return this.http.put<User>(`/users/${id}`, userData).pipe(
+      map(res => {
+        this.store.dispatch(UserActions.setUser({ user: res }));
+      })
+    );
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete<User>(`/users/${id}`).pipe(
+      map(() => {
+        this.logout();
+      })
+    );
+  }
+
+  logout() {
     localStorage.removeItem('team4-token');
     this.store.dispatch(UserActions.removeUser());
+    return this.router.navigateByUrl('/welcome');
   }
 
   getInfoFromToken(token: string): DecodedTokenModel | null {

@@ -10,6 +10,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { DialogModule } from '@angular/cdk/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -24,6 +25,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatSnackBarModule,
     DialogModule,
     DragDropModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule {}

@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store/reducers/app.reducers';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     FooterComponent,
     WelcomePageComponent,
     NotFoundPageComponent,
+    ConfirmModalComponent,
   ],
   imports: [
     CommonModule,
