@@ -39,6 +39,15 @@
     </mat-form-field>
   </form>
 </div>
+<div
+  class="tasks_container"
+  cdkDropList
+  id="{{ column._id }}"
+  [cdkDropListData]="tasks"
+  [cdkDropListConnectedTo]="columnsIds"
+  (cdkDropListDropped)="dropTasks($event)">
+  <app-task *ngFor="let task of tasks" [task]="task" cdkDrag></app-task>
+</div>
 <button mat-raised-button color="primary" (click)="onTaskAddClick()">
   Add task
 </button>

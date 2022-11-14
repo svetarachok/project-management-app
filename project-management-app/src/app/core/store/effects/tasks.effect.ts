@@ -11,13 +11,40 @@ export class TasksEffects {
   createTask$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(tasksActions.CREATE_TASK),
-      mergeMap((action: Task) => {
-        return this.tasksService.createTask(action).pipe(
-          map(task => {
-            return tasksActions.createNewTaskSuccess({ task });
-          })
-        );
-      })
+      mergeMap(
+        (action: {
+          task: Task;
+          boardId: string;
+          columnId: string;
+          type: string;
+        }) => {
+          return this.tasksService
+            .createTask(action.task, action.boardId, action.columnId)
+            .pipe(
+              map(task => {
+                console.log(task);
+                return tasksActions.createNewTaskSuccess({ task });
+              })
+            );
+        }
+      )
+    );
+  });
+
+  getAllTasks$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(tasksActions.GET_ALL_TASKS),
+      mergeMap(
+        (action: { boardId: string; columnId: string; type: string }) => {
+          return this.tasksService
+            .getTasks(action.boardId, action.columnId)
+            .pipe(
+              map(tasks => {
+                return tasksActions.getAllTasksSuccess({ tasks: tasks });
+              })
+            );
+        }
+      )
     );
   });
 

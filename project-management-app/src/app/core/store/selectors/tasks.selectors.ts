@@ -6,5 +6,10 @@ export const getTasksSelector =
 
 export const getTasksQuantity = createSelector(
   getTasksSelector,
-  tasks => tasks.tasks.length
+  (tasks: fromTasks.TasksState) => tasks.tasks.length
+);
+
+export const getTasks = createSelector(
+  getTasksSelector,
+  (tasks: fromTasks.TasksState) => tasks.tasks
 );

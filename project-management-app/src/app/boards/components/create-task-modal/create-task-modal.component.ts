@@ -10,7 +10,6 @@ import { UserState } from '../../../core/store/state/user.state';
 import { getUserId } from '../../../core/store/selectors/user.selectors';
 
 import { FormErrors } from '../../models/form-errors-enum';
-import { getTasksQuantity } from 'src/app/core/store/selectors/tasks.selectors';
 import { Task } from '../../models/task.interface';
 
 @Component({
@@ -25,12 +24,11 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
 
   userIdSubscription!: Subscription;
 
-  taskQuantitySubscription!: Subscription;
-
   taskOrder!: number;
 
   constructor(
-    @Inject(DIALOG_DATA) public data: { columnId: string; boardId: string },
+    @Inject(DIALOG_DATA)
+    public data: { columnId: string; boardId: string; taskOrder: number },
     public dialogRef: DialogRef,
     private userStore: Store<UserState>,
     private tasksStore: Store<TasksState>
@@ -40,13 +38,11 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
     this.userIdSubscription = this.userStore
       .select(getUserId)
       .subscribe(user => (this.userId = user?._id!));
-    this.taskQuantitySubscription = this.tasksStore
-      .select(getTasksQuantity)
-      .subscribe(quantity => (this.taskOrder = quantity));
     this.createTaskForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
     });
+    this.taskOrder = this.data.taskOrder;
   }
 
   get title() {
@@ -72,13 +68,17 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
       const task: Task = {
         title: this.title?.value,
         order: this.taskOrder,
-        boardId: this.data.boardId,
-        columnId: this.data.columnId,
         description: this.description?.value,
         userId: this.userId,
         users: [],
       };
-      this.tasksStore.dispatch(tasksActions.createNewTask({ task: task }));
+      this.tasksStore.dispatch(
+        tasksActions.createNewTask({
+          task: task,
+          boardId: this.data.boardId,
+          columnId: this.data.columnId,
+        })
+      );
       this.dialogRef.close();
     }
   }
@@ -89,6 +89,5 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userIdSubscription.unsubscribe();
-    this.taskQuantitySubscription.unsubscribe();
   }
 }

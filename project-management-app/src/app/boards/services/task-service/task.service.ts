@@ -9,8 +9,13 @@ import { Task } from '../../models/task.interface';
 export class TaskService {
   constructor(private http: HttpClient) {}
 
-  createTask(task: Task): Observable<Task> {
-    const url = `/boards/${task.boardId}/columns`;
+  createTask(task: Task, boardId: string, columnId: string): Observable<Task> {
+    const url = `/boards/${boardId}/columns/${columnId}/tasks`;
     return this.http.post<Task>(url, task);
+  }
+
+  getTasks(boardId: string, columnId: string): Observable<Task[]> {
+    const url = `/boards/${boardId}/columns/${columnId}/tasks`;
+    return this.http.get<Task[]>(url);
   }
 }
