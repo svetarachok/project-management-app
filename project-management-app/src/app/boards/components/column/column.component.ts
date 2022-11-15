@@ -12,7 +12,7 @@ import * as tasksActions from '../../../core/store/actions/tasks.actions';
 
 import { FormErrors } from '../../models/form-errors-enum';
 import { CreateTaskModalComponent } from '../create-task-modal/create-task-modal.component';
-import { ConnectableObservable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { getTasks } from 'src/app/core/store/selectors/tasks.selectors';
 import {
   CdkDragDrop,
@@ -133,7 +133,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
         event.currentIndex
       );
     } else {
-      console.log(event.container.data);
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,

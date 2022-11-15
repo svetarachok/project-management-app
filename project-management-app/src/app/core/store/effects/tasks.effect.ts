@@ -22,7 +22,6 @@ export class TasksEffects {
             .createTask(action.task, action.boardId, action.columnId)
             .pipe(
               map(task => {
-                console.log(task);
                 return tasksActions.createNewTaskSuccess({ task });
               })
             );
@@ -45,6 +44,20 @@ export class TasksEffects {
             );
         }
       )
+    );
+  });
+
+  updateTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(tasksActions.UPADTE_TASK),
+      mergeMap((action: { task: Task; taskId: string; type: string }) => {
+        return this.tasksService.updateTask(action.task, action.taskId).pipe(
+          map(task => {
+            console.log(task);
+            return tasksActions.updateTaskSuccess({ task });
+          })
+        );
+      })
     );
   });
 

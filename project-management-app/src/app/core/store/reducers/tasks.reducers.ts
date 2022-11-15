@@ -10,5 +10,8 @@ export const tasksReducer = createReducer(
   })),
   on(TasksActions.getAllTasksSuccess, (state, { tasks }) => ({
     tasks: [...tasks],
+  })),
+  on(TasksActions.updateTaskSuccess, (state, { task }) => ({
+    tasks: [...state.tasks.filter(t => t._id !== task._id), task],
   }))
 );

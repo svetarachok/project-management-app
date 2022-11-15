@@ -18,4 +18,9 @@ export class TaskService {
     const url = `/boards/${boardId}/columns/${columnId}/tasks`;
     return this.http.get<Task[]>(url);
   }
+
+  updateTask(task: Task, taskId: string): Observable<Task> {
+    const url = `/boards/${task.boardId}/columns/${task.columnId}/tasks/${taskId}`;
+    return this.http.put<Task>(url, task);
+  }
 }
