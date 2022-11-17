@@ -2,7 +2,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Column } from 'src/app/boards/models/column.interface';
-import { Task } from 'src/app/boards/models/task.interface';
+import { Task, TaskForUpdateInSet } from 'src/app/boards/models/task.interface';
 
 import { Store } from '@ngrx/store';
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
@@ -12,7 +12,7 @@ import * as tasksActions from '../../../../core/store/actions/tasks.actions';
 
 import { FormErrors } from '../../../models/form-errors-enum';
 import { CreateTaskModalComponent } from '../../../components/create-task-modal/create-task-modal.component';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { getTasks } from 'src/app/core/store/selectors/tasks.selectors';
 import {
   CdkDragDrop,
@@ -63,15 +63,14 @@ export class ColumnComponent implements OnInit, OnDestroy {
     });
     this.tasksSubscription = this.taskStore
       .select(getTasks)
+      .pipe(map(tasks => [...tasks].sort((a, b) => a.order - b.order)))
       .subscribe(tasks => {
         return tasks.map(task => {
           if (this.column._id === task.columnId) {
             const existingTask: Task | undefined = this.tasks.find(
               (t: Task) => t._id === task._id
             );
-            console.log(existingTask);
             this.tasks = this.tasks.filter(t => t._id !== existingTask?._id);
-            console.log(this.tasks);
             this.tasks.push(task);
           }
         });
@@ -146,6 +145,19 @@ export class ColumnComponent implements OnInit, OnDestroy {
         event.container.data,
         event.previousIndex,
         event.currentIndex
+      );
+      const newTaskSet: TaskForUpdateInSet[] = event.container.data.map(
+        (task, index) => {
+          let newTask = {
+            _id: task._id!,
+            order: index,
+            columnId: this.column._id!,
+          };
+          return newTask;
+        }
+      );
+      this.taskStore.dispatch(
+        tasksActions.updateTaskSet({ tasks: newTaskSet })
       );
     }
   }

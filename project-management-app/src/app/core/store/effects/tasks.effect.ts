@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { mergeMap, map } from 'rxjs/operators';
-import { Task } from 'src/app/boards/models/task.interface';
+import { Task, TaskForUpdateInSet } from 'src/app/boards/models/task.interface';
 
 import { TaskService } from '../../../boards/services/task-service/task.service';
 import * as tasksActions from '../actions/tasks.actions';
@@ -66,6 +66,19 @@ export class TasksEffects {
             );
         }
       )
+    );
+  });
+
+  updateSetOfTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(tasksActions.UPADTE_TASK_SET),
+      mergeMap((action: { tasks: TaskForUpdateInSet[]; type: string }) => {
+        return this.tasksService.updateSetOfTasks(action.tasks).pipe(
+          map(tasks => {
+            return tasksActions.updateTaskSetSuccess({ tasks });
+          })
+        );
+      })
     );
   });
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Task } from '../../models/task.interface';
+import { Task, TaskForUpdateInSet } from '../../models/task.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +29,9 @@ export class TaskService {
   getAllTasks(boardId: string): Observable<Task[]> {
     const url = `/tasksSet/${boardId}`;
     return this.http.get<Task[]>(url);
+  }
+
+  updateSetOfTasks(tasks: TaskForUpdateInSet[]) {
+    return this.http.patch<Task[]>('/tasksSet', tasks);
   }
 }

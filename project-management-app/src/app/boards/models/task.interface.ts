@@ -8,3 +8,9 @@ export interface Task {
   userId: string;
   users: string[];
 }
+
+export interface TaskForUpdateInSet {
+  _id: string;
+  order: number;
+  columnId: string;
+}
