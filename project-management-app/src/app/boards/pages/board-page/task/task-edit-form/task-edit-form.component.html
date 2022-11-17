@@ -1,6 +1,6 @@
 <div class="task-container">
   <div class="task-container_header">
-    <p>Edit task:</p>
+    <p mat-dialog-title>Edit task:</p>
     <p
       class="task-form_header"
       [(ngModel)]="task.title"
@@ -10,7 +10,7 @@
     </p>
   </div>
   <mat-divider></mat-divider>
-  <div class="task-form">
+  <div mat-dialog-content class="task-form">
     <form
       [formGroup]="formTask"
       (ngSubmit)="onTaskDataChanged()"
@@ -40,7 +40,11 @@
       <button mat-raised-button color="primary">Submit</button>
     </form>
   </div>
-  <button mat-icon-button (click)="onClose()" class="close-modal-btn">
+  <button
+    mat-dialog-close
+    mat-icon-button
+    (click)="onClose()"
+    class="close-modal-btn">
     <mat-icon>close</mat-icon>
   </button>
 </div>

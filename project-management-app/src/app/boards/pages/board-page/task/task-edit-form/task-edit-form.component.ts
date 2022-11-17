@@ -17,10 +17,6 @@ export class TaskEditFormComponent implements OnInit {
 
   formTask!: FormGroup;
 
-  isTitleEdited: boolean = false;
-
-  isDescriptionEdited: boolean = false;
-
   constructor(
     @Inject(DIALOG_DATA)
     public data: Task,
@@ -50,7 +46,7 @@ export class TaskEditFormComponent implements OnInit {
       : '';
   }
 
-  onTaskDataChanged() {
+  onTaskDataChanged(): void {
     if (this.formTask.valid) {
       const task: Task = {
         title: this.title!.value,
@@ -71,7 +67,7 @@ export class TaskEditFormComponent implements OnInit {
     }
   }
 
-  onClose() {
+  onClose(): void {
     this.dialogRef.close();
   }
 }

@@ -50,7 +50,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.boardId = this.column.boardId!;
-    this.getColumnsIds();
     this.taskStore.dispatch(
       tasksActions.getAllTasks({
         boardId: this.boardId,
@@ -67,10 +66,17 @@ export class ColumnComponent implements OnInit, OnDestroy {
       .subscribe(tasks => {
         return tasks.map(task => {
           if (this.column._id === task.columnId) {
+            const existingTask: Task | undefined = this.tasks.find(
+              (t: Task) => t._id === task._id
+            );
+            console.log(existingTask);
+            this.tasks = this.tasks.filter(t => t._id !== existingTask?._id);
+            console.log(this.tasks);
             this.tasks.push(task);
           }
         });
       });
+    this.getColumnsIds();
   }
 
   getColumnsIds() {
