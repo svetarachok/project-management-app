@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalsService } from '../../../core/services/modals-services/modals.service';
 import { getBoards } from '../../../core/store/selectors/boards.selectors';
 import { Board } from '../../models/board.interface';
 import { Store } from '@ngrx/store';
 import { BoardsState } from '../../../core/store/state/boards.state';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit {
-  boards$!: Observable<Board[]>;
+export class MainPageComponent implements OnInit, OnDestroy {
+  boards!: Board[];
 
   userId: string = '';
+
+  boardsSubscription!: Subscription;
 
   constructor(
     public modalsService: ModalsService,
@@ -22,10 +24,16 @@ export class MainPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.boards$ = this.boardsStore.select(getBoards);
+    this.boardsSubscription = this.boardsStore
+      .select(getBoards)
+      .subscribe(boards => (this.boards = boards));
   }
 
   onCreateNewBoard() {
     this.modalsService.showCreateBoardModal = true;
+  }
+
+  ngOnDestroy(): void {
+    this.boardsSubscription.unsubscribe();
   }
 }

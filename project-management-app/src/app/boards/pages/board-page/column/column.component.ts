@@ -7,11 +7,11 @@ import { Task } from 'src/app/boards/models/task.interface';
 import { Store } from '@ngrx/store';
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
 import { TasksState } from 'src/app/core/store/state/tasks.state';
-import * as columnsActions from '../../../core/store/actions/columns.actions';
-import * as tasksActions from '../../../core/store/actions/tasks.actions';
+import * as columnsActions from '../../../../core/store/actions/columns.actions';
+import * as tasksActions from '../../../../core/store/actions/tasks.actions';
 
-import { FormErrors } from '../../models/form-errors-enum';
-import { CreateTaskModalComponent } from '../create-task-modal/create-task-modal.component';
+import { FormErrors } from '../../../models/form-errors-enum';
+import { CreateTaskModalComponent } from '../../../components/create-task-modal/create-task-modal.component';
 import { Subscription } from 'rxjs';
 import { getTasks } from 'src/app/core/store/selectors/tasks.selectors';
 import {
@@ -50,6 +50,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.boardId = this.column.boardId!;
+    this.getColumnsIds();
     this.taskStore.dispatch(
       tasksActions.getAllTasks({
         boardId: this.boardId,
@@ -61,14 +62,15 @@ export class ColumnComponent implements OnInit, OnDestroy {
         Validators.required,
       ]),
     });
-    this.tasksSubscription = this.taskStore.select(getTasks).subscribe(tasks =>
-      tasks.map(task => {
-        if (this.column._id === task.columnId) {
-          this.tasks.push(task);
-        }
-      })
-    );
-    this.getColumnsIds();
+    this.tasksSubscription = this.taskStore
+      .select(getTasks)
+      .subscribe(tasks => {
+        return tasks.map(task => {
+          if (this.column._id === task.columnId) {
+            this.tasks.push(task);
+          }
+        });
+      });
   }
 
   getColumnsIds() {

@@ -2,19 +2,17 @@ import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { FormErrors } from '../../models/form-errors-enum';
-import { Task } from '../../models/task.interface';
+import { FormErrors } from '../../../../models/form-errors-enum';
+import { Task } from '../../../../models/task.interface';
 
-import * as taskActions from '../../../core/store/actions/tasks.actions';
-import { ColumnsState } from 'src/app/core/store/state/columns.state';
-import * as columnsActions from '../../../core/store/actions/columns.actions';
+import * as taskActions from '../../../../../core/store/actions/tasks.actions';
 
 @Component({
-  selector: 'app-task-page',
-  templateUrl: './task-page.component.html',
-  styleUrls: ['./task-page.component.scss'],
+  selector: 'app-task-edit-form',
+  templateUrl: './task-edit-form.component.html',
+  styleUrls: ['./task-edit-form.component.scss'],
 })
-export class TaskPageComponent implements OnInit {
+export class TaskEditFormComponent implements OnInit {
   task!: Task;
 
   formTask!: FormGroup;
@@ -27,8 +25,7 @@ export class TaskPageComponent implements OnInit {
     @Inject(DIALOG_DATA)
     public data: Task,
     public dialogRef: DialogRef,
-    private taskStore: Store<TaskState>,
-    private columnsStore: Store<ColumnsState>
+    private taskStore: Store<TaskState>
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +61,11 @@ export class TaskPageComponent implements OnInit {
         users: this.task.users,
       };
       this.taskStore.dispatch(
-        taskActions.updateTask({ task: task, taskId: this.task._id! })
+        taskActions.updateTask({
+          task: task,
+          taskId: this.task._id!,
+          boardId: this.task.boardId!,
+        })
       );
       this.dialogRef.close();
     }

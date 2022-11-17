@@ -30,7 +30,7 @@ export const getAllTasksSuccess = createAction(
 
 export const updateTask = createAction(
   UPADTE_TASK,
-  props<{ task: Task; taskId: string }>()
+  props<{ task: Task; taskId: string; boardId: string }>()
 );
 export const updateTaskSuccess = createAction(
   UPADTE_TASK_SUCCESS,

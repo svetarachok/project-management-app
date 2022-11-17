@@ -11,11 +11,11 @@ import { BoardComponent } from './pages/main-page/board/board.component';
 
 import { ExpCheckGuard } from '../core/guards/exp-check.guard';
 import { CreateColumnModalComponent } from './components/create-column-modal/create-column-modal.component';
-import { ColumnComponent } from './components/column/column.component';
-import { TaskComponent } from './components/task/task.component';
+import { ColumnComponent } from './pages/board-page/column/column.component';
+import { TaskComponent } from './pages/board-page/task/task.component';
 import { NotAuthGuard } from '../core/guards/not-auth.guard';
 import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
-import { TaskPageComponent } from './pages/task-page/task-page.component';
+import { TaskEditFormComponent } from './pages/board-page/task/task-edit-form/task-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { TaskPageComponent } from './pages/task-page/task-page.component';
     ColumnComponent,
     TaskComponent,
     CreateTaskModalComponent,
-    TaskPageComponent,
+    TaskEditFormComponent,
   ],
   imports: [
     CommonModule,
@@ -47,7 +47,7 @@ import { TaskPageComponent } from './pages/task-page/task-page.component';
       },
       {
         path: 'board/:id/task/:id',
-        component: TaskPageComponent,
+        component: TaskEditFormComponent,
         canActivate: [NotAuthGuard, ExpCheckGuard],
       },
     ]),

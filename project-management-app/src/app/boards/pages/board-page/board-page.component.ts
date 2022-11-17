@@ -27,9 +27,9 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   columns: Column[] = [];
 
-  subscriptionColumns!: Subscription;
-
   subscriptionBoard!: Subscription;
+
+  subscriptionColumns!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
