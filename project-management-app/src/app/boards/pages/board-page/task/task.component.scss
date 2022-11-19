@@ -1,0 +1,9 @@
+:host {
+  width: 100%;
+}
+.task {
+  &_title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}

@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { UserEffects } from './core/store/effects/user.effects';
 import { BoardsEffects } from './core/store/effects/boards.effects';
 import { ColumnsEffects } from './core/store/effects/columns.effects';
+import { TasksEffects } from './core/store/effects/tasks.effect';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,12 @@ import { ColumnsEffects } from './core/store/effects/columns.effects';
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     CoreModule,
     HttpClientModule,
-    EffectsModule.forRoot([BoardsEffects, UserEffects, ColumnsEffects]),
+    EffectsModule.forRoot([
+      BoardsEffects,
+      UserEffects,
+      ColumnsEffects,
+      TasksEffects,
+    ]),
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],

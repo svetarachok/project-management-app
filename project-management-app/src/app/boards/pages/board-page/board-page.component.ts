@@ -27,9 +27,9 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   columns: Column[] = [];
 
-  subscriptionColumns!: Subscription;
-
   subscriptionBoard!: Subscription;
+
+  subscriptionColumns!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -67,7 +67,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       .subscribe(columns => (this.columns = columns));
   }
 
-  dropColumns(event: CdkDragDrop<string[]>): void {
+  dropColumns(event: CdkDragDrop<Column[]>): void {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
     const newColumnsOrder: ColumnsOrder[] = [];
     this.columns.map((column, index) =>

@@ -1,0 +1,61 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  width: 100%;
+  padding: 4rem;
+  position: relative;
+}
+
+.task-container {
+  width: 50vh;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  &_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      padding-right: 2rem;
+    }
+  }
+}
+
+.task-form {
+  &_form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 1.5rem;
+  }
+  &_filed {
+    width: 100%;
+    padding: 2rem 0 0 0;
+  }
+  &_header {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  &_input {
+    font-family: 'Poppins', sans-serif;
+  }
+  button {
+    margin-top: 1.5rem;
+  }
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: inherit;
+  &:hover {
+    color: #3f51b5;
+  }
+}
+
+::ng-deep .task-form .mat-form-field-infix {
+  border-top: 0 !important;
+}

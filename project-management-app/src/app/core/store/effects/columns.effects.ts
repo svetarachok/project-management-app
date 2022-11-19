@@ -12,7 +12,7 @@ import { ColumnsState } from '../state/columns.state';
 
 @Injectable()
 export class ColumnsEffects {
-  createBoard$ = createEffect(() => {
+  createColumn$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(columnsActions.CREATE_COLUMN),
       mergeMap((action: Column) => {

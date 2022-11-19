@@ -7,12 +7,17 @@
   </button>
 </div>
 <div
+  id="columnDragList"
   class="columns_container"
   cdkDropList
   cdkDropListOrientation="horizontal"
+  [cdkDropListData]="columns"
   (cdkDropListDropped)="dropColumns($event)">
   <app-column-component
     *ngFor="let column of columns"
     [column]="column"
+    [columns]="columns"
+    [cdkDragData]="column"
+    cdkDropListGroup
     cdkDrag></app-column-component>
 </div>

@@ -7,11 +7,9 @@
     </button>
   </div>
 </ng-template>
-<mat-nav-list
-  *ngIf="(boards$! | async)!.length !== 0; else noboards"
-  class="boards-list">
+<mat-nav-list *ngIf="boards.length !== 0; else noboards" class="boards-list">
   <h3 class="boards-list_header">Boards</h3>
   <app-board
-    *ngFor="let board of boards$ | async; let i = index"
+    *ngFor="let board of boards; let i = index"
     [board]="board"></app-board>
 </mat-nav-list>
