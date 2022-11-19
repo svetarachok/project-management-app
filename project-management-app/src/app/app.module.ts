@@ -8,7 +8,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { MaterialModule } from './material.module';
 import { CoreModule } from './core/core.module';
-import { UserModule } from './user/user.module';
 import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
@@ -32,7 +31,6 @@ import { TasksEffects } from './core/store/effects/tasks.effect';
     StoreModule,
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     CoreModule,
-    UserModule,
     HttpClientModule,
     EffectsModule.forRoot([
       BoardsEffects,

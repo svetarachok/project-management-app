@@ -12,7 +12,7 @@ import * as BoardActions from '../../../core/store/actions/boards.actions';
 
 import { FormErrors } from '../../models/form-errors-enum';
 import { UserState } from 'src/app/core/store/state/user.state';
-import { getUserId } from 'src/app/core/store/selectors/user.selectors';
+import { getUser } from 'src/app/core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-create-board',
@@ -34,9 +34,7 @@ export class CreateBoardComponent implements OnInit {
     this.createBoardForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
     });
-    this.userStore
-      .select(getUserId)
-      .subscribe(user => (this.userId = user?._id));
+    this.userStore.select(getUser).subscribe(user => (this.userId = user?._id));
   }
 
   get title() {
