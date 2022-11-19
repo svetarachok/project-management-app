@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -26,6 +27,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     HttpClientModule,
     RouterModule,
     MaterialModule,
+    TranslateModule.forChild(),
     StoreModule.forRoot(appReducers),
   ],
   exports: [HeaderComponent, FooterComponent],

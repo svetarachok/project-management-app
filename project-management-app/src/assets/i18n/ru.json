@@ -1,0 +1,41 @@
+{
+  "HEADER": {
+    "user_btns": {
+      "login_btn": "Вход",
+      "logout_btn": "Выйти",
+      "edit_profile_btn": "Редактировать профиль",
+      "signup_btn": "Регистрация"
+    },
+    "new_board_btn": "Создать новую доску"
+  },
+  "MAIN_PAGE": {
+    "main_title": "Доски",
+    "new_board_btn": "Создать новую доску",
+    "no_boards": "У вас еще нет ни одной доски"
+  },
+  "WELCOME_PAGE": {
+    "hero_title_1": "Приложение по управлению проектами",
+    "hero_title_2": "for High Performing Team",
+    "hero_subtitle": "Easy to Start. Visual to Use. Great Solutions.",
+    "get_started_btn": "Get Started",
+    "tools-section": {
+      "title": "Manage complex work easily",
+      "list_item1": "List view",
+      "list_item2": "Boards",
+      "list_item3": "Cards",
+      "list_descr1": "Organize and assign tasks. With lists, teams see immediately what they need to do, which tasks are a priority, and when work is due.",
+      "list_descr2": "Make it easy for your team to focus on tasks currently at hand. Define each stage of work to see what/’s important and where things are getting stuck.",
+      "list_descr3": "PMA cards are your portal to more organized work—where every single part of your task can be managed, tracked, and shared with teammates."
+    },
+    "about-section": {
+      "title": "О нас",
+      "description": "The application is developed as part of an Angular course by Rolling Scopes School.",
+      "person1_title": "Светлана",
+      "person1_descr1": "Deploy backend",
+      "person1_descr2": "Main, Board pages",
+      "person2_title": "Виталий",
+      "person2_descr1": "Welcome page",
+      "person2_descr2": "Login, Sign Up pages"
+    }
+  }
+}

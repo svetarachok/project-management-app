@@ -11,28 +11,42 @@
   </div>
   <div *ngIf="isUserAuthorized; else unathorized" class="header_authorized">
     <div class="header_create-board">
-      <p>New board</p>
+      <p>{{ 'HEADER.new_board_btn' | translate }}</p>
       <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
     </div>
     <div class="header_language">
+      <ng-container *ngFor="let language of languageList">
+        <div class="lang-links">
+          <a (click)="changeLang(language.code)">
+            <button class="button">{{ language.label }}</button>
+          </a>
+        </div>
+      </ng-container>
+      <div class="example-label-container">
+        <label id="example-name-label" class="example-name-label">RU</label>
+        <label class="example-value-label">EN</label>
+      </div>
+      <mat-slider>
+        <input matSliderThumb/>
+      </mat-slider>
       <button mat-stroked-button color="primary" class="lang-btn">EN</button>
     </div>
     <div class="header_user">
       <button routerLink="/profile" mat-flat-button color="primary">
-        Edit porfile
+        {{ 'HEADER.user_btns.edit_profile_btn' | translate }}
       </button>
       <button mat-stroked-button color="primary" (click)="logout()">
-        Logout
+        {{ 'HEADER.user_btns.logout_btn' | translate }}
       </button>
     </div>
   </div>
   <ng-template #unathorized>
     <div class="header_user-unauth">
       <button routerLink="/auth/login" mat-flat-button color="primary">
-        Login
+        {{ 'HEADER.user_btns.login_btn' | translate }}
       </button>
       <button routerLink="/auth/sign-up" mat-stroked-button color="primary">
-        Sign Up
+        {{ 'HEADER.user_btns.signup_btn' | translate }}
       </button>
     </div>
   </ng-template>

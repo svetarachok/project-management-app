@@ -12,7 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './core/services/interceptors';
 
 import { environment } from 'src/environments/environment';
@@ -20,6 +20,12 @@ import { UserEffects } from './core/store/effects/user.effects';
 import { BoardsEffects } from './core/store/effects/boards.effects';
 import { ColumnsEffects } from './core/store/effects/columns.effects';
 import { TasksEffects } from './core/store/effects/tasks.effect';
+
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+export function HttpLoaderFactory(http: HttpBackend) {
+  return new TranslateHttpLoader(new HttpClient(http));
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +38,14 @@ import { TasksEffects } from './core/store/effects/tasks.effect';
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     CoreModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpBackend],
+      },
+      defaultLanguage: 'en',
+    }),
     EffectsModule.forRoot([
       BoardsEffects,
       UserEffects,

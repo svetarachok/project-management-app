@@ -1,14 +1,14 @@
 <app-create-board *ngIf="modalsService.showCreateBoardModal"></app-create-board>
 <ng-template #noboards>
   <div class="no-boards">
-    <p>You haven't created any board yet</p>
+    <p>{{ 'MAIN_PAGE.no_boards' | translate }}</p>
     <button mat-flat-button (click)="onCreateNewBoard()" color="primary">
-      Create new board
+      {{ 'MAIN_PAGE.new_board_btn' | translate }}
     </button>
   </div>
 </ng-template>
 <mat-nav-list *ngIf="boards.length !== 0; else noboards" class="boards-list">
-  <h3 class="boards-list_header">Boards</h3>
+  <h3 class="boards-list_header">{{ 'MAIN_PAGE.main_title' | translate }}</h3>
   <app-board
     *ngFor="let board of boards; let i = index"
     [board]="board"></app-board>

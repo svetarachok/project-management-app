@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MissingTranslationHandler, TranslateCompiler, TranslateLoader, TranslateModule, TranslateParser } from '@ngx-translate/core';
 
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
@@ -34,6 +35,7 @@ import { TaskEditFormComponent } from './pages/board-page/task/task-edit-form/ta
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
+    TranslateModule.forChild(),
     RouterModule.forChild([
       {
         path: '',

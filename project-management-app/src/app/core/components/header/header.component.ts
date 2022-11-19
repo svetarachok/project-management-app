@@ -3,9 +3,9 @@ import { ModalsService } from '../../services/modals-services/modals.service';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 
 import * as fromUser from '../../store/selectors/user.selectors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -17,14 +17,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subs!: Subscription;
 
+  languageList = [
+    { code: 'en', label: 'EN' },
+    { code: 'ru', label: 'РУ' },
+  ];
+
   constructor(
     private modalsService: ModalsService,
     private store: Store,
     private userService: UserService,
-    private router: Router
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
+    this.translate.setDefaultLang('en');
     this.subs = this.store.select(fromUser.getIsAuth).subscribe(status => {
       this.isUserAuthorized = status;
     });
@@ -36,6 +42,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.userService.logout();
+  }
+
+  changeLang(lang: string) {
+    this.translate.use(lang);
   }
 
   ngOnDestroy(): void {
