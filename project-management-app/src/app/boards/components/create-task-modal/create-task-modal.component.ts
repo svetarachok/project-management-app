@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { TasksState } from '../../../core/store/state/tasks.state';
 import * as tasksActions from '../../../core/store/actions/tasks.actions';
 import { UserState } from '../../../core/store/state/user.state';
-import { getUserId } from '../../../core/store/selectors/user.selectors';
+import { getUser } from '../../../core/store/selectors/user.selectors';
 
 import { FormErrors } from '../../models/form-errors-enum';
 import { Task } from '../../models/task.interface';
@@ -36,7 +36,7 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userIdSubscription = this.userStore
-      .select(getUserId)
+      .select(getUser)
       .subscribe(user => (this.userId = user?._id!));
     this.createTaskForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
