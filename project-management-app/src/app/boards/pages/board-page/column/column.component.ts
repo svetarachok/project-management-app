@@ -63,7 +63,11 @@ export class ColumnComponent implements OnInit, OnDestroy {
     });
     this.tasksSubscription = this.taskStore
       .select(getTasks)
-      .pipe(map(tasks => [...tasks].sort((a, b) => a.order - b.order)))
+      .pipe(
+        map(tasks => {
+          return [...tasks].sort((a, b) => a.order - b.order);
+        })
+      )
       .subscribe(tasks => {
         return tasks.map(task => {
           if (this.column._id === task.columnId) {
@@ -139,6 +143,14 @@ export class ColumnComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
+      this.tasks = this.tasks.map(task => {
+        const changedOrder = event.container.data.findIndex(
+          item => item._id === task._id
+        );
+        task = { ...task };
+        task.order = changedOrder!;
+        return task;
+      });
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -146,20 +158,33 @@ export class ColumnComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
-      const newTaskSet: TaskForUpdateInSet[] = event.container.data.map(
-        (task, index) => {
-          let newTask = {
-            _id: task._id!,
-            order: index,
-            columnId: this.column._id!,
-          };
-          return newTask;
-        }
-      );
-      this.taskStore.dispatch(
-        tasksActions.updateTaskSet({ tasks: newTaskSet })
-      );
+      this.tasks = this.tasks.map(task => {
+        const changedOrder = event.container.data.findIndex(
+          item => item._id === task._id
+        );
+        task = { ...task };
+        task.order = changedOrder!;
+        task.columnId = event.container.id;
+        return task;
+      });
     }
+    const newTaskSet: TaskForUpdateInSet[] = this.makeTasksSet(
+      event.container.data,
+      this.column._id!
+    );
+    this.taskStore.dispatch(tasksActions.updateTaskSet({ tasks: newTaskSet }));
+  }
+
+  makeTasksSet(fromArray: Task[], columnId: string): TaskForUpdateInSet[] {
+    const newTaskSet: TaskForUpdateInSet[] = fromArray.map((task, index) => {
+      let newTask = {
+        _id: task._id!,
+        order: index,
+        columnId: columnId,
+      };
+      return newTask;
+    });
+    return newTaskSet;
   }
 
   ngOnDestroy(): void {

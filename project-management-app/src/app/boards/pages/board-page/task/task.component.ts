@@ -11,19 +11,11 @@ import { TaskEditFormComponent } from './task-edit-form/task-edit-form.component
 export class TaskComponent {
   @Input() task!: Task;
 
-  currentTask!: Task;
-
   constructor(public dialog: Dialog) {}
 
   onTaskOpen() {
     this.dialog.open(TaskEditFormComponent, {
       data: this.task,
     });
-  }
-
-  updateTask(newTask: Task) {
-    console.log(this.task);
-    console.log(newTask);
-    this.task = newTask;
   }
 }
