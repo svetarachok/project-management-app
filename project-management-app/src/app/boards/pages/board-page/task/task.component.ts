@@ -14,6 +14,7 @@ export class TaskComponent {
   constructor(public dialog: Dialog) {}
 
   onTaskOpen() {
+    console.log(this.task);
     this.dialog.open(TaskEditFormComponent, {
       data: this.task,
     });

@@ -12,7 +12,7 @@ import * as tasksActions from '../../../../core/store/actions/tasks.actions';
 
 import { FormErrors } from '../../../models/form-errors-enum';
 import { CreateTaskModalComponent } from '../../../components/create-task-modal/create-task-modal.component';
-import { map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { getTasks } from 'src/app/core/store/selectors/tasks.selectors';
 import {
   CdkDragDrop,
@@ -63,13 +63,8 @@ export class ColumnComponent implements OnInit, OnDestroy {
     });
     this.tasksSubscription = this.taskStore
       .select(getTasks)
-      .pipe(
-        map(tasks => {
-          return [...tasks].sort((a, b) => a.order - b.order);
-        })
-      )
       .subscribe(tasks => {
-        return tasks.map(task => {
+        tasks.map(task => {
           if (this.column._id === task.columnId) {
             const existingTask: Task | undefined = this.tasks.find(
               (t: Task) => t._id === task._id
@@ -78,6 +73,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
             this.tasks.push(task);
           }
         });
+        this.tasks.sort((a, b) => a.order - b.order);
       });
     this.getColumnsIds();
   }
