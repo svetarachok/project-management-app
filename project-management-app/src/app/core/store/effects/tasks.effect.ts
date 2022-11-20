@@ -82,5 +82,24 @@ export class TasksEffects {
     );
   });
 
+  deleteTask$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(tasksActions.DELETE_TASK),
+      mergeMap((action: { task: Task; type: string }) => {
+        return this.tasksService
+          .deleteTask(
+            action.task._id!,
+            action.task.boardId!,
+            action.task.columnId!
+          )
+          .pipe(
+            map(() => {
+              return tasksActions.deleteTaskSuccess({ _id: action.task._id! });
+            })
+          );
+      })
+    );
+  });
+
   constructor(private actions$: Actions, private tasksService: TaskService) {}
 }

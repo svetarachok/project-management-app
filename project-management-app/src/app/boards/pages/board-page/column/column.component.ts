@@ -19,6 +19,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-column-component',
@@ -116,13 +117,16 @@ export class ColumnComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRemoveColumnClick(id: string) {
-    this.columnsStore.dispatch(
-      columnsActions.deleteColumn({ _id: id, boardId: this.boardId })
-    );
+  onRemoveColumnClick(column: Column) {
+    this.dialog.open(DeleteConfirmationComponent, {
+      data: {
+        item: column,
+        title: 'column',
+      },
+    });
   }
 
-  onTaskAddClick() {
+  onTaskAddClick(): void {
     this.dialog.open(CreateTaskModalComponent, {
       data: {
         columnId: this.column._id,

@@ -2,6 +2,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { Component, Input } from '@angular/core';
 import { Task } from '../../../models/task.interface';
 import { TaskEditFormComponent } from './task-edit-form/task-edit-form.component';
+import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-task',
@@ -14,9 +15,17 @@ export class TaskComponent {
   constructor(public dialog: Dialog) {}
 
   onTaskOpen() {
-    console.log(this.task);
     this.dialog.open(TaskEditFormComponent, {
       data: this.task,
+    });
+  }
+
+  onTaskDelete() {
+    this.dialog.open(DeleteConfirmationComponent, {
+      data: {
+        item: this.task,
+        title: 'task',
+      },
     });
   }
 }

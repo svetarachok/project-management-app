@@ -17,6 +17,9 @@ export const UPADTE_TASK_SET = '[Dragging form Column] Update tasks set';
 export const UPADTE_TASK_SET_SUCCESS =
   '[Dragged to new Column] Update tasks set success';
 
+export const DELETE_TASK = '[Task in column] Delete Task';
+export const DELETE_TASK_SUCCESS = '[Task in column] Delete Task Success';
+
 export const createNewTask = createAction(
   CREATE_TASK,
   props<{ task: Task; boardId: string; columnId: string }>()
@@ -51,4 +54,11 @@ export const updateTaskSet = createAction(
 export const updateTaskSetSuccess = createAction(
   UPADTE_TASK_SET_SUCCESS,
   props<{ tasks: Task[] }>()
+);
+
+export const deleteTask = createAction(DELETE_TASK, props<{ task: Task }>());
+
+export const deleteTaskSuccess = createAction(
+  DELETE_TASK_SUCCESS,
+  props<{ _id: string }>()
 );

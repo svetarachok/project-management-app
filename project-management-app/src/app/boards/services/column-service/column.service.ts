@@ -34,13 +34,7 @@ export class ColumnService {
   }
 
   deleteColumn(columnId: string, boardId: string) {
-    return this.http.delete(`/boards/${boardId}/columns/${columnId}`).pipe(
-      tap(() => {
-        return this.columnsStore.dispatch(
-          columnsActions.deleteColumn({ _id: columnId, boardId: boardId })
-        );
-      })
-    );
+    return this.http.delete(`/boards/${boardId}/columns/${columnId}`);
   }
 
   updateColumns(columns: ColumnsOrder[]) {

@@ -1,3 +1,10 @@
-<mat-card class="task" (click)="onTaskOpen()">
-  <mat-card-title class="task_title">{{ task.title }}</mat-card-title>
+<mat-card class="task" #taskNode>
+  <div class="task_data" (click)="onTaskOpen()">
+    <mat-card-title class="task_title">{{ task.title }}</mat-card-title>
+  </div>
+  <button mat-icon-button (click)="onTaskDelete()" class="task_delete-btn">
+    <mat-icon mat-icon-no-color class="task_delete-btn__icon"
+      >delete_outline</mat-icon
+    >
+  </button>
 </mat-card>
