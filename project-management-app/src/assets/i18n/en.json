@@ -1,4 +1,9 @@
 {
+  "FOOTER": {
+    "github": "Developers' Github",
+    "person1": "Svetlana",
+    "person2": "Vitali"
+  },
   "HEADER": {
     "user_btns": {
       "login_btn": "Login",
@@ -12,6 +17,9 @@
     "main_title": "boards",
     "new_board_btn": "Create new board",
     "no_boards": "You haven't created any board yet"
+  },
+  "NOT_FOUND": {
+    "error": "404 Sorry, the requested page was not found(("
   },
   "WELCOME_PAGE": {
     "hero_title_1": "Project Management App",
@@ -30,7 +38,7 @@
     "about-section": {
       "title": "About Us",
       "description": "The application is developed as part of an Angular course by Rolling Scopes School.",
-      "person1_title": "Sveta",
+      "person1_title": "Svetlana",
       "person1_descr1": "Deploy backend",
       "person1_descr2": "Main, Board pages",
       "person2_title": "Vitali",
