@@ -1,32 +1,36 @@
 import { Dialog } from '@angular/cdk/dialog';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Task } from '../../../models/task.interface';
 import { TaskEditFormComponent } from './task-edit-form/task-edit-form.component';
 import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
-import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
 import { TasksState } from 'src/app/core/store/state/tasks.state';
+import { Store } from '@ngrx/store';
 import { getTasks } from 'src/app/core/store/selectors/tasks.selectors';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TaskComponent implements OnInit, OnDestroy {
-  @Input() taskId!: string;
+export class TaskComponent {
+  @Input() currentTask!: Task;
 
-  task!: Task | undefined;
-
-  taskSubscription!: Subscription;
+  task!: Task;
 
   constructor(public dialog: Dialog, private tasksStore: Store<TasksState>) {}
 
-  ngOnInit() {
-    this.taskSubscription = this.tasksStore
-      .select(getTasks)
-      .subscribe(tasks => (this.task = tasks.find(t => t._id === this.taskId)));
-  }
+  // ngOnInit() {
+  //   this.tasksStore
+  //     .select(getTasks)
+  //     .pipe(
+  //       map(tasks => tasks.filter(task => task._id === this.currentTask._id))
+  //     )
+  //     .subscribe(tasks => {
+  //       const t: Task = tasks[0];
+  //       this.task = t;
+  //     });
+  // }
 
   onTaskOpen() {
     this.dialog.open(TaskEditFormComponent, {
@@ -41,9 +45,5 @@ export class TaskComponent implements OnInit, OnDestroy {
         title: 'task',
       },
     });
-  }
-
-  ngOnDestroy() {
-    this.taskSubscription.unsubscribe();
   }
 }
