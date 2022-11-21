@@ -8,7 +8,7 @@
   </div>
 </ng-template>
 <mat-nav-list *ngIf="boards.length !== 0; else noboards" class="boards-list">
-  <h3 class="boards-list_header">Boards</h3>
+  <h1 class="boards-list_header">Boards</h1>
   <app-board
     *ngFor="let board of boards; let i = index"
     [board]="board"></app-board>

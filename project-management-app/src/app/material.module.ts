@@ -7,10 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { DialogModule } from '@angular/cdk/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatCardModule,
     MatSnackBarModule,
+    MatMenuModule,
     DialogModule,
     DragDropModule,
     MatDialogModule,

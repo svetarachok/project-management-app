@@ -50,7 +50,9 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
   }
 
   get titleErrorMessage() {
-    return this.title!.hasError('required') ? FormErrors.TITLE_REQUIRED : '';
+    return this.title!.hasError('required')
+      ? FormErrors.TASK_TITLE_REQUIRED
+      : '';
   }
 
   get description() {

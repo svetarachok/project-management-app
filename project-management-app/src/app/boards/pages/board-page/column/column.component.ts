@@ -12,13 +12,14 @@ import * as tasksActions from '../../../../core/store/actions/tasks.actions';
 
 import { FormErrors } from '../../../models/form-errors-enum';
 import { CreateTaskModalComponent } from '../../../components/create-task-modal/create-task-modal.component';
-import { map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { getTasks } from 'src/app/core/store/selectors/tasks.selectors';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-column-component',
@@ -63,9 +64,8 @@ export class ColumnComponent implements OnInit, OnDestroy {
     });
     this.tasksSubscription = this.taskStore
       .select(getTasks)
-      .pipe(map(tasks => [...tasks].sort((a, b) => a.order - b.order)))
       .subscribe(tasks => {
-        return tasks.map(task => {
+        tasks.map(task => {
           if (this.column._id === task.columnId) {
             const existingTask: Task | undefined = this.tasks.find(
               (t: Task) => t._id === task._id
@@ -74,6 +74,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
             this.tasks.push(task);
           }
         });
+        this.tasks.sort((a, b) => a.order - b.order);
       });
     this.getColumnsIds();
   }
@@ -116,13 +117,16 @@ export class ColumnComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRemoveColumnClick(id: string) {
-    this.columnsStore.dispatch(
-      columnsActions.deleteColumn({ _id: id, boardId: this.boardId })
-    );
+  onRemoveColumnClick(column: Column) {
+    this.dialog.open(DeleteConfirmationComponent, {
+      data: {
+        item: column,
+        title: 'column',
+      },
+    });
   }
 
-  onTaskAddClick() {
+  onTaskAddClick(): void {
     this.dialog.open(CreateTaskModalComponent, {
       data: {
         columnId: this.column._id,
@@ -139,6 +143,14 @@ export class ColumnComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
+      this.tasks = this.tasks.map(task => {
+        const changedOrder = event.container.data.findIndex(
+          item => item._id === task._id
+        );
+        task = { ...task };
+        task.order = changedOrder!;
+        return task;
+      });
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -146,20 +158,33 @@ export class ColumnComponent implements OnInit, OnDestroy {
         event.previousIndex,
         event.currentIndex
       );
-      const newTaskSet: TaskForUpdateInSet[] = event.container.data.map(
-        (task, index) => {
-          let newTask = {
-            _id: task._id!,
-            order: index,
-            columnId: this.column._id!,
-          };
-          return newTask;
-        }
-      );
-      this.taskStore.dispatch(
-        tasksActions.updateTaskSet({ tasks: newTaskSet })
-      );
+      this.tasks = this.tasks.map(task => {
+        const changedOrder = event.container.data.findIndex(
+          item => item._id === task._id
+        );
+        task = { ...task };
+        task.order = changedOrder!;
+        task.columnId = event.container.id;
+        return task;
+      });
     }
+    const newTaskSet: TaskForUpdateInSet[] = this.makeTasksSet(
+      event.container.data,
+      this.column._id!
+    );
+    this.taskStore.dispatch(tasksActions.updateTaskSet({ tasks: newTaskSet }));
+  }
+
+  makeTasksSet(fromArray: Task[], columnId: string): TaskForUpdateInSet[] {
+    const newTaskSet: TaskForUpdateInSet[] = fromArray.map((task, index) => {
+      let newTask = {
+        _id: task._id!,
+        order: index,
+        columnId: columnId,
+      };
+      return newTask;
+    });
+    return newTaskSet;
   }
 
   ngOnDestroy(): void {
