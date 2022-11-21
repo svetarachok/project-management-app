@@ -34,14 +34,14 @@ export class TaskComponent {
 
   onTaskOpen() {
     this.dialog.open(TaskEditFormComponent, {
-      data: this.task,
+      data: this.currentTask,
     });
   }
 
   onTaskDelete() {
     this.dialog.open(DeleteConfirmationComponent, {
       data: {
-        item: this.task,
+        item: this.currentTask,
         title: 'task',
       },
     });
