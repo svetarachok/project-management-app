@@ -6,6 +6,8 @@ import { BoardsState } from '../../../../core/store/state/boards.state';
 import * as boardsActions from '../../../../core/store/actions/boards.actions';
 import { ColumnsState } from '../../../../core/store/state/columns.state';
 import * as columnsActions from '../../../../core/store/actions/columns.actions';
+import { Dialog } from '@angular/cdk/dialog';
+import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-board',
@@ -18,7 +20,8 @@ export class BoardComponent {
   constructor(
     private router: Router,
     private boardsStore: Store<BoardsState>,
-    private columnsStore: Store<ColumnsState>
+    private columnsStore: Store<ColumnsState>,
+    public dialog: Dialog
   ) {}
 
   navigateToBoard(boardId: string) {
@@ -28,7 +31,12 @@ export class BoardComponent {
     );
   }
 
-  removeBoard(id: string) {
-    this.boardsStore.dispatch(boardsActions.deleteBoards({ _id: id }));
+  removeBoard() {
+    this.dialog.open(DeleteConfirmationComponent,  {
+      data: {
+        item: this.board,
+        title: 'board',
+      },
+    });
   }
 }
