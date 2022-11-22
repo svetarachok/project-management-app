@@ -61,16 +61,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
     this.tasksSubscription = this.taskStore
       .select(getTasks)
       .subscribe(tasks => {
-        console.log(tasks);
-        tasks.map(task => {
-          if (this.column._id === task.columnId) {
-            const existingTask: Task | undefined = this.tasks.find(
-              (t: Task) => t._id === task._id
-            );
-            this.tasks = this.tasks.filter(t => t._id !== existingTask?._id);
-            this.tasks.push(task);
-          }
-        });
+        this.tasks = tasks.filter(task => task.columnId === this.column._id);
         this.tasks.sort((a, b) => a.order - b.order);
       });
     this.getColumnsIds();
@@ -185,6 +176,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.tasksSubscription.unsubscribe();
+    // this.tasksSubscription.unsubscribe();
   }
 }
