@@ -35,13 +35,11 @@ export class TasksEffects {
       ofType(tasksActions.GET_ALL_TASKS),
       mergeMap(
         (action: { boardId: string; columnId: string; type: string }) => {
-          return this.tasksService
-            .getTasksByColumns(action.boardId, action.columnId)
-            .pipe(
-              map(tasks => {
-                return tasksActions.getAllTasksSuccess({ tasks: tasks });
-              })
-            );
+          return this.tasksService.getAllTasks(action.boardId).pipe(
+            map(tasks => {
+              return tasksActions.getAllTasksSuccess({ tasks: tasks });
+            })
+          );
         }
       )
     );

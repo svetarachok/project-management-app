@@ -20,6 +20,7 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
+import { TaskService } from 'src/app/boards/services/task-service/task.service';
 
 @Component({
   selector: 'app-column-component',
@@ -46,17 +47,12 @@ export class ColumnComponent implements OnInit, OnDestroy {
   constructor(
     private columnsStore: Store<ColumnsState>,
     public dialog: Dialog,
-    private taskStore: Store<TasksState>
+    private taskStore: Store<TasksState>,
+    private tasksService: TaskService
   ) {}
 
   ngOnInit() {
     this.boardId = this.column.boardId!;
-    this.taskStore.dispatch(
-      tasksActions.getAllTasks({
-        boardId: this.boardId,
-        columnId: this.column._id!,
-      })
-    );
     this.formTitleInput = new FormGroup({
       columnTitle: new FormControl(`${this.column.title}`, [
         Validators.required,
@@ -65,6 +61,7 @@ export class ColumnComponent implements OnInit, OnDestroy {
     this.tasksSubscription = this.taskStore
       .select(getTasks)
       .subscribe(tasks => {
+        console.log(tasks);
         tasks.map(task => {
           if (this.column._id === task.columnId) {
             const existingTask: Task | undefined = this.tasks.find(

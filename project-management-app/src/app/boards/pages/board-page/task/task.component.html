@@ -1,4 +1,7 @@
-<mat-card class="task" *ngIf="currentTask">
+<mat-card
+  class="task"
+  *ngIf="currentTask"
+  [ngClass]="{ hidden: isDeleted === true }">
   <div class="task_data" (click)="onTaskOpen()">
     <mat-card-title class="task_title">{{ currentTask.title }}</mat-card-title>
   </div>

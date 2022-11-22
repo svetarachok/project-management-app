@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { ColumnsState } from '../../../core/store/state/columns.state';
 import * as columnsActions from '../../../core/store/actions/columns.actions';
+import * as tasksActions from '../../../core/store/actions/tasks.actions';
 import { getBoards } from '../../../core/store/selectors/boards.selectors';
 import { BoardsState } from '../../../core/store/state/boards.state';
 import { CreateColumnModalComponent } from '../../components/create-column-modal/create-column-modal.component';
@@ -14,6 +15,7 @@ import { Board } from '../../models/board.interface';
 import { Column, ColumnsOrder } from '../../models/column.interface';
 import { getColumns } from '../../../core/store/selectors/columns.selectors';
 import { Subscription } from 'rxjs';
+import { TasksState } from 'src/app/core/store/state/tasks.state';
 
 @Component({
   selector: 'app-board-page',
@@ -35,14 +37,12 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private boardsStore: Store<BoardsState>,
     private columnStore: Store<ColumnsState>,
+    private tasksStore: Store<TasksState>,
     public dialog: Dialog
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => (this.boardId = params['id']));
-    this.columnStore.dispatch(
-      columnsActions.getColumns({ boardId: this.boardId })
-    );
     this.subscriptionBoard = this.boardsStore
       .pipe(
         select(getBoards),
@@ -51,6 +51,12 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(boards => (this.board = boards[0]));
+    this.columnStore.dispatch(
+      columnsActions.getColumns({ boardId: this.boardId })
+    );
+    this.tasksStore.dispatch(
+      tasksActions.getAllTasks({ boardId: this.boardId })
+    );
     this.getAllColumns();
   }
 
