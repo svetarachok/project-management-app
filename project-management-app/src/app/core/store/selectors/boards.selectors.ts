@@ -8,3 +8,8 @@ export const getBoards = createSelector(
   getBaordsSelector,
   boards => boards.boards
 );
+
+export const getErrorMessage = createSelector(
+  getBaordsSelector,
+  boards => boards.error
+);

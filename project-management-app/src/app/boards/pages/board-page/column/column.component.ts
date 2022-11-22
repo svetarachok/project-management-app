@@ -13,7 +13,7 @@ import * as tasksActions from '../../../../core/store/actions/tasks.actions';
 import { FormErrors } from '../../../models/form-errors-enum';
 import { CreateTaskModalComponent } from '../../../components/create-task-modal/create-task-modal.component';
 import { Subscription } from 'rxjs';
-import { getTasks } from 'src/app/core/store/selectors/tasks.selectors';
+import { getErrorMessage, getTasks } from 'src/app/core/store/selectors/tasks.selectors';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -21,6 +21,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
 import { TaskService } from 'src/app/boards/services/task-service/task.service';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-column-component',
@@ -44,11 +45,13 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
   tasksSubscription!: Subscription;
 
+  errorTasksSubscription!: Subscription;
+
   constructor(
     private columnsStore: Store<ColumnsState>,
     public dialog: Dialog,
     private taskStore: Store<TasksState>,
-    private tasksService: TaskService
+    private snackBarService: SnackBarService
   ) {}
 
   ngOnInit() {
@@ -63,6 +66,13 @@ export class ColumnComponent implements OnInit, OnDestroy {
       .subscribe(tasks => {
         this.tasks = tasks.filter(task => task.columnId === this.column._id);
         this.tasks.sort((a, b) => a.order - b.order);
+      });
+    this.errorTasksSubscription = this.taskStore
+      .select(getErrorMessage)
+      .subscribe(message => {
+        if (message !== '') {
+          this.snackBarService.openSnackBar(message);
+        }
       });
     this.getColumnsIds();
   }
@@ -177,5 +187,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.tasksSubscription.unsubscribe();
+    this.errorTasksSubscription.unsubscribe();
   }
 }

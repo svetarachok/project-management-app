@@ -8,22 +8,27 @@ export const columnsReducer = createReducer(
   on(ColumnsActions.getBoardIdToStore, (state, { boardId }) => ({
     columns: [...state.columns],
     boardId: boardId,
+    error: '',
   })),
   on(ColumnsActions.createNewColumnSuccess, (state, { column }) => ({
     columns: [...state.columns, column],
     boardId: state.boardId,
+    error: '',
   })),
   on(ColumnsActions.getColumnsSuccess, (state, { columns }) => ({
     columns: [...columns],
     boardId: state.boardId,
+    error: '',
   })),
   on(ColumnsActions.deleteColumnSuccess, (state, { _id: id }) => ({
     columns: [...state.columns].filter(column => column._id !== id),
     boardId: state.boardId,
+    error: '',
   })),
   on(ColumnsActions.updateColumnsOrderSuccess, (state, { columns }) => ({
     columns: [...columns],
     boardId: state.boardId,
+    error: '',
   })),
   on(ColumnsActions.updateColumnTitleSuccess, (state, { column }) => ({
     columns: [
@@ -31,7 +36,13 @@ export const columnsReducer = createReducer(
       column,
     ],
     boardId: state.boardId,
+    error: '',
   })),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  on(ColumnsActions.clearColumnsStore, state => initialColumnState)
+  on(ColumnsActions.clearColumnsStore, state => initialColumnState),
+  on(ColumnsActions.catchColumnsError, (state, action) => ({
+    columns: [...state.columns],
+    boardId: state.boardId,
+    error: action.message,
+  }))
 );

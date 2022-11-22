@@ -7,6 +7,7 @@ export const GET_BOARDS = '[Boards Service] Get user boards from server';
 export const GET_BOARDS_SUCCESS = '[Boards Service] Get user boards at state';
 export const DELETE_BOARD = '[Main Page] Delete chosen board';
 export const DELETE_BOARD_SUCCESS = '[Main Page] Board deleted';
+export const CATCH_ERROR = '[Main Page] Boards upload failed';
 
 export const createNewBoard = createAction(
   CREATE_BOARD,
@@ -30,4 +31,9 @@ export const deleteBoards = createAction(
 export const deleteBoardsSuccess = createAction(
   DELETE_BOARD_SUCCESS,
   props<{ _id: string }>()
+);
+
+export const catchBoardsError = createAction(
+  CATCH_ERROR,
+  props<{ message: string }>()
 );
