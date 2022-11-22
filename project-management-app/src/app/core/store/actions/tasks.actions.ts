@@ -10,6 +10,9 @@ export const CREATE_TASK_SUCCESS = '[Column] New Task Created';
 export const GET_ALL_TASKS = '[Column] Get all tasks';
 export const GET_ALL_TASKS_SUCCESS = '[Column] Get all tasks success';
 
+export const GET_TASK = '[Task card in column] Get task by id';
+export const GET_TASK_SUCCESS = '[Task card in column]] Get task success';
+
 export const UPADTE_TASK = '[Task Modal] Update task';
 export const UPADTE_TASK_SUCCESS = '[Task Modal] Update task success';
 
@@ -31,7 +34,7 @@ export const createNewTaskSuccess = createAction(
 
 export const getAllTasks = createAction(
   GET_ALL_TASKS,
-  props<{ boardId: string; columnId: string }>()
+  props<{ boardId: string }>()
 );
 export const getAllTasksSuccess = createAction(
   GET_ALL_TASKS_SUCCESS,
