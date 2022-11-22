@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { mergeMap, map } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 import { Task, TaskForUpdateInSet } from 'src/app/boards/models/task.interface';
+import { ErrorService } from 'src/app/boards/services/error-service/error.service';
 
 import { TaskService } from '../../../boards/services/task-service/task.service';
 import * as tasksActions from '../actions/tasks.actions';
@@ -23,6 +25,14 @@ export class TasksEffects {
             .pipe(
               map(task => {
                 return tasksActions.createNewTaskSuccess({ task });
+              }),
+              catchError(resp => {
+                const errorMessage: string = this.errorService.getErrorMessage(
+                  resp.error
+                );
+                return of(
+                  tasksActions.catchTasksError({ message: errorMessage })
+                );
               })
             );
         }
@@ -60,6 +70,14 @@ export class TasksEffects {
             .pipe(
               map(task => {
                 return tasksActions.updateTaskSuccess({ task });
+              }),
+              catchError(resp => {
+                const errorMessage: string = this.errorService.getErrorMessage(
+                  resp.error
+                );
+                return of(
+                  tasksActions.catchTasksError({ message: errorMessage })
+                );
               })
             );
         }
@@ -74,6 +92,12 @@ export class TasksEffects {
         return this.tasksService.updateSetOfTasks(action.tasks).pipe(
           map(tasks => {
             return tasksActions.updateTaskSetSuccess({ tasks });
+          }),
+          catchError(resp => {
+            const errorMessage: string = this.errorService.getErrorMessage(
+              resp.error
+            );
+            return of(tasksActions.catchTasksError({ message: errorMessage }));
           })
         );
       })
@@ -99,5 +123,9 @@ export class TasksEffects {
     );
   });
 
-  constructor(private actions$: Actions, private tasksService: TaskService) {}
+  constructor(
+    private actions$: Actions,
+    private tasksService: TaskService,
+    private errorService: ErrorService
+  ) {}
 }

@@ -15,3 +15,8 @@ export const getTasks = createSelector(
   getTasksSelector,
   (tasks: fromTasks.TasksState) => tasks.tasks
 );
+
+export const getErrorMessage = createSelector(
+  getTasksSelector,
+  tasks => tasks.error
+);

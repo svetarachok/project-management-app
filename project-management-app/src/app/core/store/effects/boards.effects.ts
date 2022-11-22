@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 
 import * as BoardsActions from '../actions/boards.actions';
 
 import { BoardService } from '../../../boards/services/board-service/board.service';
 import { Board } from '../../../boards/models/board.interface';
+import { of } from 'rxjs';
+import { ErrorService } from 'src/app/boards/services/error-service/error.service';
 
 @Injectable()
 export class BoardsEffects {
@@ -23,6 +25,14 @@ export class BoardsEffects {
           .pipe(
             map(board => {
               return BoardsActions.createNewBoardSuccess({ board });
+            }),
+            catchError(resp => {
+              const errorMessage: string = this.errorService.getErrorMessage(
+                resp.error
+              );
+              return of(
+                BoardsActions.catchBoardsError({ message: errorMessage })
+              );
             })
           );
       })
@@ -49,11 +59,23 @@ export class BoardsEffects {
         return this.boardsService.getBoards(action.id!).pipe(
           map(boards => {
             return BoardsActions.getBoardsSuccess({ boards: boards });
+          }),
+          catchError(resp => {
+            const errorMessage: string = this.errorService.getErrorMessage(
+              resp.error
+            );
+            return of(
+              BoardsActions.catchBoardsError({ message: errorMessage })
+            );
           })
         );
       })
     );
   });
 
-  constructor(private actions$: Actions, private boardsService: BoardService) {}
+  constructor(
+    private actions$: Actions,
+    private boardsService: BoardService,
+    private errorService: ErrorService
+  ) {}
 }

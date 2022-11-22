@@ -7,11 +7,18 @@ export const boardsReducer = createReducer(
   initialBoardState,
   on(BoardsActions.createNewBoardSuccess, (state, { board }) => ({
     boards: [...state.boards, board],
+    error: state.error,
   })),
   on(BoardsActions.getBoardsSuccess, (state, boards) => ({
     boards: [...boards.boards],
+    error: '',
   })),
   on(BoardsActions.deleteBoardsSuccess, (state, { _id: id }) => ({
     boards: [...state.boards].filter(board => board._id !== id),
+    error: '',
+  })),
+  on(BoardsActions.catchBoardsError, (state, action) => ({
+    boards: [...state.boards],
+    error: action.message,
   }))
 );

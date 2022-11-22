@@ -15,6 +15,7 @@ export const UPDATE_COLUMN_TITLE = '[Column Component] Update Column Title';
 export const UPDATE_COLUMN_TITLE_SUCCESS =
   '[Column Component] Update Column Title Success';
 export const CLEAR_COLUMNS_STORE = '[Board Page] Clear Columns store';
+export const CATCH_ERROR = '[Board Page Errors] Catch errors with columns';
 
 export const getBoardIdToStore = createAction(
   GET_BOARD_ID,
@@ -71,3 +72,8 @@ export const updateColumnTitleSuccess = createAction(
 );
 
 export const clearColumnsStore = createAction(CLEAR_COLUMNS_STORE);
+
+export const catchColumnsError = createAction(
+  CATCH_ERROR,
+  props<{ message: string }>()
+);

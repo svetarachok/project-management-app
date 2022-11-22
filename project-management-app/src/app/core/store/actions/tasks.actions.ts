@@ -22,6 +22,7 @@ export const UPADTE_TASK_SET_SUCCESS =
 
 export const DELETE_TASK = '[Task in column] Delete Task';
 export const DELETE_TASK_SUCCESS = '[Task in column] Delete Task Success';
+export const CATCH_ERROR = '[Board Page Errors] Catch errors with tasks';
 
 export const createNewTask = createAction(
   CREATE_TASK,
@@ -64,4 +65,9 @@ export const deleteTask = createAction(DELETE_TASK, props<{ task: Task }>());
 export const deleteTaskSuccess = createAction(
   DELETE_TASK_SUCCESS,
   props<{ _id: string }>()
+);
+
+export const catchTasksError = createAction(
+  CATCH_ERROR,
+  props<{ message: string }>()
 );

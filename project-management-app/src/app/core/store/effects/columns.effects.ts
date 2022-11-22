@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { mergeMap, map } from 'rxjs/operators';
+import { mergeMap, map, catchError } from 'rxjs/operators';
 
 import * as columnsActions from '../actions/columns.actions';
 
@@ -9,6 +9,8 @@ import { ColumnService } from '../../../boards/services/column-service/column.se
 import { Column, ColumnsOrder } from '../../../boards/models/column.interface';
 import { Action } from '@ngrx/store';
 import { ColumnsState } from '../state/columns.state';
+import { of } from 'rxjs';
+import { ErrorService } from 'src/app/boards/services/error-service/error.service';
 
 @Injectable()
 export class ColumnsEffects {
@@ -21,6 +23,14 @@ export class ColumnsEffects {
           .pipe(
             map(column => {
               return columnsActions.createNewColumnSuccess({ column });
+            }),
+            catchError(resp => {
+              const errorMessage: string = this.errorService.getErrorMessage(
+                resp.error
+              );
+              return of(
+                columnsActions.catchColumnsError({ message: errorMessage })
+              );
             })
           );
       })
@@ -62,6 +72,14 @@ export class ColumnsEffects {
         return this.columnsService.updateColumns(action.columns).pipe(
           map(columns => {
             return columnsActions.updateColumnsOrderSuccess({ columns });
+          }),
+          catchError(resp => {
+            const errorMessage: string = this.errorService.getErrorMessage(
+              resp.error
+            );
+            return of(
+              columnsActions.catchColumnsError({ message: errorMessage })
+            );
           })
         );
       })
@@ -83,6 +101,14 @@ export class ColumnsEffects {
             .pipe(
               map(column => {
                 return columnsActions.updateColumnTitleSuccess({ column });
+              }),
+              catchError(resp => {
+                const errorMessage: string = this.errorService.getErrorMessage(
+                  resp.error
+                );
+                return of(
+                  columnsActions.catchColumnsError({ message: errorMessage })
+                );
               })
             );
         }
@@ -92,6 +118,7 @@ export class ColumnsEffects {
 
   constructor(
     private actions$: Actions,
-    private columnsService: ColumnService
+    private columnsService: ColumnService,
+    private errorService: ErrorService
   ) {}
 }
