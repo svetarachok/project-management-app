@@ -10,7 +10,6 @@ import { Task } from '../../models/task.interface';
 import { TasksState } from '../../../core/store/state/tasks.state';
 import * as tasksActions from '../../../core/store/actions/tasks.actions';
 import { Board } from '../../models/board.interface';
-import { TaskService } from '../../services/task-service/task.service';
 
 @Component({
   selector: 'app-delete-confirmation',
@@ -24,8 +23,7 @@ export class DeleteConfirmationComponent {
     public dialogRef: DialogRef,
     private boardsStore: Store<BoardsState>,
     private columnsStore: Store<ColumnsState>,
-    private tasksStore: Store<TasksState>,
-    private tasksService: TaskService
+    private tasksStore: Store<TasksState>
   ) {}
 
   confirmDelete() {

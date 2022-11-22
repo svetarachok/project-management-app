@@ -23,12 +23,11 @@ export class TaskComponent {
   }
 
   onTaskDelete() {
-    let ref = this.dialog.open(DeleteConfirmationComponent, {
+    this.dialog.open(DeleteConfirmationComponent, {
       data: {
         item: this.currentTask,
         title: 'task',
       },
     });
-    console.log(ref.componentInstance);
   }
 }

@@ -7,8 +7,6 @@ import { Task, TaskForUpdateInSet } from '../../models/task.interface';
   providedIn: 'root',
 })
 export class TaskService {
-  public isTaskDeleted: boolean = false;
-
   constructor(private http: HttpClient) {}
 
   createTask(task: Task, boardId: string, columnId: string): Observable<Task> {
