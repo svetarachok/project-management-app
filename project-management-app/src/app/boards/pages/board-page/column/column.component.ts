@@ -12,14 +12,16 @@ import * as tasksActions from '../../../../core/store/actions/tasks.actions';
 
 import { CreateTaskModalComponent } from '../../../components/create-task-modal/create-task-modal.component';
 import { Subscription } from 'rxjs';
-import { getErrorMessage, getTasks } from 'src/app/core/store/selectors/tasks.selectors';
+import {
+  getErrorMessage,
+  getTasks,
+} from 'src/app/core/store/selectors/tasks.selectors';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
-import { TaskService } from 'src/app/boards/services/task-service/task.service';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
