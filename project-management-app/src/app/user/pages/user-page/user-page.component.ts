@@ -140,7 +140,7 @@ export class UserPageComponent implements OnInit {
     openDialog(
       this.dialog,
       this.userService.deleteUser(this.currentUser._id),
-      'account'
+      this.translateService.instant('CONFIRM_MODAL.targetAccount')
     );
   }
 }

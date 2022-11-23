@@ -109,6 +109,15 @@
     "formDescriptionError": "Пожалуйста, введите описание задачи",
     "btn": "Создать"
   },
+  "CONFIRM_MODAL": {
+    "title": "Удалить",
+    "targetAccount": "аккаунт",
+    "targetBoard": "доску",
+    "targetCol": "колонку",
+    "targetTask": "задачу",
+    "question": "Вы уверены?",
+    "cancel": "Отмена"
+  },
   "COLUMN": {
     "titleErr": "Пожалуйста, введите название колонки",
     "addTask": "Добавить задачу",

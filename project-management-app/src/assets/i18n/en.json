@@ -109,6 +109,15 @@
     "formDescriptionError": "Please enter a task description",
     "btn": "Create"
   },
+  "CONFIRM_MODAL": {
+    "title": "Delete",
+    "targetAccount": "account",
+    "targetBoard": "board",
+    "targetCol": "column",
+    "targetTask": "task",
+    "question": "Are you sure?",
+    "cancel": "Cancel"
+  },
   "COLUMN": {
     "titleErr": "Please enter a column title",
     "addTask": "Add task",
