@@ -8,10 +8,10 @@
     "user_btns": {
       "login_btn": "Вход",
       "logout_btn": "Выйти",
-      "edit_profile_btn": "Редактировать профиль",
+      "edit_profile_btn": "Профиль",
       "signup_btn": "Регистрация"
     },
-    "new_board_btn": "Создать новую доску"
+    "new_board_btn": "Новая доска"
   },
   "MAIN_PAGE": {
     "main_title": "Доски",
@@ -22,22 +22,22 @@
     "error": "404 Извините, искомая страница не найдена(("
   },
   "WELCOME_PAGE": {
-    "hero_title_1": "Приложение по управлению проектами",
-    "hero_title_2": "for High Performing Team",
-    "hero_subtitle": "Easy to Start. Visual to Use. Great Solutions.",
-    "get_started_btn": "Get Started",
+    "hero_title_1": "Приложение для управления проектами",
+    "hero_title_2": "для Эффективной Команды",
+    "hero_subtitle": "Легко начать. Простота использования. Отличные решения.",
+    "get_started_btn": "Приступить к работе",
     "tools-section": {
-      "title": "Manage complex work easily",
-      "list_item1": "List view",
-      "list_item2": "Boards",
-      "list_item3": "Cards",
-      "list_descr1": "Organize and assign tasks. With lists, teams see immediately what they need to do, which tasks are a priority, and when work is due.",
-      "list_descr2": "Make it easy for your team to focus on tasks currently at hand. Define each stage of work to see what/’s important and where things are getting stuck.",
-      "list_descr3": "PMA cards are your portal to more organized work—where every single part of your task can be managed, tracked, and shared with teammates."
+      "title": "Легко управлять сложной работой",
+      "list_item1": "Вид списка",
+      "list_item2": "Доски",
+      "list_item3": "Карточки",
+      "list_descr1": "Организуйте и назначайте задачи. С помощью списков команды сразу видят, что им нужно сделать, какие задачи являются приоритетными и когда работа должна быть выполнена.",
+      "list_descr2": "Упростите для своей команды задачу сосредоточиться на текущих задачах. Определите каждый этап работы, чтобы увидеть, что является важным и где происходит застой.",
+      "list_descr3": "Карточки PMA - это ваш портал к более организованной работе, где каждая часть вашей задачи может управляться, отслеживаться и передаваться членам команды."
     },
     "about-section": {
       "title": "О нас",
-      "description": "The application is developed as part of an Angular course by Rolling Scopes School.",
+      "description": "Приложение разработано в рамках курса Angular в школе Rolling Scopes.",
       "person1_title": "Светлана",
       "person1_descr1": "Deploy backend",
       "person1_descr2": "Main, Board pages",
@@ -45,5 +45,87 @@
       "person2_descr1": "Welcome page",
       "person2_descr2": "Login, Sign Up pages"
     }
+  },
+  "FORM": {
+    "labelName": "Имя",
+    "labelLogin": "Логин",
+    "labelPass": "Пароль",
+    "nameFormErrorReq": "Пожалуйста, введите ваше имя",
+    "nameFormErrorMinL": "Имя слишком короткое",
+    "nameFormErrorMaxL": "Имя слишком длинное",
+    "nameFormErrorRegx": "Только латинские или кириллические буквы, т.е.: Иван Иванов",
+    "loginFormErrorReq": "Пожалуйста, введите логин",
+    "loginFormErrorMinL": "Логин слишком короткий",
+    "loginFormErrorMaxL": "Логин слишком длинный",
+    "loginFormErrorRegx": "Логин может состоять только из латинских букв и цифр",
+    "passFormErrorReq": "Пожалуйста, введите пароль",
+    "passFormErrorRegx": "Не менее 8 символов с цифрами, заглавными буквами и спецсимволом !@#?].",
+    "passMinL": "Минимальная длина пароля 8 символов",
+    "passHasUpperCase": "Пароль должен содержать заглавные буквы",
+    "passHasNumeric": "Пароль должен содержать цифры",
+    "passHasSymbol": "Пароль должен содержать спецсимволы: ! @ # ? ]"
+  },
+  "LOGIN_PAGE": {
+    "title": "Привет",
+    "subtitle": "Войдите в свой аккаунт",
+    "btn": "Войти",
+    "noAccount": "Нет аккаунта?",
+    "link": "Регистрация"
+  },
+  "SIGNUP_PAGE": {
+    "title": "Регистрация",
+    "subtitle": "Единый инструмент управления проектами для всей компании, от маркетинга до инженерных разработок и многого другого.",
+    "btn": "Зарегистрироваться",
+    "haveAccount": "Уже есть аккаунт?",
+    "link": "Войти"
+  },
+  "USER_PAGE": {
+    "title": "Профиль",
+    "save": "Сохранить",
+    "successSaved": "Сохраненно!",
+    "delete": "Удалить аккаунт"
+  },
+  "BOARD_PAGE": {
+    "title": "Доска",
+    "createColBtn": "Создать колонку"
+  },
+  "CREATE_BOARD_MODAL": {
+    "title": "Создать новую доску",
+    "label": "Заголовок",
+    "formError": "Пожалуйста, введите название доски",
+    "btn": "Создать"
+  },
+  "CREATE_COL_MODAL": {
+    "title": "Создать новую колонку",
+    "label": "Заголовок",
+    "formError": "Пожалуйста, введите название колонки",
+    "btn": "Создать"
+  },
+  "CREATE_TASK_MODAL": {
+    "title": "Создать задачу",
+    "labelTitle": "Заголовок",
+    "labelDescription": "Описание",
+    "formTitleError": "Пожалуйста, введите название задачи",
+    "formDescriptionError": "Пожалуйста, введите описание задачи",
+    "btn": "Создать"
+  },
+  "COLUMN": {
+    "titleErr": "Пожалуйста, введите название колонки",
+    "addTask": "Добавить задачу",
+    "deleteCol": "Удалить колонку"
+  },
+  "TASK": {
+    "title": "Изменить задачу",
+    "labelTitle": "Заголовок",
+    "formTitleErr": "Пожалуйста, введите название задачи",
+    "labelDescription": "Описание",
+    "formDescriptionErr": "Пожалуйста, введите описание задачи",
+    "save": "Сохранить"
+  },
+  "API_ERRORS": {
+    "loginExist": "Логин уже существует",
+    "authError": "Неверный логин или пароль",
+    "bodyRequest": "Данные должны быть заполнены",
+    "unknowError": "Неизвестная ошибка... Обновите страницу"
   }
 }

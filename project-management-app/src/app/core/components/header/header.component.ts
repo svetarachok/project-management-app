@@ -17,10 +17,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subs!: Subscription;
 
-  languageList = [
-    { code: 'en', label: 'EN' },
-    { code: 'ru', label: 'РУ' },
-  ];
+  languageList = {
+    EN: 'ru',
+    RU: 'en',
+  };
+
+  switchLangTo = '';
 
   constructor(
     private modalsService: ModalsService,
@@ -30,7 +32,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.translate.setDefaultLang('en');
+    this.switchLangTo =
+      this.languageList[
+        (localStorage.getItem('pma-lang') ||
+          'EN') as keyof typeof this.languageList
+      ].toUpperCase();
+    this.translate.setDefaultLang(this.switchLangTo === 'RU' ? 'en' : 'ru');
     this.subs = this.store.select(fromUser.getIsAuth).subscribe(status => {
       this.isUserAuthorized = status;
     });
@@ -44,8 +51,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userService.logout();
   }
 
-  changeLang(lang: string) {
-    this.translate.use(lang);
+  changeLang() {
+    this.translate.use(this.switchLangTo === 'RU' ? 'ru' : 'en');
+    localStorage.setItem('pma-lang', this.switchLangTo);
+    this.switchLangTo =
+      this.languageList[
+        this.switchLangTo as keyof typeof this.languageList
+      ].toUpperCase();
   }
 
   ngOnDestroy(): void {

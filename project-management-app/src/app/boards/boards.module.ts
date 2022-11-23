@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MissingTranslationHandler, TranslateCompiler, TranslateLoader, TranslateModule, TranslateParser } from '@ngx-translate/core';
 
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
@@ -17,6 +16,7 @@ import { TaskComponent } from './pages/board-page/task/task.component';
 import { NotAuthGuard } from '../core/guards/not-auth.guard';
 import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
 import { TaskEditFormComponent } from './pages/board-page/task/task-edit-form/task-edit-form.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { TaskEditFormComponent } from './pages/board-page/task/task-edit-form/ta
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    TranslateModule.forChild(),
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',

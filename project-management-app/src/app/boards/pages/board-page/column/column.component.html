@@ -34,7 +34,7 @@
         </button>
       </div>
       <mat-error *ngIf="columnTitle!.invalid" class="column-title_error">{{
-        titleErrorMessage
+        'COLUMN.titleErr' | translate
       }}</mat-error>
     </mat-form-field>
   </form>
@@ -52,7 +52,7 @@
     color="primary"
     (click)="onTaskAddClick()"
     class="add-task-btn">
-    Add task
+    {{ 'COLUMN.addTask' | translate }}
   </button>
 </div>
 <div>
@@ -60,6 +60,6 @@
     mat-raised-button
     color="accent"
     (click)="onRemoveColumnClick(column._id!)">
-    Delete column
+    {{ 'COLUMN.deleteCol' | translate }}
   </button>
 </div>

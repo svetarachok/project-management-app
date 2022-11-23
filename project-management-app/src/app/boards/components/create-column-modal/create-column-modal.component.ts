@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormErrors } from '../../models/form-errors-enum';
 
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
 import { select, Store } from '@ngrx/store';
@@ -35,10 +34,6 @@ export class CreateColumnModalComponent implements OnInit {
 
   get title() {
     return this.createColumnFrom.get('title');
-  }
-
-  get titleErrorMessage(): string {
-    return this.title!.hasError('required') ? FormErrors.TITLE_REQUIRED : '';
   }
 
   onSubmit() {

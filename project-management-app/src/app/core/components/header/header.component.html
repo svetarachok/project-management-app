@@ -9,37 +9,37 @@
       >PM-App
     </a>
   </div>
-  <div *ngIf="isUserAuthorized; else unathorized" class="header_authorized">
-    <div class="header_create-board">
-      <p>{{ 'HEADER.new_board_btn' | translate }}</p>
-      <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
-    </div>
+  <div class="header_menu">
     <div class="header_language">
-      <ng-container *ngFor="let language of languageList">
-        <div class="lang-links">
-          <a (click)="changeLang(language.code)">
-            <button class="button">{{ language.label }}</button>
-          </a>
-        </div>
-      </ng-container>
-    </div>
-    <div class="header_user">
-      <button routerLink="/profile" mat-flat-button color="primary">
-        {{ 'HEADER.user_btns.edit_profile_btn' | translate }}
-      </button>
-      <button mat-stroked-button color="primary" (click)="logout()">
-        {{ 'HEADER.user_btns.logout_btn' | translate }}
+      <button (click)="changeLang()" mat-icon-button aria-label="languages">
+        <mat-icon color="primary" class="lang-ico">translate</mat-icon
+        >{{ switchLangTo }}
       </button>
     </div>
+    <div *ngIf="isUserAuthorized; else unathorized" class="header_authorized">
+      <div class="header_create-board">
+        <p>{{ 'HEADER.new_board_btn' | translate }}</p>
+        <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
+      </div>
+
+      <div class="header_user">
+        <button routerLink="/profile" mat-flat-button color="primary">
+          {{ 'HEADER.user_btns.edit_profile_btn' | translate }}
+        </button>
+        <button mat-stroked-button color="primary" (click)="logout()">
+          {{ 'HEADER.user_btns.logout_btn' | translate }}
+        </button>
+      </div>
+    </div>
+    <ng-template #unathorized>
+      <div class="header_user-unauth">
+        <button routerLink="/auth/login" mat-flat-button color="primary">
+          {{ 'HEADER.user_btns.login_btn' | translate }}
+        </button>
+        <button routerLink="/auth/sign-up" mat-stroked-button color="primary">
+          {{ 'HEADER.user_btns.signup_btn' | translate }}
+        </button>
+      </div>
+    </ng-template>
   </div>
-  <ng-template #unathorized>
-    <div class="header_user-unauth">
-      <button routerLink="/auth/login" mat-flat-button color="primary">
-        {{ 'HEADER.user_btns.login_btn' | translate }}
-      </button>
-      <button routerLink="/auth/sign-up" mat-stroked-button color="primary">
-        {{ 'HEADER.user_btns.signup_btn' | translate }}
-      </button>
-    </div>
-  </ng-template>
 </div>

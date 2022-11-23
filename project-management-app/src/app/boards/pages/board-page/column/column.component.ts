@@ -10,7 +10,6 @@ import { TasksState } from 'src/app/core/store/state/tasks.state';
 import * as columnsActions from '../../../../core/store/actions/columns.actions';
 import * as tasksActions from '../../../../core/store/actions/tasks.actions';
 
-import { FormErrors } from '../../../models/form-errors-enum';
 import { CreateTaskModalComponent } from '../../../components/create-task-modal/create-task-modal.component';
 import { map, Subscription } from 'rxjs';
 import { getTasks } from 'src/app/core/store/selectors/tasks.selectors';
@@ -86,12 +85,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
 
   get columnTitle() {
     return this.formTitleInput.get('columnTitle');
-  }
-
-  get titleErrorMessage(): string {
-    return this.columnTitle!.hasError('required')
-      ? FormErrors.TITLE_REQUIRED
-      : '';
   }
 
   onCloseTitleInput() {

@@ -11,12 +11,13 @@ import { catchError, finalize, throwError } from 'rxjs';
 import { UserService } from '../../../core/services/user.service';
 import { SnackBarService } from '../../../core/services/snack-bar.service';
 import { getUser } from '../../../core/store/selectors/user.selectors';
-import { ownValidator, passValidator } from '../../../shared/utils/validators';
 
 import * as UserAction from '../../../core/store/actions/user.actions';
 import { User } from 'src/app/core/models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { openDialog } from '../../../core/components/confirm-modal/confirm-modal.component';
+import { UtilsService } from 'src/app/core/services/utils.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-page',
@@ -36,15 +37,20 @@ export class UserPageComponent implements OnInit {
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(30),
-        ownValidator(/^([A-Za-zА-ЯЁа-яё]+)( ?)([A-Za-zА-ЯЁа-яё]+)?$/i),
+        this.utilsService.ownValidator(
+          /^([A-Za-zА-ЯЁа-яё]+)( ?)([A-Za-zА-ЯЁа-яё]+)?$/i
+        ),
       ]),
       login: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
         Validators.maxLength(30),
-        ownValidator(/^([A-Za-z0-9]+)$/i),
+        this.utilsService.ownValidator(/^([A-Za-z0-9]+)$/i),
       ]),
-      password: new FormControl('', [Validators.required, passValidator()]),
+      password: new FormControl('', [
+        Validators.required,
+        this.utilsService.passValidator(),
+      ]),
     },
     { updateOn: 'submit' }
   );
@@ -53,7 +59,9 @@ export class UserPageComponent implements OnInit {
     private userService: UserService,
     private dialog: MatDialog,
     private snackBarService: SnackBarService,
-    private store: Store
+    private store: Store,
+    private utilsService: UtilsService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -74,13 +82,21 @@ export class UserPageComponent implements OnInit {
   }
 
   handleError(error: HttpErrorResponse) {
-    this.snackBarService.openSnackBar(
-      `${error.error.statusCode}: ${error.error.message}`
-    );
+    if (error.status === 409) {
+      this.snackBarService.openSnackBar(
+        this.translateService.instant('API_ERRORS.loginExist')
+      );
+    } else if (error.status === 400) {
+      this.snackBarService.openSnackBar(
+        this.translateService.instant('API_ERRORS.bodyRequest')
+      );
+    } else {
+      this.snackBarService.openSnackBar(
+        this.translateService.instant('API_ERRORS.unknowError')
+      );
+    }
 
-    return throwError(
-      () => new Error(`${error.error.statusCode}: ${error.error.message}`)
-    );
+    return throwError(() => error);
   }
 
   onSubmit(formDirective: FormGroupDirective) {
@@ -101,18 +117,21 @@ export class UserPageComponent implements OnInit {
           }),
           catchError(err => this.handleError(err))
         )
-        .subscribe(() => {
-          this.isSuccessSubmited = true;
-          formDirective.resetForm();
-          this.ProfileForm.setValue({
-            name: this.currentUser.name!,
-            login: this.currentUser.login,
-            password: '',
-          });
+        .subscribe({
+          next: () => {
+            this.isSuccessSubmited = true;
+            formDirective.resetForm();
+            this.ProfileForm.setValue({
+              name: this.currentUser.name!,
+              login: this.currentUser.login,
+              password: '',
+            });
 
-          setTimeout(() => {
-            this.isSuccessSubmited = false;
-          }, 3000);
+            setTimeout(() => {
+              this.isSuccessSubmited = false;
+            }, 3000);
+          },
+          error: () => {},
         });
     }
   }

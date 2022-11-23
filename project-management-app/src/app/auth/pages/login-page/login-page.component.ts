@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { catchError, finalize, throwError } from 'rxjs';
 import { SnackBarService } from '../../../core/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
@@ -23,19 +24,28 @@ export class LoginPageComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private translateService: TranslateService
   ) {}
 
   submited = false;
 
   handleError(error: HttpErrorResponse) {
-    this.snackBarService.openSnackBar(
-      `${error.error.statusCode}: ${error.error.message}`
-    );
+    if (error.status === 401) {
+      this.snackBarService.openSnackBar(
+        this.translateService.instant('API_ERRORS.authError')
+      );
+    } else if (error.status === 400) {
+      this.snackBarService.openSnackBar(
+        this.translateService.instant('API_ERRORS.bodyRequest')
+      );
+    } else {
+      this.snackBarService.openSnackBar(
+        this.translateService.instant('API_ERRORS.unknowError')
+      );
+    }
 
-    return throwError(
-      () => new Error(`${error.error.statusCode}: ${error.error.message}`)
-    );
+    return throwError(() => error);
   }
 
   onSubmit() {
@@ -52,8 +62,9 @@ export class LoginPageComponent {
           }),
           catchError(err => this.handleError(err))
         )
-        .subscribe(() => {
-          this.router.navigateByUrl('/');
+        .subscribe({
+          next: () => this.router.navigateByUrl('/'),
+          error: () => {},
         });
     }
   }
