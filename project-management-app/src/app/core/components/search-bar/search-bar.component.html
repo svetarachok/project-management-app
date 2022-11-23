@@ -1,0 +1,10 @@
+<mat-form-field class="search-bar">
+  <input
+    matInput
+    type="text"
+    [(ngModel)]="searchData"
+    (keyup)="onKeyupAtSearch($event)" />
+  <button matSuffix mat-icon-button (click)="onSearch()" class="search-bar_btn">
+    <mat-icon class="search-bar_btn_icon">search</mat-icon>
+  </button>
+</mat-form-field>

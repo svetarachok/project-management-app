@@ -8,23 +8,24 @@
         fontIcon="view_kanban"></mat-icon
       >PM-App
     </a>
-  </div>
-  <div *ngIf="isUserAuthorized; else unathorized" class="header_authorized">
-    <div class="header_create-board">
+    <div class="header_create-board" *ngIf="isUserAuthorized; else unathorized">
       <p>New board</p>
       <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
     </div>
-    <div class="header_language">
+  </div>
+  <div class="header_search-bar" *ngIf="isUserAuthorized; else unathorized">
+    <app-search-bar></app-search-bar>
+  </div>
+  <div class="header_user" *ngIf="isUserAuthorized; else unathorized">
+    <div class="header_language" *ngIf="isUserAuthorized; else unathorized">
       <button mat-stroked-button color="primary" class="lang-btn">EN</button>
     </div>
-    <div class="header_user">
-      <button routerLink="/profile" mat-flat-button color="primary">
-        Edit porfile
-      </button>
-      <button mat-stroked-button color="primary" (click)="logout()">
-        Logout
-      </button>
-    </div>
+    <button routerLink="/profile" mat-flat-button color="primary">
+      Edit porfile
+    </button>
+    <button mat-stroked-button color="primary" (click)="logout()">
+      Logout
+    </button>
   </div>
   <ng-template #unathorized>
     <div class="header_user-unauth">
