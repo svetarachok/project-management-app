@@ -22,6 +22,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   onKeyupAtSearch(event: Event) {
-    console.log(event);
+    // console.log(event);
   }
 }

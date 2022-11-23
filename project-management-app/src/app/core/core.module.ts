@@ -14,6 +14,7 @@ import { appReducers } from './store/reducers/app.reducers';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { SearchResultsPageComponent } from './pages/search-results-page/search-results-page/search-results-page.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     NotFoundPageComponent,
     ConfirmModalComponent,
     SearchBarComponent,
+    SearchResultsPageComponent,
   ],
   imports: [
     CommonModule,
