@@ -10,8 +10,18 @@
         >PM-App
       </a>
       <div class="header_create-board">
-        <p>New board</p>
-        <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
+        <button
+          mat-stroked-button
+          (click)="onCreateNewBoard()"
+          class="result_item_remove-btn">
+          New board
+          <mat-icon
+            mat-icon-no-color
+            color="accent"
+            class="result_item_remove-btn__icon"
+            >dashboard_customize</mat-icon
+          >
+        </button>
       </div>
     </div>
     <div class="header_search-bar">
