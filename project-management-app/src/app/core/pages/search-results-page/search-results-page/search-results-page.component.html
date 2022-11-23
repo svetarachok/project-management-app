@@ -1,4 +1,6 @@
 <ng-template #noSearch>Nothing to show</ng-template>
 <div *ngIf="isSearchStarted; else noSearch" class="search-results">
-  {{ searchResults | json }}
+  <app-search-result
+    *ngFor="let result of searchResults"
+    [result]="result"></app-search-result>
 </div>
