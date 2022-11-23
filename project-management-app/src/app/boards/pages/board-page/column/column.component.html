@@ -64,7 +64,7 @@
   [cdkDropListData]="tasks"
   [cdkDropListConnectedTo]="columnsIds"
   (cdkDropListDropped)="dropTasks($event)">
-  <app-task *ngFor="let task of tasks" [task]="task" cdkDrag></app-task>
+  <app-task *ngFor="let task of tasks" [currentTask]="task" cdkDrag></app-task>
 </div>
 <button mat-menu-item (click)="onTaskAddClick()" class="add-task-btn">
   <mat-icon>add</mat-icon>
