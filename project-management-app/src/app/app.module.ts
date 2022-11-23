@@ -12,7 +12,11 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { AppComponent } from './app.component';
 
-import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HttpBackend,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { httpInterceptorProviders } from './core/services/interceptors';
 
 import { environment } from 'src/environments/environment';
