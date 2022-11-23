@@ -1,8 +1,8 @@
 :host{
-  max-width: 17rem;
-  width: 100%;
+  width: 17rem;
+  min-width: 17rem;
   padding: 10px;
-  border: dashed 1px #ccc;
+  border: dashed 1px rgb(36, 36, 36);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -10,15 +10,23 @@
   box-sizing: border-box;
   cursor: move;
   font-size: 14px;
-  background-color: white;
+  background-color: #f3f5fb;
 }
 
 .column-title {
-  &_header { 
+  &_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  &_header {
+    width: 100%; 
     font-weight: 600;
     font-size: 14px;
     margin-top: -0.2em;
     margin-bottom: 0;
+    margin-left: 10px;
   }
   &_form {
     display: flex;
@@ -49,15 +57,36 @@
   }
 }
 
-::ng-deep .column-title .mat-form-field-infix {
-  border-top: 0 !important;
-}
-
 .tasks_container {
-  background-color: bisque;
   width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 0.2rem;
-  height: 100%;
+  height: 60vh;
+  overflow-y: hidden;
+  &:hover {
+    overflow-y: auto;
+  }
+}
+
+.add-task-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mat-icon {
+    margin-right: 10px !important;
+  }
+}
+
+::ng-deep .column-title .mat-form-field-infix {
+  border-top: 0 !important;
+  margin-top: 6px !important;
+  margin-left: 10px !important;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 0.45em !important;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  bottom: 0.5em !important;
 }

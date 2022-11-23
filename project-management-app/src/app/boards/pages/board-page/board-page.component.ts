@@ -7,13 +7,19 @@ import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { ColumnsState } from '../../../core/store/state/columns.state';
 import * as columnsActions from '../../../core/store/actions/columns.actions';
+import * as tasksActions from '../../../core/store/actions/tasks.actions';
 import { getBoards } from '../../../core/store/selectors/boards.selectors';
 import { BoardsState } from '../../../core/store/state/boards.state';
 import { CreateColumnModalComponent } from '../../components/create-column-modal/create-column-modal.component';
 import { Board } from '../../models/board.interface';
 import { Column, ColumnsOrder } from '../../models/column.interface';
-import { getColumns } from '../../../core/store/selectors/columns.selectors';
+import {
+  getColumns,
+  getErrorMessage,
+} from '../../../core/store/selectors/columns.selectors';
 import { Subscription } from 'rxjs';
+import { TasksState } from 'src/app/core/store/state/tasks.state';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-board-page',
@@ -31,18 +37,21 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   subscriptionColumns!: Subscription;
 
+  errorsSubscrBoards!: Subscription;
+
+  errorsSubscrColumns!: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private boardsStore: Store<BoardsState>,
     private columnStore: Store<ColumnsState>,
-    public dialog: Dialog
+    private tasksStore: Store<TasksState>,
+    public dialog: Dialog,
+    private snackBarService: SnackBarService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => (this.boardId = params['id']));
-    this.columnStore.dispatch(
-      columnsActions.getColumns({ boardId: this.boardId })
-    );
     this.subscriptionBoard = this.boardsStore
       .pipe(
         select(getBoards),
@@ -51,6 +60,20 @@ export class BoardPageComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe(boards => (this.board = boards[0]));
+    this.errorsSubscrBoards = this.boardsStore
+      .select(getErrorMessage)
+      .subscribe(message => {
+        if (message !== '') {
+          this.snackBarService.openSnackBar(message);
+        }
+      });
+
+    this.columnStore.dispatch(
+      columnsActions.getColumns({ boardId: this.boardId })
+    );
+    this.tasksStore.dispatch(
+      tasksActions.getAllTasks({ boardId: this.boardId })
+    );
     this.getAllColumns();
   }
 
@@ -65,6 +88,14 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       .select(getColumns)
       .pipe(map(columns => [...columns].sort((a, b) => a.order - b.order)))
       .subscribe(columns => (this.columns = columns));
+
+    this.errorsSubscrColumns = this.columnStore
+      .select(getErrorMessage)
+      .subscribe(message => {
+        if (message !== '') {
+          this.snackBarService.openSnackBar(message);
+        }
+      });
   }
 
   dropColumns(event: CdkDragDrop<Column[]>): void {
@@ -85,5 +116,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.subscriptionColumns.unsubscribe();
     this.subscriptionBoard.unsubscribe();
     this.columnStore.dispatch(columnsActions.clearColumnsStore());
+    this.errorsSubscrBoards.unsubscribe();
+    this.errorsSubscrColumns.unsubscribe();
   }
 }

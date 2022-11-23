@@ -13,3 +13,8 @@ export const getColumnsQuantity = createSelector(
   getColumnsSelector,
   columns => columns.columns.length
 );
+
+export const getErrorMessage = createSelector(
+  getColumnsSelector,
+  columns => columns.error
+);

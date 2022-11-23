@@ -7,8 +7,6 @@ import { Task, TaskForUpdateInSet } from '../../models/task.interface';
   providedIn: 'root',
 })
 export class TaskService {
-  allTasks!: Task[];
-
   constructor(private http: HttpClient) {}
 
   createTask(task: Task, boardId: string, columnId: string): Observable<Task> {
@@ -31,7 +29,17 @@ export class TaskService {
     return this.http.get<Task[]>(url);
   }
 
-  updateSetOfTasks(tasks: TaskForUpdateInSet[]) {
+  updateSetOfTasks(tasks: TaskForUpdateInSet[]): Observable<Task[]> {
     return this.http.patch<Task[]>('/tasksSet', tasks);
+  }
+
+  deleteTask(
+    taskId: string,
+    boardId: string,
+    columnId: string
+  ): Observable<Task> {
+    return this.http.delete<Task>(
+      `/boards/${boardId}/columns/${columnId}/tasks/${taskId}`
+    );
   }
 }

@@ -2,8 +2,27 @@
   width: 100%;
 }
 .task {
-  &_title {
-    font-size: 14px;
-    font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem 0 1rem;
+  &_data{
+    width: 80%;    
+    padding: 1rem 0;
   }
+  &_title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  &_delete-btn {
+    &__icon {
+      font-size: 1.2rem;
+      color: rgba(0,0,0,.54);
+    }
+  }
+}
+
+.hidden {
+  display: none;
 }
