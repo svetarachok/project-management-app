@@ -15,13 +15,16 @@ export class SearchBarComponent {
   onSearch(): void {
     this.router.navigate(['/search-results']);
     this.searchService.startedSearch = true;
+    this.searchService.searchRequest = this.searchData;
     this.searchService.search(this.searchData);
     this.searchData = '';
   }
 
   onEnterPressed(event: KeyboardEvent): void {
     if (event.code === 'Enter') {
+      this.router.navigate(['/search-results']);
       this.searchService.startedSearch = true;
+      this.searchService.searchRequest = this.searchData;
       this.searchService.search(this.searchData);
       this.searchData = '';
     }

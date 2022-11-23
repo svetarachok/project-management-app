@@ -11,6 +11,8 @@ export class SearchService {
 
   startedSearch: boolean = false;
 
+  searchRequest: string = '';
+
   searchResults: BehaviorSubject<Task[]> = new BehaviorSubject(this.data);
 
   constructor(private http: HttpClient) {}

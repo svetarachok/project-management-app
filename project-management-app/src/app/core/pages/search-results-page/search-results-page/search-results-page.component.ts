@@ -10,8 +10,12 @@ import { Task } from '../../../../boards/models/task.interface';
 export class SearchResultsPageComponent {
   constructor(private searchService: SearchService) {}
 
-  public get isSearchStarted() {
+  public get isSearchStarted(): boolean {
     return this.searchService.startedSearch;
+  }
+
+  public get searchRequest(): string {
+    return this.searchService.searchRequest;
   }
 
   public get searchResults(): Task[] {
