@@ -125,7 +125,9 @@
   "API_ERRORS": {
     "loginExist": "Login already exist",
     "authError": "Wrong login or password",
-    "bodyRequest": "Data must be filled out",
-    "unknowError": "Unknown error... Refresh page"
+    "invalidToken": "Invalid Token",
+    "badRequest": "Bad Request",
+    "unknowError": "Unknown error... Refresh page",
+    "notFounded": "Not founded"
   }
 }
