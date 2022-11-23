@@ -1,31 +1,33 @@
 <div class="header">
-  <div class="header_logo">
-    <a routerLink="/">
-      <mat-icon
-        aria-hidden="false"
-        aria-label="PM-App"
-        color="primary"
-        fontIcon="view_kanban"></mat-icon
-      >PM-App
-    </a>
-    <div class="header_create-board" *ngIf="isUserAuthorized; else unathorized">
-      <p>New board</p>
-      <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
+  <div class="header_auth" *ngIf="isUserAuthorized; else unathorized">
+    <div class="header_logo">
+      <a routerLink="/">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="PM-App"
+          color="primary"
+          fontIcon="view_kanban"></mat-icon
+        >PM-App
+      </a>
+      <div class="header_create-board">
+        <p>New board</p>
+        <button mat-fab (click)="onCreateNewBoard()" color="primary">+</button>
+      </div>
     </div>
-  </div>
-  <div class="header_search-bar" *ngIf="isUserAuthorized; else unathorized">
-    <app-search-bar></app-search-bar>
-  </div>
-  <div class="header_user" *ngIf="isUserAuthorized; else unathorized">
-    <div class="header_language" *ngIf="isUserAuthorized; else unathorized">
-      <button mat-stroked-button color="primary" class="lang-btn">EN</button>
+    <div class="header_search-bar">
+      <app-search-bar></app-search-bar>
     </div>
-    <button routerLink="/profile" mat-flat-button color="primary">
-      Edit porfile
-    </button>
-    <button mat-stroked-button color="primary" (click)="logout()">
-      Logout
-    </button>
+    <div class="header_user">
+      <div class="header_language">
+        <button mat-stroked-button color="primary" class="lang-btn">EN</button>
+      </div>
+      <button routerLink="/profile" mat-flat-button color="primary">
+        Edit porfile
+      </button>
+      <button mat-stroked-button color="primary" (click)="logout()">
+        Logout
+      </button>
+    </div>
   </div>
   <ng-template #unathorized>
     <div class="header_user-unauth">
