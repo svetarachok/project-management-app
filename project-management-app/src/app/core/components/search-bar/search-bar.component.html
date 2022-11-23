@@ -3,7 +3,7 @@
     matInput
     type="text"
     [(ngModel)]="searchData"
-    (keyup)="onKeyupAtSearch($event)" />
+    (keypress)="onEnterPressed($event)" />
   <button matSuffix mat-icon-button (click)="onSearch()" class="search-bar_btn">
     <mat-icon class="search-bar_btn_icon">search</mat-icon>
   </button>

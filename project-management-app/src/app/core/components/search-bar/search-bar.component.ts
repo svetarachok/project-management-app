@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchService } from '../../services/search-service/search.service';
 
@@ -7,21 +7,23 @@ import { SearchService } from '../../services/search-service/search.service';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss'],
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent {
   searchData: string = '';
 
   constructor(private router: Router, private searchService: SearchService) {}
 
-  ngOnInit(): void {
-  }
-
-  onSearch() {
+  onSearch(): void {
     this.router.navigate(['/search-results']);
     this.searchService.startedSearch = true;
     this.searchService.search(this.searchData);
+    this.searchData = '';
   }
 
-  onKeyupAtSearch(event: Event) {
-    // console.log(event);
+  onEnterPressed(event: KeyboardEvent): void {
+    if (event.code === 'Enter') {
+      this.searchService.startedSearch = true;
+      this.searchService.search(this.searchData);
+      this.searchData = '';
+    }
   }
 }
