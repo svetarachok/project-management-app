@@ -4,6 +4,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { ExpCheckGuard } from './core/guards/exp-check.guard';
 import { NotAuthGuard } from './core/guards/not-auth.guard';
 import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
+import { SearchResultsPageComponent } from './core/pages/search-results-page/search-results-page/search-results-page.component';
 import { WelcomePageComponent } from './core/pages/welcome-page/welcome-page.component';
 
 const routes: Routes = [
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+    canActivate: [NotAuthGuard, ExpCheckGuard],
+  },
+  {
+    path: 'search-results',
+    component: SearchResultsPageComponent,
     canActivate: [NotAuthGuard, ExpCheckGuard],
   },
   {

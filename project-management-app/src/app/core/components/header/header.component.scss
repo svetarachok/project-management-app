@@ -1,4 +1,10 @@
 .header {
+  &_auth {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
   display: flex;
   height: 4rem;
   padding: 1rem 2.2rem;
@@ -9,7 +15,10 @@
     font-size: 1.6rem;
     font-weight: 700;
     text-transform: uppercase;
-
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+    
     a {
       display: flex;
       align-items: center;
@@ -36,17 +45,32 @@
     display: flex;
     align-items: center;
   }
+
   &_create-board {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-
     p {
+      font-size: 1rem;
+      font-weight: normal;
+      text-transform: none;
       margin-bottom: 0;
       padding-right: 1rem;
     }
+  }
+  &_search-bar {
+    padding: 0 4rem;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+  }
+  &_user {
+    display: flex;
+    gap: 0.5rem;
+    width: 30%;
+    justify-content: flex-end;
   }
   &_language {
     margin-right: 2rem;
@@ -57,10 +81,6 @@
       font-size: 17px;
       line-height: 16px;
     }
-  }
-  &_user {
-    display: flex;
-    gap: 0.5rem;
   }
   &_user-unauth {
     display: flex;

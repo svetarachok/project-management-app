@@ -1,0 +1,9 @@
+<ng-template #noSearch>Nothing to show</ng-template>
+<div *ngIf="isSearchStarted; else noSearch" class="search-results">
+  <p>
+    Your search request: <b>{{ searchRequest }}</b>
+  </p>
+  <app-search-result
+    *ngFor="let result of searchResults"
+    [result]="result"></app-search-result>
+</div>

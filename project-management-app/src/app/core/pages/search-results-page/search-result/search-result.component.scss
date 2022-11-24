@@ -1,0 +1,24 @@
+.result {
+  width: 50%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.5rem;
+  &_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__task-sub {
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+    &_btns {
+      margin-left: 1.5rem;
+    }
+    &_remove-btn {
+      &__icon {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}

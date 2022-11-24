@@ -1,0 +1,39 @@
+<mat-list-item class="result">
+  <div class="result_item">
+    <div class="result_item__data">
+      <div>
+        <p mat-card-subtitle class="result_item__task-sub">Task:</p>
+        <p class="result_item__task">{{ result.title }}</p>
+      </div>
+      <div>
+        <p mat-card-subtitle class="result_item__task-sub">Description:</p>
+        <p class="result_item__description" mat-card-content>
+          {{ result.description }}
+        </p>
+      </div>
+      <div *ngIf="result.users.length !== 0">
+        <p mat-card-subtitle class="result_item__task-sub">Users:</p>
+        <p
+          class="result_item__description"
+          mat-card-content
+          *ngFor="let user of result.users; index as i">
+          {{ user[i] }}
+        </p>
+      </div>
+    </div>
+    <div class="result_item_btns">
+      <button
+        mat-stroked-button
+        (click)="navigateToBoard()"
+        class="result_item_remove-btn">
+        <mat-icon
+          mat-icon-no-color
+          color="accent"
+          class="result_item_remove-btn__icon"
+          >developer_board</mat-icon
+        >Open Task board
+      </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</mat-list-item>
