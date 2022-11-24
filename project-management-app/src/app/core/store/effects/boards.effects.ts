@@ -9,6 +9,8 @@ import { BoardService } from '../../../boards/services/board-service/board.servi
 import { Board } from '../../../boards/models/board.interface';
 import { of } from 'rxjs';
 import { ErrorService } from 'src/app/boards/services/error-service/error.service';
+import { Store } from '@ngrx/store';
+import * as LoaderActions from '../actions/loader.actions';
 
 @Injectable()
 export class BoardsEffects {
@@ -16,6 +18,7 @@ export class BoardsEffects {
     return this.actions$.pipe(
       ofType(BoardsActions.CREATE_BOARD),
       mergeMap((action: Board) => {
+        this.store.dispatch(LoaderActions.setIsLoading({ isLoading: true }));
         return this.boardsService
           .createNewBoard({
             title: action.title,
@@ -24,11 +27,17 @@ export class BoardsEffects {
           })
           .pipe(
             map(board => {
+              this.store.dispatch(
+                LoaderActions.setIsLoading({ isLoading: false })
+              );
               return BoardsActions.createNewBoardSuccess({ board });
             }),
             catchError(resp => {
               const errorMessage: string = this.errorService.getErrorMessage(
                 resp.error
+              );
+              this.store.dispatch(
+                LoaderActions.setIsLoading({ isLoading: false })
               );
               return of(
                 BoardsActions.catchBoardsError({ message: errorMessage })
@@ -56,11 +65,18 @@ export class BoardsEffects {
     return this.actions$.pipe(
       ofType(BoardsActions.GET_BOARDS),
       mergeMap((action: { id: string }) => {
+        this.store.dispatch(LoaderActions.setIsLoading({ isLoading: true }));
         return this.boardsService.getBoards(action.id!).pipe(
           map(boards => {
+            this.store.dispatch(
+              LoaderActions.setIsLoading({ isLoading: false })
+            );
             return BoardsActions.getBoardsSuccess({ boards: boards });
           }),
           catchError(resp => {
+            this.store.dispatch(
+              LoaderActions.setIsLoading({ isLoading: false })
+            );
             const errorMessage: string = this.errorService.getErrorMessage(
               resp.error
             );
@@ -76,6 +92,7 @@ export class BoardsEffects {
   constructor(
     private actions$: Actions,
     private boardsService: BoardService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private store: Store
   ) {}
 }
