@@ -35,7 +35,7 @@
           </button>
         </div>
         <mat-error *ngIf="columnTitle!.invalid" class="column-title_error">{{
-          titleErrorMessage
+          'COLUMN.titleErr' | translate
         }}</mat-error>
       </mat-form-field>
     </form>
@@ -47,13 +47,13 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onRemoveColumnClick(column)">
+    <button mat-menu-item (click)="openConfirmModal()">
       <mat-icon>delete_forever</mat-icon>
-      <span>Delete column</span>
+      <span>{{ 'COLUMN.deleteCol' | translate }}</span>
     </button>
     <button mat-menu-item (click)="onTaskAddClick()">
       <mat-icon>add</mat-icon>
-      <span>Add new task</span>
+      <span>{{ 'COLUMN.addTask' | translate }}</span>
     </button>
   </mat-menu>
 </div>
@@ -68,5 +68,5 @@
 </div>
 <button mat-menu-item (click)="onTaskAddClick()" class="add-task-btn">
   <mat-icon>add</mat-icon>
-  <span>Add task</span>
+  <span>{{ 'COLUMN.addTask' | translate }}</span>
 </button>

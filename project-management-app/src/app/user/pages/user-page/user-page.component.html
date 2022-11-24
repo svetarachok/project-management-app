@@ -1,6 +1,6 @@
 <mat-card class="mat-card-profile">
   <div *ngIf="currentUser" class="profile__header">
-    <mat-card-title>User profile</mat-card-title>
+    <mat-card-title>{{ 'USER_PAGE.title' | translate }}</mat-card-title>
     <img src="../../../../assets/images/avatar.png" alt="avatar" />
   </div>
 
@@ -11,52 +11,52 @@
       (submit)="onSubmit(formDirective)"
       #formDirective="ngForm">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Name</mat-label>
+        <mat-label>{{ 'FORM.labelName' | translate }}</mat-label>
         <input id="name" matInput formControlName="name" />
         <mat-error *ngIf="ProfileForm.controls.name.errors?.['required']">
-          Please enter your name
+          {{ 'FORM.nameFormErrorReq' | translate }}
         </mat-error>
         <mat-error *ngIf="ProfileForm.controls.name.errors?.['minlength']">
-          Your name is too short
+          {{ 'FORM.nameFormErrorMinL' | translate }}
         </mat-error>
         <mat-error *ngIf="ProfileForm.controls.name.errors?.['maxlength']">
-          Your name is too long
+          {{ 'FORM.nameFormErrorMaxL' | translate }}
         </mat-error>
         <mat-error *ngIf="ProfileForm.controls.name.errors?.['errorMsg']">
-          Latin or Cyrillic letters only, i.e: Ivan Ivanov
+          {{ 'FORM.nameFormErrorRegx' | translate }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Login</mat-label>
+        <mat-label>{{ 'FORM.labelLogin' | translate }}</mat-label>
         <input id="login" matInput formControlName="login" />
         <mat-error *ngIf="ProfileForm.controls.login.errors?.['required']">
-          Please enter a login
+          {{ 'FORM.loginFormErrorReq' | translate }}
         </mat-error>
         <mat-error *ngIf="ProfileForm.controls.login.errors?.['minlength']">
-          Your login is too short
+          {{ 'FORM.loginFormErrorMinL' | translate }}
         </mat-error>
         <mat-error *ngIf="ProfileForm.controls.login.errors?.['maxlength']">
-          Your login is too long
+          {{ 'FORM.loginFormErrorMaxL' | translate }}
         </mat-error>
         <mat-error *ngIf="ProfileForm.controls.login.errors?.['errorMsg']">
-          Login can only consist of latin letters and numbers
+          {{ 'FORM.loginFormErrorRegx' | translate }}
         </mat-error>
       </mat-form-field>
       <mat-form-field
         [ngClass]="{ mb60: ProfileForm.controls.password.errors?.['errorMsg'] }"
         class="full-width"
         appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'FORM.labelPass' | translate }}</mat-label>
         <input
           id="password"
           type="password"
           matInput
           formControlName="password" />
         <mat-error *ngIf="ProfileForm.controls.password.errors?.['required']">
-          Please enter a password
+          {{ 'FORM.passFormErrorReq' | translate }}
         </mat-error>
         <mat-error *ngIf="ProfileForm.controls.password.errors?.['errorMsg']">
-          At least 8 chars with numbers, uppercase, special char !@#?]
+          {{ 'FORM.passFormErrorRegx' | translate }}
           <ul>
             <ng-container
               *ngFor="let err of ProfileForm.controls.password.errors?.['errorMsg'] | keyvalue">
@@ -79,7 +79,7 @@
           aria-hidden="true"
           aria-label="Save"
           fontIcon="save"></mat-icon>
-        Save
+        {{ 'USER_PAGE.save' | translate }}
       </button>
       <ng-template #successNote>
         <span class="submitted-success">
@@ -88,7 +88,7 @@
             aria-hidden="true"
             aria-label="submitted"
             fontIcon="check_small"></mat-icon
-          >Successfully saved!
+          >{{ 'USER_PAGE.successSaved' | translate }}
         </span>
       </ng-template>
 
@@ -103,7 +103,7 @@
             aria-hidden="true"
             aria-label="Delete account"
             fontIcon="person_remove"></mat-icon>
-          Delete account
+          {{ 'USER_PAGE.delete' | translate }}
         </button>
       </mat-card-footer>
     </form>

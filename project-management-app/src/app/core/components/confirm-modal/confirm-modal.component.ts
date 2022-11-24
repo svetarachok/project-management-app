@@ -18,21 +18,26 @@ import { UserService } from '../../services/user.service';
 export class ConfirmModalComponent {
   title!: string;
 
-  callback!: Observable<void>;
+  callback!: Observable<void> | (() => void);
 
   constructor(
     private userService: UserService,
     private snackBarService: SnackBarService,
     private dialogRef: MatDialogRef<ConfirmModalComponent>,
     @Inject(MAT_DIALOG_DATA)
-    data: { target: string; callback: Observable<void> }
+    data: { target: string; callback: Observable<void> | (() => void) }
   ) {
     this.title = data.target;
     this.callback = data.callback;
   }
 
   OK() {
-    this.callback.subscribe({ error: e => this.handleError(e) });
+    if (this.callback instanceof Observable) {
+      this.callback.subscribe({ error: e => this.handleError(e) });
+    } else {
+      this.callback();
+    }
+
     this.dialogRef.close();
   }
 
@@ -51,7 +56,7 @@ export class ConfirmModalComponent {
 
 export const openDialog = (
   dialog: MatDialog,
-  cb: Observable<void>,
+  cb: Observable<void> | (() => void),
   target: string
 ) => {
   const dialogConfig = new MatDialogConfig();

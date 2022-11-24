@@ -1,24 +1,24 @@
 <mat-card class="mat-card-login">
-  <mat-card-title>Hello</mat-card-title>
-  <mat-card-subtitle>Log in to your account</mat-card-subtitle>
+  <mat-card-title>{{ 'LOGIN_PAGE.title' | translate }}</mat-card-title>
+  <mat-card-subtitle>{{ 'LOGIN_PAGE.subtitle' | translate }}</mat-card-subtitle>
   <mat-card-content>
     <form class="form" [formGroup]="loginForm" (submit)="onSubmit()">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Login</mat-label>
+        <mat-label>{{ 'FORM.labelLogin' | translate }}</mat-label>
         <input id="login" matInput formControlName="login" />
         <mat-error *ngIf="loginForm?.controls?.login?.errors?.['required']">
-          Please enter a login
+          {{ 'FORM.loginFormErrorReq' | translate }}
         </mat-error>
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'FORM.labelPass' | translate }}</mat-label>
         <input
           id="password"
           type="password"
           matInput
           formControlName="password" />
         <mat-error *ngIf="loginForm?.controls?.password?.errors?.['required']">
-          Please enter a password
+          {{ 'FORM.passFormErrorReq' | translate }}
         </mat-error>
       </mat-form-field>
 
@@ -28,11 +28,12 @@
         type="submit"
         color="accent"
         mat-flat-button>
-        Login
+        {{ 'LOGIN_PAGE.btn' | translate }}
       </button>
 
       <mat-card-footer>
-        No account? <a routerLink="/auth/sign-up">Sign Up</a>
+        {{ 'LOGIN_PAGE.noAccount' | translate }}
+        <a routerLink="/auth/sign-up">{{ 'LOGIN_PAGE.link' | translate }}</a>
       </mat-card-footer>
     </form>
   </mat-card-content>
