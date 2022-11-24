@@ -2,9 +2,14 @@
   <input
     matInput
     type="text"
-    [(ngModel)]="searchData"
+    id="search"
+    [formControl]="searchData"
+    #searchInput="matInput"
     (keypress)="onEnterPressed($event)" />
   <button matSuffix mat-icon-button (click)="onSearch()" class="search-bar_btn">
     <mat-icon class="search-bar_btn_icon">search</mat-icon>
   </button>
 </mat-form-field>
+<mat-error *ngIf="isEmpty && searchInput.focused" class="search-bar_error"
+  >Please, enter some text</mat-error
+>
