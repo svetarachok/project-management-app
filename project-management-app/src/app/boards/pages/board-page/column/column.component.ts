@@ -21,7 +21,6 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-
 import { SnackBarService } from '../../../../core/services/snack-bar.service';
 import { openDialog } from '../../../../core/components/confirm-modal/confirm-modal.component';
 import { MatDialog } from '@angular/material/dialog';

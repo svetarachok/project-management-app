@@ -138,5 +138,11 @@
     "badRequest": "Bad Request",
     "unknowError": "Unknown error... Refresh page",
     "notFounded": "Not founded"
+  },
+  "SEARCH": {
+    "error": "Please, enter some text",
+    "start-your-search": "Please, start your search",
+    "not-found": "Nothing was found",
+    "search-results": "Your search request:"
   }
 }

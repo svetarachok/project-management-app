@@ -3,4 +3,10 @@
   &_btn_icon {
     font-size: 1.2rem !important;
   }
+  &_error {
+    position: absolute;
+    bottom: -5px;
+    font-size: 12px !important;
+    color: rgba(0,0,0,.54);
+  }
 }
