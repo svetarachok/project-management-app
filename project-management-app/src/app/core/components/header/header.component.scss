@@ -36,6 +36,16 @@
       }
     }
   }
+
+  &_menu {
+    display: flex;
+  }
+
+  &_authorized {
+    display: flex;
+    align-items: center;
+  }
+
   &_create-board {
     position: absolute;
     left: 50%;
