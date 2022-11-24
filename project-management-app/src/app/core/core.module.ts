@@ -35,6 +35,7 @@ import { SearchResultComponent } from './pages/search-results-page/search-result
     MaterialModule,
     FormsModule,
     StoreModule.forRoot(appReducers),
+    SharedModule,
   ],
   exports: [HeaderComponent, FooterComponent],
 })

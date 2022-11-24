@@ -2,12 +2,12 @@
   <section class="wrapper hero">
     <div class="hero__intro">
       <h1 class="hero__title">
-        <span class="span">Project Management App</span>
-        <span class="span">for High Performing Team</span>
+        <span class="span">{{ 'WELCOME_PAGE.hero_title_1' | translate }}</span>
+        <span class="span">{{ 'WELCOME_PAGE.hero_title_2' | translate }}</span>
       </h1>
 
       <p class="hero__subtitle">
-        Easy to Start. Visual to Use. Great Solutions.
+        {{ 'WELCOME_PAGE.hero_subtitle' | translate }}
       </p>
 
       <button
@@ -15,7 +15,7 @@
         class="hero__button"
         color="primary"
         mat-flat-button>
-        Get Started
+        {{ 'WELCOME_PAGE.get_started_btn' | translate }}
       </button>
     </div>
     <div class="hero__pic">
@@ -31,7 +31,9 @@
         title="hero" />
     </div>
     <div class="tools__description">
-      <h2 class="h2 tools__title">Manage complex work easily</h2>
+      <h2 class="h2 tools__title">
+        {{ 'WELCOME_PAGE.tools-section.title' | translate }}
+      </h2>
       <div class="features">
         <mat-card>
           <mat-card-header>
@@ -40,13 +42,14 @@
                 aria-hidden="true"
                 aria-label="List view"
                 fontIcon="view_kanban"></mat-icon
-              >List view</mat-card-title
+              >{{
+                'WELCOME_PAGE.tools-section.list_item1' | translate
+              }}</mat-card-title
             >
           </mat-card-header>
           <mat-card-content>
             <p>
-              Organize and assign tasks. With lists, teams see immediately what
-              they need to do, which tasks are a priority, and when work is due.
+              {{ 'WELCOME_PAGE.tools-section.list_descr1' | translate }}
             </p>
           </mat-card-content>
         </mat-card>
@@ -57,14 +60,14 @@
                 aria-hidden="true"
                 aria-label="Boards"
                 fontIcon="developer_board"></mat-icon
-              >Boards</mat-card-title
+              >{{
+                'WELCOME_PAGE.tools-section.list_item2' | translate
+              }}</mat-card-title
             >
           </mat-card-header>
           <mat-card-content>
             <p>
-              Make it easy for your team to focus on tasks currently at hand.
-              Define each stage of work to see what’s important and where things
-              are getting stuck.
+              {{ 'WELCOME_PAGE.tools-section.list_descr2' | translate }}
             </p>
           </mat-card-content>
         </mat-card>
@@ -75,14 +78,14 @@
                 aria-hidden="true"
                 aria-label="Cards"
                 fontIcon="view_timeline"></mat-icon
-              >Cards</mat-card-title
+              >{{
+                'WELCOME_PAGE.tools-section.list_item3' | translate
+              }}</mat-card-title
             >
           </mat-card-header>
           <mat-card-content>
             <p>
-              PMA cards are your portal to more organized work—where every
-              single part of your task can be managed, tracked, and shared with
-              teammates.
+              {{ 'WELCOME_PAGE.tools-section.list_descr3' | translate }}
             </p>
           </mat-card-content>
         </mat-card>
@@ -92,11 +95,8 @@
   <mat-divider></mat-divider>
   <section class="wrapper about-us">
     <div class="about-us__header">
-      <h2 class="h2">About Us</h2>
-      <p>
-        The application is developed as part of an Angular course by Rolling
-        Scope School.
-      </p>
+      <h2 class="h2">{{ 'WELCOME_PAGE.about-section.title' | translate }}</h2>
+      <p>{{ 'WELCOME_PAGE.about-section.description' | translate }}</p>
     </div>
     <div class="about-us__team">
       <div class="about-us__person">
@@ -104,10 +104,14 @@
           class="about-us__avatar"
           src="https://avatars.githubusercontent.com/u/39500221?v=4"
           alt="sveta" />
-        <h3>Sveta</h3>
+        <h3>{{ 'WELCOME_PAGE.about-section.person1_title' | translate }}</h3>
         <mat-list>
-          <mat-list-item>Deploy backend</mat-list-item>
-          <mat-list-item>Main, Board pages</mat-list-item>
+          <mat-list-item>{{
+            'WELCOME_PAGE.about-section.person1_descr1' | translate
+          }}</mat-list-item>
+          <mat-list-item>{{
+            'WELCOME_PAGE.about-section.person1_descr2' | translate
+          }}</mat-list-item>
         </mat-list>
       </div>
       <div class="about-us__person">
@@ -115,21 +119,14 @@
           class="about-us__avatar"
           src="https://avatars.githubusercontent.com/u/15246554?v=4"
           alt="vitali" />
-        <h3>Vitali</h3>
+        <h3>{{ 'WELCOME_PAGE.about-section.person2_title' | translate }}</h3>
         <mat-list>
-          <mat-list-item>Welcome page</mat-list-item>
-          <mat-list-item>Login, Sign Up pages</mat-list-item>
-        </mat-list>
-      </div>
-      <div class="about-us__person">
-        <img
-          class="about-us__avatar"
-          src="https://avatars.githubusercontent.com/u/11501370?s=200&v=4"
-          alt="?" />
-        <h3>?</h3>
-        <mat-list>
-          <mat-list-item>-</mat-list-item>
-          <mat-list-item>-</mat-list-item>
+          <mat-list-item>{{
+            'WELCOME_PAGE.about-section.person2_descr1' | translate
+          }}</mat-list-item>
+          <mat-list-item>{{
+            'WELCOME_PAGE.about-section.person2_descr2' | translate
+          }}</mat-list-item>
         </mat-list>
       </div>
     </div>

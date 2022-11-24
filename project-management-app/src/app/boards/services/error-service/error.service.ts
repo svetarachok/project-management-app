@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+import * as UserActions from '../../../core/store/actions/user.actions';
 
 export interface ErrorMessage {
   message: string;
@@ -9,16 +12,22 @@ export interface ErrorMessage {
   providedIn: 'root',
 })
 export class ErrorService {
+  constructor(
+    private translateService: TranslateService,
+    private store: Store
+  ) {}
+
   getErrorMessage(message: ErrorMessage) {
     switch (message.statusCode) {
       case 400:
-        return message.message;
+        return this.translateService.instant('API_ERRORS.badRequest');
       case 403:
-        return message.message;
+        this.store.dispatch(UserActions.userLogout());
+        return this.translateService.instant('API_ERRORS.invalidToken');
       case 404:
-        return message.message;
+        return this.translateService.instant('API_ERRORS.notFounded');
       default:
-        return 'Unknown error occured, please try again';
+        return this.translateService.instant('API_ERRORS.unknowError');
     }
   }
 }
