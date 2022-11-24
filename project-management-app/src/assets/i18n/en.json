@@ -143,6 +143,9 @@
     "error": "Please, enter some text",
     "start-your-search": "Please, start your search",
     "not-found": "Nothing was found",
-    "search-results": "Your search request:"
+    "search-results": "Your search request:",
+    "taskLabel": "Task",
+    "descLabel": "Description",
+    "openBoard": "Open Task Board"
   }
 }

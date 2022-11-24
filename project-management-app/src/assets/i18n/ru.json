@@ -143,6 +143,9 @@
     "error": "Пожалуйста, введите текст",
     "start-your-search": "Пожалуйста, начните поиск",
     "not-found": "Ничего не найдено",
-    "search-results": "Вы искали:"
+    "search-results": "Вы искали:",
+    "taskLabel": "Задача",
+    "descLabel": "Описание",
+    "openBoard": "Открыть доску с задачей"
   }
 }
