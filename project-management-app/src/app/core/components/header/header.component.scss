@@ -18,7 +18,6 @@
     display: flex;
     width: 30%;
     justify-content: space-between;
-    
     a {
       display: flex;
       align-items: center;
@@ -36,22 +35,8 @@
       }
     }
   }
-
-  &_menu {
-    display: flex;
-  }
-
-  &_authorized {
-    display: flex;
-    align-items: center;
-  }
-
   &_create-board {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
+    margin-right: 2rem;
     p {
       font-size: 1rem;
       font-weight: normal;
