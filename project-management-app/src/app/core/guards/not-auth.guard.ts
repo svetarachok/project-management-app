@@ -28,8 +28,6 @@ export class NotAuthGuard implements CanActivate {
   }
 
   handle() {
-    return this.userService.getTokenFromLS()
-      ? true
-      : this.router.parseUrl('/welcome');
+    return this.userService.getTokenFromLS() ? true : this.userService.logout();
   }
 }
