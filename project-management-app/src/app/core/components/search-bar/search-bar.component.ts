@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SearchService } from '../../services/search-service/search.service';
@@ -8,7 +8,7 @@ import { SearchService } from '../../services/search-service/search.service';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss'],
 })
-export class SearchBarComponent {
+export class SearchBarComponent implements OnDestroy {
   searchData: FormControl = new FormControl('');
 
   isEmpty: boolean = false;
@@ -16,12 +16,14 @@ export class SearchBarComponent {
   constructor(private router: Router, private searchService: SearchService) {}
 
   onSearch(): void {
-    if (this.searchData.value.trim() !== '' && this.searchData.touched) {
+    if (
+      this.searchData.value.trim() !== '' &&
+      (this.searchData.touched || this.searchData.dirty)
+    ) {
       this.router.navigate(['/search-results']);
       this.searchService.startedSearch = true;
       this.searchService.searchRequest = this.searchData.value;
       this.searchService.search(this.searchData.value);
-      this.searchData.reset();
     } else {
       this.isEmpty = true;
     }
@@ -31,5 +33,9 @@ export class SearchBarComponent {
     if (event.code === 'Enter') {
       this.onSearch();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.searchData.reset();
   }
 }

@@ -1,9 +1,14 @@
-<ng-template #noSearch>Nothing to show</ng-template>
+<ng-template #noSearch>{{
+  'SEARCH.start-your-search' | translate
+}}</ng-template>
 <div *ngIf="isSearchStarted; else noSearch" class="search-results">
   <p>
-    Your search request: <b>{{ searchRequest }}</b>
+    {{ 'SEARCH.search-results' | translate }} <b>{{ searchRequest }}</b>
   </p>
-  <app-search-result
-    *ngFor="let result of searchResults"
-    [result]="result"></app-search-result>
+  <ng-template #noResults>{{ 'SEARCH.not-found' | translate }}</ng-template>
+  <div *ngIf="searchResults.length; else noResults">
+    <app-search-result
+      *ngFor="let result of searchResults"
+      [result]="result"></app-search-result>
+  </div>
 </div>

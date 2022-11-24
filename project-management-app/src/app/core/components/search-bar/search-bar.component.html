@@ -10,6 +10,6 @@
     <mat-icon class="search-bar_btn_icon">search</mat-icon>
   </button>
 </mat-form-field>
-<mat-error *ngIf="isEmpty && searchInput.focused" class="search-bar_error"
-  >Please, enter some text</mat-error
->
+<mat-error *ngIf="isEmpty && searchInput.focused" class="search-bar_error">{{
+  'SEARCH.error' | translate
+}}</mat-error>
