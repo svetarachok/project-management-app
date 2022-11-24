@@ -16,7 +16,6 @@ import { TaskComponent } from './pages/board-page/task/task.component';
 import { NotAuthGuard } from '../core/guards/not-auth.guard';
 import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
 import { TaskEditFormComponent } from './pages/board-page/task/task-edit-form/task-edit-form.component';
-import { DeleteConfirmationComponent } from './components/delete-confirmation/delete-confirmation.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -30,7 +29,6 @@ import { SharedModule } from '../shared/shared.module';
     TaskComponent,
     CreateTaskModalComponent,
     TaskEditFormComponent,
-    DeleteConfirmationComponent,
   ],
   imports: [
     CommonModule,
