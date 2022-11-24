@@ -1,4 +1,9 @@
 .header {
+  &_menu {
+    display: flex;
+    align-items: center;
+  }
+
   &_auth {
     display: flex;
     justify-content: space-between;
@@ -36,7 +41,6 @@
     }
   }
   &_create-board {
-    margin-right: 2rem;
     p {
       font-size: 1rem;
       font-weight: normal;
@@ -46,20 +50,19 @@
     }
   }
   &_search-bar {
-    padding: 0 4rem;
-    width: 40%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
     display: flex;
     justify-content: center;
-    position: relative;
   }
   &_user {
     display: flex;
     gap: 0.5rem;
-    width: 30%;
-    justify-content: flex-end;
   }
   &_language {
-    margin-right: 2rem;
+    margin-right: 1rem;
 
     .mat-icon {
       height: 17px;
