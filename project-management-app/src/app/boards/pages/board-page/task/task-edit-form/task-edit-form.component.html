@@ -1,6 +1,6 @@
 <div class="task-container">
   <div class="task-container_header">
-    <p mat-dialog-title>Edit task:</p>
+    <p mat-dialog-title>{{ 'TASK.title' | translate }}:</p>
     <p
       class="task-form_header"
       [(ngModel)]="task.title"
@@ -16,35 +16,37 @@
       (ngSubmit)="onTaskDataChanged()"
       class="task-form_form">
       <mat-form-field class="task-form_filed">
-        <p><b>Title:</b></p>
+        <p>
+          <b>{{ 'TASK.labelTitle' | translate }}:</b>
+        </p>
         <input
           matInput
           formControlName="title"
           required
           class="task-form_input" />
         <mat-error *ngIf="title!.invalid" class="task-form_error">{{
-          titleErrorMessage
+          'TASK.formTitleErr' | translate
         }}</mat-error>
       </mat-form-field>
       <mat-form-field class="task-form_filed">
-        <p><b>Description:</b></p>
+        <p>
+          <b>{{ 'TASK.labelDescription' | translate }}:</b>
+        </p>
         <textarea
           matInput
           formControlName="description"
           required
           class="task-form_input"></textarea>
         <mat-error *ngIf="title!.invalid" class="task-form_error">{{
-          titleErrorMessage
+          'TASK.formDescriptionErr' | translate
         }}</mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary">Submit</button>
+      <button mat-raised-button color="primary">
+        {{ 'TASK.save' | translate }}
+      </button>
     </form>
   </div>
-  <button
-    mat-dialog-close
-    mat-icon-button
-    (click)="onClose()"
-    class="close-modal-btn">
+  <button mat-icon-button (click)="onClose()" class="close-modal-btn">
     <mat-icon>close</mat-icon>
   </button>
 </div>

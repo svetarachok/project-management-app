@@ -4,6 +4,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { UserRoutingModule } from './user-routing.module';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [UserPageComponent],
@@ -12,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     UserRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
 })
 export class UserModule {}

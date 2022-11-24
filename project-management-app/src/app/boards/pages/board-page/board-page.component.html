@@ -1,9 +1,9 @@
 <div class="board_header">
   <h1 *ngIf="board">
-    Board: <b>{{ board.title }}</b>
+    {{ 'BOARD_PAGE.title' | translate }}: <b>{{ board.title }}</b>
   </h1>
   <button mat-raised-button color="accent" (click)="onColumnCreateClick()">
-    Create Column
+    {{ 'BOARD_PAGE.createColBtn' | translate }}
   </button>
 </div>
 <div

@@ -10,18 +10,21 @@ import { TasksState } from 'src/app/core/store/state/tasks.state';
 import * as columnsActions from '../../../../core/store/actions/columns.actions';
 import * as tasksActions from '../../../../core/store/actions/tasks.actions';
 
-import { FormErrors } from '../../../models/form-errors-enum';
 import { CreateTaskModalComponent } from '../../../components/create-task-modal/create-task-modal.component';
 import { Subscription } from 'rxjs';
-import { getErrorMessage, getTasks } from 'src/app/core/store/selectors/tasks.selectors';
+import {
+  getErrorMessage,
+  getTasks,
+} from 'src/app/core/store/selectors/tasks.selectors';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { DeleteConfirmationComponent } from 'src/app/boards/components/delete-confirmation/delete-confirmation.component';
-import { TaskService } from 'src/app/boards/services/task-service/task.service';
-import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { SnackBarService } from '../../../../core/services/snack-bar.service';
+import { openDialog } from '../../../../core/components/confirm-modal/confirm-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-column-component',
@@ -51,7 +54,9 @@ export class ColumnComponent implements OnInit, OnDestroy {
     private columnsStore: Store<ColumnsState>,
     public dialog: Dialog,
     private taskStore: Store<TasksState>,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private matDialog: MatDialog,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -87,12 +92,6 @@ export class ColumnComponent implements OnInit, OnDestroy {
     return this.formTitleInput.get('columnTitle');
   }
 
-  get titleErrorMessage(): string {
-    return this.columnTitle!.hasError('required')
-      ? FormErrors.TITLE_REQUIRED
-      : '';
-  }
-
   onCloseTitleInput() {
     this.isFocused = false;
     this.formTitleInput.patchValue({ columnTitle: this.column.title });
@@ -115,13 +114,19 @@ export class ColumnComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRemoveColumnClick(column: Column) {
-    this.dialog.open(DeleteConfirmationComponent, {
-      data: {
-        item: column,
-        title: 'column',
+  openConfirmModal() {
+    openDialog(
+      this.matDialog,
+      () => {
+        this.columnsStore.dispatch(
+          columnsActions.deleteColumn({
+            _id: this.column._id!,
+            boardId: this.column.boardId!,
+          })
+        );
       },
-    });
+      this.translateService.instant('CONFIRM_MODAL.targetCol')
+    );
   }
 
   onTaskAddClick(): void {

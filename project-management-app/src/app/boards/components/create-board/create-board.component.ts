@@ -10,7 +10,6 @@ import { BoardsState } from '../../../core/store/state/boards.state';
 import { ModalsService } from '../../../core/services/modals-services/modals.service';
 import * as BoardActions from '../../../core/store/actions/boards.actions';
 
-import { FormErrors } from '../../models/form-errors-enum';
 import { UserState } from 'src/app/core/store/state/user.state';
 import { getUser } from 'src/app/core/store/selectors/user.selectors';
 
@@ -54,10 +53,6 @@ export class CreateBoardComponent implements OnInit {
       formDirective.resetForm();
       this.modalsService.showCreateBoardModal = false;
     }
-  }
-
-  get titleErrorMessage(): string {
-    return this.title!.hasError('required') ? FormErrors.TITLE_REQUIRED : '';
   }
 
   onCloseModal() {

@@ -1,7 +1,9 @@
-<h2 mat-dialog-title>Delete {{ title }}</h2>
-<div mat-dialog-content>Are you sure?</div>
+<h2 mat-dialog-title>{{ 'CONFIRM_MODAL.title' | translate }} {{ title }}</h2>
+<div mat-dialog-content>{{ 'CONFIRM_MODAL.question' | translate }}</div>
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="cancel()">Cancel</button>
+  <button mat-button mat-dialog-close (click)="cancel()">
+    {{ 'CONFIRM_MODAL.cancel' | translate }}
+  </button>
   <button
     color="warn"
     mat-button

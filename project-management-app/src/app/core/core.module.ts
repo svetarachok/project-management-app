@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { appReducers } from './store/reducers/app.reducers';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ConfirmModalComponent } from './components/confirm-modal/confirm-modal.
     RouterModule,
     MaterialModule,
     StoreModule.forRoot(appReducers),
+    SharedModule,
   ],
   exports: [HeaderComponent, FooterComponent],
 })

@@ -4,20 +4,18 @@
   #formDirective="ngForm"
   class="create-board">
   <div class="create-board_container">
-    <h2>Create new Board</h2>
+    <h2>{{ 'CREATE_BOARD_MODAL.title' | translate }}</h2>
     <div class="create-board_inputs-container">
       <mat-form-field appearance="fill">
-        <mat-label>Title</mat-label>
-        <input
-          matInput
-          placeholder="Board title"
-          formControlName="title"
-          required />
-        <mat-error *ngIf="title!.invalid">{{ titleErrorMessage }}</mat-error>
+        <mat-label>{{ 'CREATE_BOARD_MODAL.label' | translate }}</mat-label>
+        <input matInput formControlName="title" required />
+        <mat-error *ngIf="title!.invalid">
+          {{ 'CREATE_BOARD_MODAL.formError' | translate }}
+        </mat-error>
       </mat-form-field>
     </div>
     <button mat-raised-button color="primary" type="submit">
-      Create board
+      {{ 'CREATE_BOARD_MODAL.btn' | translate }}
     </button>
     <button mat-icon-button (click)="onCloseModal()" class="close-modal-btn">
       <mat-icon>close</mat-icon>
