@@ -7,7 +7,6 @@ import { Task } from '../../../boards/models/task.interface';
   providedIn: 'root',
 })
 export class SearchService {
-
   startedSearch: boolean = false;
 
   searchRequest: string = '';
