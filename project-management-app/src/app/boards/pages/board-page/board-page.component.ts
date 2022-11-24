@@ -3,7 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { ColumnsState } from '../../../core/store/state/columns.state';
 import * as columnsActions from '../../../core/store/actions/columns.actions';
@@ -20,6 +20,8 @@ import {
 import { Subscription } from 'rxjs';
 import { TasksState } from 'src/app/core/store/state/tasks.state';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { User } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-board-page',
@@ -27,11 +29,13 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
   styleUrls: ['./board-page.component.scss'],
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
-  board: Board | null = null;
+  board!: Board;
 
   boardId: string = '';
 
   columns: Column[] = [];
+
+  boardUsers!: User[];
 
   subscriptionBoard!: Subscription;
 
@@ -47,19 +51,18 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     private columnStore: Store<ColumnsState>,
     private tasksStore: Store<TasksState>,
     public dialog: Dialog,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => (this.boardId = params['id']));
     this.subscriptionBoard = this.boardsStore
-      .pipe(
-        select(getBoards),
-        map(boards => {
-          return boards.filter(board => board._id === this.boardId);
-        })
-      )
-      .subscribe(boards => (this.board = boards[0]));
+      .select(getBoards)
+      .subscribe(
+        boards =>
+          (this.board = boards.find(board => board._id === this.boardId)!)
+      );
     this.errorsSubscrBoards = this.boardsStore
       .select(getErrorMessage)
       .subscribe(message => {
@@ -75,6 +78,18 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       tasksActions.getAllTasks({ boardId: this.boardId })
     );
     this.getAllColumns();
+    this.getBoardUsers();
+  }
+
+  getBoardUsers() {
+    this.userService
+      .getUsers()
+      .pipe(
+        map(u => [...u].filter(user => this.board.users?.includes(user._id)))
+      )
+      .subscribe(users => {
+        this.boardUsers = users;
+      });
   }
 
   onColumnCreateClick(): void {
@@ -112,7 +127,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.boardId = '';
     this.columns = [];
-    this.board = null;
     this.subscriptionColumns.unsubscribe();
     this.subscriptionBoard.unsubscribe();
     this.columnStore.dispatch(columnsActions.clearColumnsStore());

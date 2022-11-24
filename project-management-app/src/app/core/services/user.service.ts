@@ -26,6 +26,10 @@ export class UserService {
     private router: Router
   ) {}
 
+  getUsers() {
+    return this.http.get<User[]>('/users');
+  }
+
   fetchUser(): Observable<User> {
     const token = this.getTokenFromLS();
     if (!token) {

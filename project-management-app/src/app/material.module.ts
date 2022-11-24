@@ -10,6 +10,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+
 import { DialogModule } from '@angular/cdk/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -27,6 +29,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatSliderModule,
     MatMenuModule,
     DialogModule,
+    MatSelectModule,
     DragDropModule,
     MatDialogModule,
   ],

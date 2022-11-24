@@ -93,7 +93,8 @@
     "title": "Create new Board",
     "label": "title",
     "formError": "Please enter a board title",
-    "btn": "Create"
+    "btn": "Create",
+    "addUsers": "Add users"
   },
   "CREATE_COL_MODAL": {
     "title": "Create new Column",

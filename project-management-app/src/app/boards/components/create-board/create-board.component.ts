@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -12,32 +12,48 @@ import * as BoardActions from '../../../core/store/actions/boards.actions';
 
 import { UserState } from 'src/app/core/store/state/user.state';
 import { getUser } from 'src/app/core/store/selectors/user.selectors';
+import { User } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-board',
   templateUrl: './create-board.component.html',
   styleUrls: ['./create-board.component.scss'],
 })
-export class CreateBoardComponent implements OnInit {
+export class CreateBoardComponent implements OnInit, OnDestroy {
   createBoardForm!: FormGroup;
 
   userId: string | undefined = '';
 
+  userSubscription!: Subscription;
+
+  users!: Observable<User[]>;
+
   constructor(
     private store: Store<BoardsState>,
     private userStore: Store<UserState>,
-    private modalsService: ModalsService
+    private modalsService: ModalsService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
+    this.userSubscription = this.userStore
+      .select(getUser)
+      .subscribe(user => (this.userId = user?._id));
+    this.users = this.userService.getUsers();
     this.createBoardForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
+      usersSelect: new FormControl(''),
     });
-    this.userStore.select(getUser).subscribe(user => (this.userId = user?._id));
   }
 
   get title() {
     return this.createBoardForm.get('title');
+  }
+
+  get usersSelect() {
+    return this.createBoardForm.get('usersSelect');
   }
 
   onSubmit(formDirective: FormGroupDirective) {
@@ -46,7 +62,7 @@ export class CreateBoardComponent implements OnInit {
         BoardActions.createNewBoard({
           title: this.title?.value,
           owner: this.userId!,
-          users: [],
+          users: this.usersSelect?.value,
         })
       );
       this.createBoardForm.reset();
@@ -57,5 +73,9 @@ export class CreateBoardComponent implements OnInit {
 
   onCloseModal() {
     this.modalsService.showCreateBoardModal = false;
+  }
+
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
   }
 }

@@ -2,6 +2,7 @@
   <h1 *ngIf="board">
     {{ 'BOARD_PAGE.title' | translate }}: <b>{{ board.title }}</b>
   </h1>
+  <div class="board_users" *ngFor="let user of boardUsers">{{ user.name }}</div>
   <button mat-raised-button color="accent" (click)="onColumnCreateClick()">
     {{ 'BOARD_PAGE.createColBtn' | translate }}
   </button>
