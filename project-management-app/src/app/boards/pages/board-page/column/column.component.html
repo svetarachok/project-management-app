@@ -47,7 +47,7 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onRemoveColumnClick(column)">
+    <button mat-menu-item (click)="openConfirmModal()">
       <mat-icon>delete_forever</mat-icon>
       <span>{{ 'COLUMN.deleteCol' | translate }}</span>
     </button>
