@@ -63,8 +63,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       .pipe(map(b => b.find(board => board._id === this.boardId) as Board))
       .subscribe(boards => {
         this.board = boards;
-        console.log(this.board);
         this.getBoardUsers();
+        console.log(this.board);
       });
     this.errorsSubscrBoards = this.boardsStore
       .select(getErrorMessage)
@@ -89,11 +89,15 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   getBoardUsers() {
-    this.userService.getUsers().subscribe(users => {
+    return this.userService.getUsers().subscribe(users => {
       this.boardUsers = users.filter(user =>
         this.board.users?.includes(user._id)
       );
-      return users;
+      this.columnStore.dispatch(
+        columnsActions.getBoardUsersToStore({
+          boardUsers: this.boardUsers,
+        })
+      );
     });
   }
 
