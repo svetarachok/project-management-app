@@ -18,8 +18,12 @@ export class BoardService {
     return this.http.post<Board>('/boards', newBoard);
   }
 
-  getBoards(id: string) {
+  getBoards(id: string): Observable<Board[]> {
     return this.http.get<Board[]>(`/boardsSet/${id}`);
+  }
+
+  updateBoard(board: Board, boardId: string): Observable<Board> {
+    return this.http.put<Board>(`/boards/${boardId}`, board);
   }
 
   deleteBoard(id: string) {

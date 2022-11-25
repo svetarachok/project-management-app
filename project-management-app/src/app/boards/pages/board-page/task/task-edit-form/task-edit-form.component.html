@@ -41,14 +41,14 @@
           'TASK.formDescriptionErr' | translate
         }}</mat-error>
       </mat-form-field>
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>{{ 'CREATE_BOARD_MODAL.addUsers' | translate }}</mat-label>
-        <mat-select formControlName="usersSelect" multiple>
-          <mat-option *ngFor="let user of users | async" [value]="user._id">{{
-            user.name
-          }}</mat-option>
-        </mat-select>
-      </mat-form-field> -->
+      <div class="task-form_users-assigned">
+        <p><b>Assigned users:</b></p>
+        <div class="task-form_users-assigned_container">
+          <div *ngFor="let user of assignedUsers" class="user">
+            {{ user.name }}
+          </div>
+        </div>
+      </div>
       <button mat-raised-button color="primary">
         {{ 'TASK.save' | translate }}
       </button>

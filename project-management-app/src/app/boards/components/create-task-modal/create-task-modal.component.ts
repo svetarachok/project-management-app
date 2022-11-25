@@ -11,6 +11,9 @@ import { getUser } from '../../../core/store/selectors/user.selectors';
 
 import { FormErrors } from '../../models/form-errors-enum';
 import { Task } from '../../models/task.interface';
+import { ColumnsState } from 'src/app/core/store/state/columns.state';
+import { getCurrentBoardUsers } from 'src/app/core/store/selectors/columns.selectors';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-create-task-modal',
@@ -26,21 +29,28 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
 
   taskOrder!: number;
 
+  assignedUsers: User[] = [];
+
   constructor(
     @Inject(DIALOG_DATA)
     public data: { columnId: string; boardId: string; taskOrder: number },
     public dialogRef: DialogRef,
     private userStore: Store<UserState>,
-    private tasksStore: Store<TasksState>
+    private tasksStore: Store<TasksState>,
+    private columnsStore: Store<ColumnsState>
   ) {}
 
   ngOnInit(): void {
     this.userIdSubscription = this.userStore
       .select(getUser)
       .subscribe(user => (this.userId = user?._id!));
+    this.columnsStore
+      .select(getCurrentBoardUsers)
+      .subscribe(users => (this.assignedUsers = users));
     this.createTaskForm = new FormGroup({
       title: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
+      usersSelect: new FormControl(''),
     });
     this.taskOrder = this.data.taskOrder;
   }
@@ -51,6 +61,10 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
 
   get description() {
     return this.createTaskForm.get('description');
+  }
+
+  get usersSelect() {
+    return this.createTaskForm.get('usersSelect');
   }
 
   get descriptionErrorMessage() {
@@ -66,7 +80,7 @@ export class CreateTaskModalComponent implements OnInit, OnDestroy {
         order: this.taskOrder,
         description: this.description?.value,
         userId: this.userId,
-        users: [],
+        users: this.usersSelect?.value,
       };
       this.tasksStore.dispatch(
         tasksActions.createNewTask({

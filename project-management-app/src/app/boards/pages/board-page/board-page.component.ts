@@ -4,8 +4,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { ColumnsState } from '../../../core/store/state/columns.state';
+import * as boardsActions from '../../../core/store/actions/boards.actions';
 import * as columnsActions from '../../../core/store/actions/columns.actions';
 import * as tasksActions from '../../../core/store/actions/tasks.actions';
 import { getBoards } from '../../../core/store/selectors/boards.selectors';
@@ -29,7 +30,7 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./board-page.component.scss'],
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
-  board!: Board;
+  board: Board = {} as Board;
 
   boardId: string = '';
 
@@ -56,7 +57,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log('OnInit');
     this.route.params.subscribe(params => (this.boardId = params['id']));
     this.subscriptionBoard = this.boardsStore
       .select(getBoards)
@@ -64,7 +64,6 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       .subscribe(boards => {
         this.board = boards;
         this.getBoardUsers();
-        console.log(this.board);
       });
     this.errorsSubscrBoards = this.boardsStore
       .select(getErrorMessage)
@@ -89,16 +88,19 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   }
 
   getBoardUsers() {
-    return this.userService.getUsers().subscribe(users => {
-      this.boardUsers = users.filter(user =>
-        this.board.users?.includes(user._id)
-      );
-      this.columnStore.dispatch(
-        columnsActions.getBoardUsersToStore({
-          boardUsers: this.boardUsers,
-        })
-      );
-    });
+    return this.userService
+      .getUsers()
+      .pipe(filter(users => !!users))
+      .subscribe(users => {
+        this.boardUsers = users.filter(user =>
+          this.board?.users?.includes(user._id)
+        );
+        this.columnStore.dispatch(
+          columnsActions.getBoardUsersToStore({
+            boardUsers: this.boardUsers,
+          })
+        );
+      });
   }
 
   onColumnCreateClick(): void {
@@ -130,6 +132,20 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     );
     this.columnStore.dispatch(
       columnsActions.updateColumnsOrder({ columns: newColumnsOrder })
+    );
+  }
+
+  deleteUserFromBoard(userId: string) {
+    const users = this.boardUsers
+      .filter(user => user._id !== userId)
+      .map(usr => usr._id);
+    const updatedBoard: Board = {
+      title: this.board.title,
+      owner: this.board.owner,
+      users: users,
+    };
+    this.boardsStore.dispatch(
+      boardsActions.upadteBoard({ board: updatedBoard, boardId: this.boardId })
     );
   }
 

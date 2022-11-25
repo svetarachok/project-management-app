@@ -87,7 +87,11 @@
   },
   "BOARD_PAGE": {
     "title": "Board",
-    "createColBtn": "Create Column"
+    "createColBtn": "Create Column",
+    "assignedUserInfo": "Assigned user info",
+    "assignedUserName": "Name",
+    "assignedUserLogin": "Login",
+    "deleteUserFromBoardBtn": "Delete user from board"
   },
   "CREATE_BOARD_MODAL": {
     "title": "Create new Board",

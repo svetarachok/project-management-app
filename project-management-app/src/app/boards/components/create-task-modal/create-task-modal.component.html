@@ -17,6 +17,14 @@
         {{ 'CREATE_TASK_MODAL.formDescriptionError' | translate }}
       </mat-error>
     </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'CREATE_BOARD_MODAL.addUsers' | translate }}</mat-label>
+      <mat-select formControlName="usersSelect" multiple>
+        <mat-option *ngFor="let user of assignedUsers" [value]="user._id">{{
+          user.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
   <button mat-raised-button color="primary" type="submit">Create task</button>
   <button mat-icon-button (click)="onClose()" class="close-modal-btn">

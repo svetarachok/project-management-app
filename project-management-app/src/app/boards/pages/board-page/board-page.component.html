@@ -16,15 +16,24 @@
       </button>
       <mat-menu #menu="matMenu">
         <div class="user_info">
-          <p class="user_info__header">Assigned user info</p>
+          <p class="user_info__header">
+            {{ 'BOARD_PAGE.assignedUserInfo' | translate }}
+          </p>
           <div class="user_info__title-container">
-            <p class="user_info__title">Name:</p>
+            <p class="user_info__title">
+              {{ 'BOARD_PAGE.assignedUserName' | translate }}:
+            </p>
             <p class="user_info__title-data">{{ user.name }}</p>
           </div>
           <div class="user_info__title-container">
-            <p class="user_info__title">Login:</p>
+            <p class="user_info__title">
+              {{ 'BOARD_PAGE.assignedUserLogin' | translate }}:
+            </p>
             <p class="user_info__title-data">{{ user.login }}</p>
           </div>
+          <button mat-stroked-button (click)="deleteUserFromBoard(user._id)">
+            {{ 'BOARD_PAGE.deleteUserFromBoardBtn' | translate }}
+          </button>
         </div>
       </mat-menu>
     </div>

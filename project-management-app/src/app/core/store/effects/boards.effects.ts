@@ -9,6 +9,7 @@ import { BoardService } from '../../../boards/services/board-service/board.servi
 import { Board } from '../../../boards/models/board.interface';
 import { of } from 'rxjs';
 import { ErrorService } from 'src/app/boards/services/error-service/error.service';
+import { Action } from '@ngrx/store';
 
 @Injectable()
 export class BoardsEffects {
@@ -69,6 +70,29 @@ export class BoardsEffects {
             );
           })
         );
+      })
+    );
+  });
+
+  deleteUserFromBoard$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(BoardsActions.UPDATE_BOARD),
+      mergeMap((action: { board: Board; boardId: string; type: string }) => {
+        return this.boardsService
+          .updateBoard(action.board, action.boardId)
+          .pipe(
+            map(board => {
+              return BoardsActions.upadteBoardSuccess({ board });
+            }),
+            catchError(resp => {
+              const errorMessage: string = this.errorService.getErrorMessage(
+                resp.error
+              );
+              return of(
+                BoardsActions.catchBoardsError({ message: errorMessage })
+              );
+            })
+          );
       })
     );
   });

@@ -41,6 +41,17 @@
   &_input {
     font-family: 'Poppins', sans-serif;
   }
+  &_users-assigned {
+    margin-top: 1.5rem;
+    &_container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      .user {
+        flex: 1 1 30%;
+      }
+    }
+  }
   button {
     margin-top: 1.5rem;
   }

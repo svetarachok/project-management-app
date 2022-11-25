@@ -87,7 +87,11 @@
   },
   "BOARD_PAGE": {
     "title": "Доска",
-    "createColBtn": "Создать колонку"
+    "createColBtn": "Создать колонку",
+    "assignedUserInfo": "Пользователь",
+    "assignedUserName": "Имя",
+    "assignedUserLogin": "Логин",
+    "deleteUserFromBoardBtn": "Удалить пользователя"
   },
   "CREATE_BOARD_MODAL": {
     "title": "Создать новую доску",

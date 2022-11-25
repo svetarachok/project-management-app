@@ -6,6 +6,9 @@ import { FormErrors } from '../../../../models/form-errors-enum';
 import { Task } from '../../../../models/task.interface';
 
 import * as taskActions from '../../../../../core/store/actions/tasks.actions';
+import { ColumnsState } from 'src/app/core/store/state/columns.state';
+import { User } from 'src/app/core/models/user.model';
+import { getCurrentBoardUsers } from 'src/app/core/store/selectors/columns.selectors';
 
 @Component({
   selector: 'app-task-edit-form',
@@ -17,19 +20,24 @@ export class TaskEditFormComponent implements OnInit {
 
   formTask!: FormGroup;
 
+  assignedUsers: User[] = [];
+
   constructor(
     @Inject(DIALOG_DATA)
     public data: Task,
     public dialogRef: DialogRef,
-    private taskStore: Store<TaskState>
+    private taskStore: Store<TaskState>,
+    private columnsStore: Store<ColumnsState>
   ) {}
 
   ngOnInit(): void {
     this.task = this.data;
+    this.columnsStore
+      .select(getCurrentBoardUsers)
+      .subscribe(users => (this.assignedUsers = users));
     this.formTask = new FormGroup({
       title: new FormControl(`${this.task.title}`, [Validators.required]),
       description: new FormControl(`${this.task.description}`),
-      usersSelect: new FormControl(''),
     });
   }
 
