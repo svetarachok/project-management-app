@@ -2,10 +2,33 @@
   <h1 *ngIf="board">
     {{ 'BOARD_PAGE.title' | translate }}: <b>{{ board.title }}</b>
   </h1>
-  <div class="board_users" *ngFor="let user of boardUsers">{{ user.name }}</div>
-  <button mat-raised-button color="accent" (click)="onColumnCreateClick()">
+  <button
+    mat-raised-button
+    color="accent"
+    type="button"
+    (click)="onColumnCreateClick()">
     {{ 'BOARD_PAGE.createColBtn' | translate }}
   </button>
+  <div class="board_users">
+    <div *ngFor="let user of boardUsers">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="user_btn">
+        {{ user.name!.slice(0, 1) | uppercase }}
+      </button>
+      <mat-menu #menu="matMenu">
+        <div class="user_info">
+          <p class="user_info__header">Assigned user info</p>
+          <div class="user_info__title-container">
+            <p class="user_info__title">Name:</p>
+            <p class="user_info__title-data">{{ user.name }}</p>
+          </div>
+          <div class="user_info__title-container">
+            <p class="user_info__title">Login:</p>
+            <p class="user_info__title-data">{{ user.login }}</p>
+          </div>
+        </div>
+      </mat-menu>
+    </div>
+  </div>
 </div>
 <div
   id="columnDragList"

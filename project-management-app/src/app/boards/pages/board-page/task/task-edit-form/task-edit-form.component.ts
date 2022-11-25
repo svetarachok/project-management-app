@@ -29,6 +29,7 @@ export class TaskEditFormComponent implements OnInit {
     this.formTask = new FormGroup({
       title: new FormControl(`${this.task.title}`, [Validators.required]),
       description: new FormControl(`${this.task.description}`),
+      usersSelect: new FormControl(''),
     });
   }
 

@@ -29,7 +29,9 @@ export class BoardComponent {
   navigateToBoard(boardId: string) {
     this.router.navigate(['/board', boardId]);
     this.columnsStore.dispatch(
-      columnsActions.getBoardIdToStore({ boardId: boardId })
+      columnsActions.getBoardIdToStore({
+        boardId: boardId,
+      })
     );
   }
 

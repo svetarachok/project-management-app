@@ -26,7 +26,7 @@ export class UserService {
     private router: Router
   ) {}
 
-  getUsers() {
+  getUsers(): Observable<User[]> {
     return this.http.get<User[]>('/users');
   }
 

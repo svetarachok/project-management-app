@@ -35,7 +35,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
 
   columns: Column[] = [];
 
-  boardUsers!: User[];
+  boardUsers: User[] = [];
 
   subscriptionBoard!: Subscription;
 
@@ -56,13 +56,16 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    console.log('OnInit');
     this.route.params.subscribe(params => (this.boardId = params['id']));
     this.subscriptionBoard = this.boardsStore
       .select(getBoards)
-      .subscribe(
-        boards =>
-          (this.board = boards.find(board => board._id === this.boardId)!)
-      );
+      .pipe(map(b => b.find(board => board._id === this.boardId) as Board))
+      .subscribe(boards => {
+        this.board = boards;
+        console.log(this.board);
+        this.getBoardUsers();
+      });
     this.errorsSubscrBoards = this.boardsStore
       .select(getErrorMessage)
       .subscribe(message => {
@@ -74,22 +77,24 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.columnStore.dispatch(
       columnsActions.getColumns({ boardId: this.boardId })
     );
+    this.columnStore.dispatch(
+      columnsActions.getBoardIdToStore({
+        boardId: this.boardId,
+      })
+    );
     this.tasksStore.dispatch(
       tasksActions.getAllTasks({ boardId: this.boardId })
     );
     this.getAllColumns();
-    this.getBoardUsers();
   }
 
   getBoardUsers() {
-    this.userService
-      .getUsers()
-      .pipe(
-        map(u => [...u].filter(user => this.board.users?.includes(user._id)))
-      )
-      .subscribe(users => {
-        this.boardUsers = users;
-      });
+    this.userService.getUsers().subscribe(users => {
+      this.boardUsers = users.filter(user =>
+        this.board.users?.includes(user._id)
+      );
+      return users;
+    });
   }
 
   onColumnCreateClick(): void {

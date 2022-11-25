@@ -6,6 +6,8 @@ import { UserService } from '../../services/user.service';
 
 import * as fromUser from '../../store/selectors/user.selectors';
 import { TranslateService } from '@ngx-translate/core';
+import { BoardsState } from '../../store/state/boards.state';
+import * as boardsActions from '../../store/actions/boards.actions';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isUserAuthorized: boolean = false;
 
   private subs!: Subscription;
+
+  userId: string = '';
 
   languageList = {
     EN: 'ru',
@@ -28,7 +32,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private modalsService: ModalsService,
     private store: Store,
     private userService: UserService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private boardsStore: Store<BoardsState>
   ) {}
 
   ngOnInit(): void {
