@@ -8,7 +8,6 @@ import { BoardsState } from '../state/boards.state';
 import * as BaordsActions from '../actions/boards.actions';
 import { Store } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { SnackBarService } from '../../services/snack-bar.service';
 
 @Injectable()
@@ -17,15 +16,14 @@ export class UserEffects {
     private actions$: Actions,
     private userService: UserService,
     private BoardsStore: Store<BoardsState>,
-    private router: Router,
     private snackBarService: SnackBarService
   ) {}
 
   fetchUserOnInitApp$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UserActions.fetchUser),
-      mergeMap(() =>
-        this.userService.fetchUser().pipe(
+      mergeMap(() => {
+        return this.userService.fetchUser().pipe(
           map(currentUser => {
             this.BoardsStore.dispatch(
               BaordsActions.getBoards({ id: currentUser._id })
@@ -41,8 +39,8 @@ export class UserEffects {
 
             return of(UserActions.userLogout());
           })
-        )
-      )
+        );
+      })
     );
   });
 

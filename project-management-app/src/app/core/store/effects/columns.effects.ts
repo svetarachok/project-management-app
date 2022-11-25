@@ -7,10 +7,11 @@ import * as columnsActions from '../actions/columns.actions';
 
 import { ColumnService } from '../../../boards/services/column-service/column.service';
 import { Column, ColumnsOrder } from '../../../boards/models/column.interface';
-import { Action } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { ColumnsState } from '../state/columns.state';
 import { of } from 'rxjs';
 import { ErrorService } from 'src/app/boards/services/error-service/error.service';
+import * as LoaderActions from '../actions/loader.actions';
 
 @Injectable()
 export class ColumnsEffects {
@@ -41,9 +42,24 @@ export class ColumnsEffects {
     return this.actions$.pipe(
       ofType(columnsActions.GET_COLUMNS),
       mergeMap((action: ColumnsState) => {
+        this.store.dispatch(LoaderActions.setIsLoading({ isLoading: true }));
         return this.columnsService.getColumns(action.boardId).pipe(
           map(columns => {
+            this.store.dispatch(
+              LoaderActions.setIsLoading({ isLoading: false })
+            );
             return columnsActions.getColumnsSuccess({ columns });
+          }),
+          catchError(resp => {
+            const errorMessage: string = this.errorService.getErrorMessage(
+              resp.error
+            );
+            this.store.dispatch(
+              LoaderActions.setIsLoading({ isLoading: false })
+            );
+            return of(
+              columnsActions.catchColumnsError({ message: errorMessage })
+            );
           })
         );
       })
@@ -119,6 +135,7 @@ export class ColumnsEffects {
   constructor(
     private actions$: Actions,
     private columnsService: ColumnService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private store: Store
   ) {}
 }
