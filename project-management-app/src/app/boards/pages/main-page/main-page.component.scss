@@ -1,6 +1,21 @@
 :host {
   padding: 3rem;
   height: 100%;
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    height: auto;
+  }
+}
+
+.boards {
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    @media (max-width: 425px) {
+      flex-wrap: nowrap;
+      flex-direction: column;
+    }
+  }
 }
 
 .no-boards {
