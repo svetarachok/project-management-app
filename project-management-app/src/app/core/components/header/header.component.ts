@@ -6,8 +6,7 @@ import { UserService } from '../../services/user.service';
 
 import * as fromUser from '../../store/selectors/user.selectors';
 import { TranslateService } from '@ngx-translate/core';
-import { BoardsState } from '../../store/state/boards.state';
-import * as boardsActions from '../../store/actions/boards.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -33,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private store: Store,
     private userService: UserService,
     private translate: TranslateService,
-    private boardsStore: Store<BoardsState>
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onCreateNewBoard() {
+    this.router.navigateByUrl('/');
     this.modalsService.showCreateBoardModal = true;
   }
 

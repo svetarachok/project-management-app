@@ -47,13 +47,13 @@
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="openConfirmModal()">
-      <mat-icon>delete_forever</mat-icon>
-      <span>{{ 'COLUMN.deleteCol' | translate }}</span>
-    </button>
     <button mat-menu-item (click)="onTaskAddClick()">
       <mat-icon>add</mat-icon>
       <span>{{ 'COLUMN.addTask' | translate }}</span>
+    </button>
+    <button mat-menu-item (click)="openConfirmModal()">
+      <mat-icon>delete_forever</mat-icon>
+      <span>{{ 'COLUMN.deleteCol' | translate }}</span>
     </button>
   </mat-menu>
 </div>

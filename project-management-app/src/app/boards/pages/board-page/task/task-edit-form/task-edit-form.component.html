@@ -1,13 +1,6 @@
 <div class="task-container">
   <div class="task-container_header">
     <p mat-dialog-title>{{ 'TASK.title' | translate }}:</p>
-    <p
-      class="task-form_header"
-      [(ngModel)]="task.title"
-      name="task-title"
-      ngDefaultControl>
-      {{ title!.value }}
-    </p>
   </div>
   <mat-divider></mat-divider>
   <div mat-dialog-content class="task-form">
@@ -17,6 +10,10 @@
       class="task-form_form">
       <mat-form-field class="task-form_filed">
         <p>
+          <mat-icon
+            aria-hidden="true"
+            fontIcon="title"
+            color="primary"></mat-icon>
           <b>{{ 'TASK.labelTitle' | translate }}:</b>
         </p>
         <input
@@ -30,6 +27,10 @@
       </mat-form-field>
       <mat-form-field class="task-form_filed">
         <p>
+          <mat-icon
+            aria-hidden="true"
+            fontIcon="description"
+            color="primary"></mat-icon>
           <b>{{ 'TASK.labelDescription' | translate }}:</b>
         </p>
         <textarea

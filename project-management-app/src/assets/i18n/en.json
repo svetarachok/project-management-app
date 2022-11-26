@@ -15,7 +15,7 @@
   },
   "MAIN_PAGE": {
     "main_title": "boards",
-    "new_board_btn": "Create new board",
+    "new_board_btn": "Create board",
     "no_boards": "You haven't created any board yet"
   },
   "NOT_FOUND": {
@@ -37,13 +37,19 @@
     },
     "about-section": {
       "title": "About Us",
-      "description": "The application is developed as part of an Angular course by Rolling Scopes School.",
+      "description": "The application is developed as part of an Angular 2022Q3 course by Rolling Scopes School.",
       "person1_title": "Svetlana",
       "person1_descr1": "Deploy backend",
-      "person1_descr2": "Main, Board pages",
+      "person1_descr2": "Main page",
+      "person1_descr3": "Board page",
+      "person1_descr4": "DragNdrop",
+      "person1_descr5": "Search page",
+      "person1_descr6": "Additional functionality",
       "person2_title": "Vitali",
       "person2_descr1": "Welcome page",
-      "person2_descr2": "Login, Sign Up pages"
+      "person2_descr2": "Authorization",
+      "person2_descr3": "Profile page",
+      "person2_descr4": "Localization"
     }
   },
   "FORM": {
@@ -94,14 +100,14 @@
     "deleteUserFromBoardBtn": "Delete user from board"
   },
   "CREATE_BOARD_MODAL": {
-    "title": "Create new Board",
+    "title": "Create Board",
     "label": "title",
     "formError": "Please enter a board title",
     "btn": "Create",
     "addUsers": "Add users"
   },
   "CREATE_COL_MODAL": {
-    "title": "Create new Column",
+    "title": "Create Column",
     "label": "title",
     "formError": "Please enter a column title",
     "btn": "Create"

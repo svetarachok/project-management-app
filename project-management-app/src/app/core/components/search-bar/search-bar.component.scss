@@ -1,5 +1,7 @@
 .search-bar {
   width: 20rem;
+  margin: 0 1rem;
+
   &_btn_icon {
     font-size: 1.2rem !important;
   }
@@ -7,6 +9,10 @@
     position: absolute;
     bottom: -5px;
     font-size: 12px !important;
-    color: rgba(0,0,0,.54);
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  @media (max-width: 960px) {
+    width: 10rem;
   }
 }
