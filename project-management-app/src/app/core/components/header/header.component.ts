@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subs!: Subscription;
 
+  userId: string = '';
+
   languageList = {
     EN: 'ru',
     RU: 'en',

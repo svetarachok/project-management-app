@@ -93,13 +93,18 @@
   },
   "BOARD_PAGE": {
     "title": "Доска",
-    "createColBtn": "Создать колонку"
+    "createColBtn": "Создать колонку",
+    "assignedUserInfo": "Участник",
+    "assignedUserName": "Имя",
+    "assignedUserLogin": "Логин",
+    "deleteUserFromBoardBtn": "Удалить участников"
   },
   "CREATE_BOARD_MODAL": {
     "title": "Создать доску",
     "label": "Заголовок",
     "formError": "Пожалуйста, введите название доски",
-    "btn": "Создать"
+    "btn": "Создать",
+    "addUsers": "Добавить участников"
   },
   "CREATE_COL_MODAL": {
     "title": "Создать колонку",
@@ -114,6 +119,11 @@
     "formTitleError": "Пожалуйста, введите название задачи",
     "formDescriptionError": "Пожалуйста, введите описание задачи",
     "btn": "Создать"
+  },
+  "ASSIGN_USERS_MODAL": {
+    "title": "Пригласить участников",
+    "selectLabel": "Все пользователи",
+    "btn": "Добавить выбранных участников"
   },
   "CONFIRM_MODAL": {
     "title": "Удалить",
@@ -135,7 +145,9 @@
     "formTitleErr": "Пожалуйста, введите название задачи",
     "labelDescription": "Описание",
     "formDescriptionErr": "Пожалуйста, введите описание задачи",
-    "save": "Сохранить"
+    "save": "Сохранить",
+    "assignUsers": "Добавить участников",
+    "assignedUsers": "Участники"
   },
   "API_ERRORS": {
     "loginExist": "Логин уже существует",

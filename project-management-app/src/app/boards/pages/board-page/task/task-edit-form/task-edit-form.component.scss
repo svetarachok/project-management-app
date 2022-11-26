@@ -48,7 +48,32 @@
     font-weight: 600;
   }
   &_input {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+  }
+  &_users-assigned {
+    margin-top: 1.5rem;
+    &_container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      .users {
+        flex: 1 1 30%;
+        .user{
+          display: flex;
+          align-items: center;
+          &_name {
+            margin: 0;
+          }
+          &_delete-btn {
+            margin: 0;
+            &__icon {
+              font-size: 1rem;
+              color: rgba(0, 0, 0, 0.54);
+            }
+          }
+        }
+      }
+    }
   }
   button {
     margin-top: 1.5rem;

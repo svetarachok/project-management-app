@@ -6,6 +6,9 @@ import { FormErrors } from '../../../../models/form-errors-enum';
 import { Task } from '../../../../models/task.interface';
 
 import * as taskActions from '../../../../../core/store/actions/tasks.actions';
+import { ColumnsState } from 'src/app/core/store/state/columns.state';
+import { User } from 'src/app/core/models/user.model';
+import { getCurrentBoardUsers } from 'src/app/core/store/selectors/columns.selectors';
 
 @Component({
   selector: 'app-task-edit-form',
@@ -17,18 +20,27 @@ export class TaskEditFormComponent implements OnInit {
 
   formTask!: FormGroup;
 
+  boardUsersObjects: User[] = [];
+
+  assignedUsersObjects: User[] = [];
+
+  assignedUsersIds: string[] = [];
+
   constructor(
     @Inject(DIALOG_DATA)
     public data: Task,
     public dialogRef: DialogRef,
-    private taskStore: Store<TaskState>
+    private taskStore: Store<TaskState>,
+    private columnsStore: Store<ColumnsState>
   ) {}
 
   ngOnInit(): void {
     this.task = this.data;
+    this.getAssignedUsers();
     this.formTask = new FormGroup({
       title: new FormControl(`${this.task.title}`, [Validators.required]),
       description: new FormControl(`${this.task.description}`),
+      usersSelect: new FormControl(''),
     });
   }
 
@@ -40,10 +52,26 @@ export class TaskEditFormComponent implements OnInit {
     return this.formTask.get('description');
   }
 
+  get usersSelect() {
+    return this.formTask.get('usersSelect');
+  }
+
   get titleErrorMessage(): string {
     return this.title!.hasError('required')
       ? FormErrors.TASK_TITLE_REQUIRED
       : '';
+  }
+
+  getAssignedUsers() {
+    this.columnsStore.select(getCurrentBoardUsers).subscribe(users => {
+      this.boardUsersObjects = [...users].filter(
+        user => !this.task.users.includes(user._id)
+      );
+      this.assignedUsersObjects = [...users].filter(user =>
+        this.task.users.includes(user._id)
+      );
+    });
+    this.assignedUsersIds = [...this.task.users];
   }
 
   onTaskDataChanged(): void {
@@ -54,7 +82,7 @@ export class TaskEditFormComponent implements OnInit {
         columnId: this.task.columnId,
         description: this.description!.value,
         userId: this.task.userId,
-        users: this.task.users,
+        users: [...this.assignedUsersIds, ...this.usersSelect?.value],
       };
       this.taskStore.dispatch(
         taskActions.updateTask({
@@ -65,6 +93,13 @@ export class TaskEditFormComponent implements OnInit {
       );
       this.dialogRef.close();
     }
+  }
+
+  deleteAssignedUser(userId: string) {
+    this.assignedUsersIds = this.assignedUsersIds.filter(id => id !== userId);
+    this.assignedUsersObjects = this.assignedUsersObjects.filter(
+      user => user._id !== userId
+    );
   }
 
   onClose(): void {

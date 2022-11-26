@@ -8,26 +8,37 @@ export const columnsReducer = createReducer(
   on(ColumnsActions.getBoardIdToStore, (state, { boardId }) => ({
     columns: [...state.columns],
     boardId: boardId,
+    boardUsers: state.boardUsers,
+    error: '',
+  })),
+  on(ColumnsActions.getBoardUsersToStore, (state, { boardUsers }) => ({
+    columns: [...state.columns],
+    boardId: state.boardId,
+    boardUsers: boardUsers,
     error: '',
   })),
   on(ColumnsActions.createNewColumnSuccess, (state, { column }) => ({
     columns: [...state.columns, column],
     boardId: state.boardId,
+    boardUsers: state.boardUsers,
     error: '',
   })),
   on(ColumnsActions.getColumnsSuccess, (state, { columns }) => ({
     columns: [...columns],
     boardId: state.boardId,
+    boardUsers: state.boardUsers,
     error: '',
   })),
   on(ColumnsActions.deleteColumnSuccess, (state, { _id: id }) => ({
     columns: [...state.columns].filter(column => column._id !== id),
     boardId: state.boardId,
+    boardUsers: state.boardUsers,
     error: '',
   })),
   on(ColumnsActions.updateColumnsOrderSuccess, (state, { columns }) => ({
     columns: [...columns],
     boardId: state.boardId,
+    boardUsers: state.boardUsers,
     error: '',
   })),
   on(ColumnsActions.updateColumnTitleSuccess, (state, { column }) => ({
@@ -36,6 +47,7 @@ export const columnsReducer = createReducer(
       column,
     ],
     boardId: state.boardId,
+    boardUsers: state.boardUsers,
     error: '',
   })),
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,6 +55,7 @@ export const columnsReducer = createReducer(
   on(ColumnsActions.catchColumnsError, (state, action) => ({
     columns: [...state.columns],
     boardId: state.boardId,
+    boardUsers: state.boardUsers,
     error: action.message,
   }))
 );

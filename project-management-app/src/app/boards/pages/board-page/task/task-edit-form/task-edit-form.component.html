@@ -42,6 +42,39 @@
           'TASK.formDescriptionErr' | translate
         }}</mat-error>
       </mat-form-field>
+      <mat-form-field
+        class="task-form_filed"
+        *ngIf="boardUsersObjects.length !== 0">
+        <p>{{ 'TASK.assignUsers' | translate }}:</p>
+        <mat-select formControlName="usersSelect" multiple>
+          <mat-option *ngFor="let user of boardUsersObjects" [value]="user._id">
+            {{ user.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div
+        class="task-form_users-assigned"
+        *ngIf="assignedUsersObjects.length !== 0">
+        <p>
+          <b>{{ 'TASK.assignedUsers' | translate }}:</b>
+        </p>
+        <div class="task-form_users-assigned_container">
+          <div *ngFor="let user of assignedUsersObjects" class="users">
+            <div class="user">
+              <p class="user_name">{{ user.name }}</p>
+              <button
+                mat-icon-button
+                class="user_delete-btn"
+                type="button"
+                (click)="deleteAssignedUser(user._id)">
+                <mat-icon mat-icon-no-color class="user_delete-btn__icon"
+                  >delete_outline</mat-icon
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <button mat-raised-button color="primary">
         {{ 'TASK.save' | translate }}
       </button>

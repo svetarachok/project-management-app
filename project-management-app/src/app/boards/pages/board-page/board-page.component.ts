@@ -3,9 +3,10 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { filter, map } from 'rxjs/operators';
 import { ColumnsState } from '../../../core/store/state/columns.state';
+import * as boardsActions from '../../../core/store/actions/boards.actions';
 import * as columnsActions from '../../../core/store/actions/columns.actions';
 import * as tasksActions from '../../../core/store/actions/tasks.actions';
 import { getBoards } from '../../../core/store/selectors/boards.selectors';
@@ -20,6 +21,9 @@ import {
 import { Subscription } from 'rxjs';
 import { TasksState } from 'src/app/core/store/state/tasks.state';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
+import { User } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { AssignUsersComponent } from '../../components/assign-users/assign-users.component';
 
 @Component({
   selector: 'app-board-page',
@@ -27,11 +31,13 @@ import { SnackBarService } from 'src/app/core/services/snack-bar.service';
   styleUrls: ['./board-page.component.scss'],
 })
 export class BoardPageComponent implements OnInit, OnDestroy {
-  board: Board | null = null;
+  board: Board = {} as Board;
 
   boardId: string = '';
 
   columns: Column[] = [];
+
+  boardUsers: User[] = [];
 
   subscriptionBoard!: Subscription;
 
@@ -47,19 +53,19 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     private columnStore: Store<ColumnsState>,
     private tasksStore: Store<TasksState>,
     public dialog: Dialog,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => (this.boardId = params['id']));
     this.subscriptionBoard = this.boardsStore
-      .pipe(
-        select(getBoards),
-        map(boards => {
-          return boards.filter(board => board._id === this.boardId);
-        })
-      )
-      .subscribe(boards => (this.board = boards[0]));
+      .select(getBoards)
+      .pipe(map(b => b.find(board => board._id === this.boardId) as Board))
+      .subscribe(boards => {
+        this.board = boards;
+        this.getBoardUsers();
+      });
     this.errorsSubscrBoards = this.boardsStore
       .select(getErrorMessage)
       .subscribe(message => {
@@ -71,15 +77,42 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.columnStore.dispatch(
       columnsActions.getColumns({ boardId: this.boardId })
     );
+    this.columnStore.dispatch(
+      columnsActions.getBoardIdToStore({
+        boardId: this.boardId,
+      })
+    );
     this.tasksStore.dispatch(
       tasksActions.getAllTasks({ boardId: this.boardId })
     );
     this.getAllColumns();
   }
 
+  getBoardUsers() {
+    return this.userService
+      .getUsers()
+      .pipe(filter(users => !!users))
+      .subscribe(users => {
+        this.boardUsers = [...users].filter(user =>
+          this.board?.users?.includes(user._id)
+        );
+        this.columnStore.dispatch(
+          columnsActions.getBoardUsersToStore({
+            boardUsers: this.boardUsers,
+          })
+        );
+      });
+  }
+
   onColumnCreateClick(): void {
     this.dialog.open(CreateColumnModalComponent, {
       data: { id: this.boardId },
+    });
+  }
+
+  openAssignUsersDialog() {
+    this.dialog.open(AssignUsersComponent, {
+      data: { board: this.board, existingUsers: this.boardUsers },
     });
   }
 
@@ -109,10 +142,23 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     );
   }
 
+  deleteUserFromBoard(userId: string) {
+    const users = this.boardUsers
+      .filter(user => user._id !== userId)
+      .map(usr => usr._id);
+    const updatedBoard: Board = {
+      title: this.board.title,
+      owner: this.board.owner,
+      users: users,
+    };
+    this.boardsStore.dispatch(
+      boardsActions.upadteBoard({ board: updatedBoard, boardId: this.boardId })
+    );
+  }
+
   ngOnDestroy(): void {
     this.boardId = '';
     this.columns = [];
-    this.board = null;
     this.subscriptionColumns.unsubscribe();
     this.subscriptionBoard.unsubscribe();
     this.columnStore.dispatch(columnsActions.clearColumnsStore());

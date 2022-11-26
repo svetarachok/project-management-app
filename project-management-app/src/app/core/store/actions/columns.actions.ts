@@ -1,7 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { Column, ColumnsOrder } from 'src/app/boards/models/column.interface';
+import { User } from '../../models/user.model';
 
-export const GET_BOARD_ID = '[Board Page] Send Board ID to state';
+export const SET_BOARD_ID = '[Board Page] Send Current Board ID to store';
+export const SET_BOARD_USERS = '[Board Page] Send Current Board Users to store';
 export const CREATE_COLUMN = '[Board Page] Create New Column';
 export const CREATE_COLUMN_SUCCESS = '[Board Page] New Column Created';
 export const GET_COLUMNS = '[Board Page] Request Columns';
@@ -18,8 +20,13 @@ export const CLEAR_COLUMNS_STORE = '[Board Page] Clear Columns store';
 export const CATCH_ERROR = '[Board Page Errors] Catch errors with columns';
 
 export const getBoardIdToStore = createAction(
-  GET_BOARD_ID,
+  SET_BOARD_ID,
   props<{ boardId: string }>()
+);
+
+export const getBoardUsersToStore = createAction(
+  SET_BOARD_USERS,
+  props<{ boardUsers: User[] }>()
 );
 
 export const createNewColumn = createAction(

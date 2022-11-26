@@ -6,19 +6,68 @@
   background-color: #f3f5fb;
 }
 
-.board_header {
+.board {
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &_users {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+  &_users {
+    display: flex;
+    .assign-user {
+      &_btn {
+        border: 1px solid #3f51b5;
+        color: #3f51b5;
+        background-color: #ffffff;
+        line-height: 36px;
+        margin-right: 1.5rem;
+      }
+    }
+    .user_btn {
+        border: 2px solid #ffffff;
+        color: white;
+        background-color: #3f51b5;
+        line-height: 36px;
+        margin-left: -10px;
+      }
+    }
+  }
+
+.user_info {
+  width: 13rem;
+  margin-top: -8px;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: stretch;
+  &__header {
+    padding: 1rem;
+    background-color: #3f51b5;
+    color: white;
+    text-align: center;
+  }
+  &__title-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0.5rem;
+  }
+  &__title {
+    font-size: 12px;
+    color: rgba($color: #000000, $alpha: 0.5);
+    margin-right: 0.5rem;
+  }
+  button {
+    min-width: 128px;
+    margin: 0 0.5rem;
+  }
 
   h1 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  button {
-    min-width: 128px;
   }
 }
 
