@@ -17,6 +17,7 @@ import { NotAuthGuard } from '../core/guards/not-auth.guard';
 import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
 import { TaskEditFormComponent } from './pages/board-page/task/task-edit-form/task-edit-form.component';
 import { SharedModule } from '../shared/shared.module';
+import { AssignUsersComponent } from './components/assign-users/assign-users.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { SharedModule } from '../shared/shared.module';
     TaskComponent,
     CreateTaskModalComponent,
     TaskEditFormComponent,
+    AssignUsersComponent,
   ],
   imports: [
     CommonModule,

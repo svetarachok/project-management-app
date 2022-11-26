@@ -114,6 +114,11 @@
     "formDescriptionError": "Please enter a task description",
     "btn": "Create"
   },
+  "ASSIGN_USERS_MODAL": {
+    "title": "Assign users to board",
+    "selectLabel": "All users",
+    "btn": "Assign selected users"
+  },
   "CONFIRM_MODAL": {
     "title": "Delete",
     "targetAccount": "account",

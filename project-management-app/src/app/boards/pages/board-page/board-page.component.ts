@@ -23,6 +23,7 @@ import { TasksState } from 'src/app/core/store/state/tasks.state';
 import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
+import { AssignUsersComponent } from '../../components/assign-users/assign-users.component';
 
 @Component({
   selector: 'app-board-page',
@@ -92,7 +93,7 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       .getUsers()
       .pipe(filter(users => !!users))
       .subscribe(users => {
-        this.boardUsers = users.filter(user =>
+        this.boardUsers = [...users].filter(user =>
           this.board?.users?.includes(user._id)
         );
         this.columnStore.dispatch(
@@ -106,6 +107,12 @@ export class BoardPageComponent implements OnInit, OnDestroy {
   onColumnCreateClick(): void {
     this.dialog.open(CreateColumnModalComponent, {
       data: { id: this.boardId },
+    });
+  }
+
+  openAssignUsersDialog() {
+    this.dialog.open(AssignUsersComponent, {
+      data: { board: this.board, existingUsers: this.boardUsers },
     });
   }
 

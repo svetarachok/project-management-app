@@ -114,6 +114,11 @@
     "formDescriptionError": "Пожалуйста, введите описание задачи",
     "btn": "Создать"
   },
+  "ASSIGN_USERS_MODAL": {
+    "title": "Пригласить участников",
+    "selectLabel": "Все пользователи",
+    "btn": "Добавить выбранных участников"
+  },
   "CONFIRM_MODAL": {
     "title": "Удалить",
     "targetAccount": "аккаунт",
