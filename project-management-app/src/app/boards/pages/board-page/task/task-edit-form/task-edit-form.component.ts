@@ -9,6 +9,7 @@ import * as taskActions from '../../../../../core/store/actions/tasks.actions';
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
 import { User } from 'src/app/core/models/user.model';
 import { getCurrentBoardUsers } from 'src/app/core/store/selectors/columns.selectors';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-task-edit-form',
@@ -20,7 +21,9 @@ export class TaskEditFormComponent implements OnInit {
 
   formTask!: FormGroup;
 
-  assignedUsers: User[] = [];
+  assignedUsersObjects: User[] = [];
+
+  assignedUsersIds: string[] = [];
 
   constructor(
     @Inject(DIALOG_DATA)
@@ -34,7 +37,11 @@ export class TaskEditFormComponent implements OnInit {
     this.task = this.data;
     this.columnsStore
       .select(getCurrentBoardUsers)
-      .subscribe(users => (this.assignedUsers = users));
+      .pipe(
+        map(users => users.filter(user => this.task.users.includes(user._id)))
+      )
+      .subscribe(users => (this.assignedUsersObjects = users));
+    this.assignedUsersIds = [...this.task.users];
     this.formTask = new FormGroup({
       title: new FormControl(`${this.task.title}`, [Validators.required]),
       description: new FormControl(`${this.task.description}`),
@@ -63,7 +70,7 @@ export class TaskEditFormComponent implements OnInit {
         columnId: this.task.columnId,
         description: this.description!.value,
         userId: this.task.userId,
-        users: this.task.users,
+        users: this.assignedUsersIds,
       };
       this.taskStore.dispatch(
         taskActions.updateTask({
@@ -74,6 +81,13 @@ export class TaskEditFormComponent implements OnInit {
       );
       this.dialogRef.close();
     }
+  }
+
+  deleteAssignedUser(userId: string) {
+    this.assignedUsersIds = this.assignedUsersIds.filter(id => id !== userId);
+    this.assignedUsersObjects = this.assignedUsersObjects.filter(
+      user => user._id !== userId
+    );
   }
 
   onClose(): void {

@@ -47,8 +47,22 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
-      .user {
+      .users {
         flex: 1 1 30%;
+        .user{
+          display: flex;
+          align-items: center;
+          &_name {
+            margin: 0;
+          }
+          &_delete-btn {
+            margin: 0;
+            &__icon {
+              font-size: 1rem;
+              color: rgba(0, 0, 0, 0.54);
+            }
+          }
+        }
       }
     }
   }
