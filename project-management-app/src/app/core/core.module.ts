@@ -17,6 +17,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { SearchResultsPageComponent } from './pages/search-results-page/search-results-page/search-results-page.component';
 import { SearchResultComponent } from './pages/search-results-page/search-result/search-result.component';
 import { SharedModule } from '../shared/shared.module';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SharedModule } from '../shared/shared.module';
     SearchBarComponent,
     SearchResultsPageComponent,
     SearchResultComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
