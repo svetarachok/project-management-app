@@ -1,17 +1,19 @@
 .board {
   &_item {
     background-color: #f3f5fb;
-    width: 50%;
-    height: 4rem;
+    width: 14rem;
+    height: 14rem;
     margin: 0.5rem;
-
-    @media (max-width: 760px) {
-      width: 100%;
+    padding-top: 1.5rem;
+    @media (max-width: 425px) {
+      height: 10rem;
     }
   }
   &_link {
     width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
   &_item-icon {
@@ -20,16 +22,17 @@
   &_header {
     width: 100%;
     margin: 0;
-    padding-right: 2rem;
     font-weight: 700;
-
+    padding-top: 3rem;
+    text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   &_remove-btn {
     position: absolute;
-    right: 0;
+    right: 10px;
+    bottom: 10px;
 
     &__icon {
       font-size: 1.2rem;

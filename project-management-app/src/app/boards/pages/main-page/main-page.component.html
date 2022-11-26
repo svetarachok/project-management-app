@@ -7,9 +7,11 @@
     </button>
   </div>
 </ng-template>
-<mat-nav-list *ngIf="boards.length !== 0; else noboards" class="boards-list">
+<div class="boards">
   <h1 class="boards-list_header">{{ 'MAIN_PAGE.main_title' | translate }}</h1>
-  <app-board
-    *ngFor="let board of boards; let i = index"
-    [board]="board"></app-board>
-</mat-nav-list>
+  <mat-nav-list *ngIf="boards.length !== 0; else noboards" class="boards-list">
+    <app-board
+      *ngFor="let board of boards; let i = index"
+      [board]="board"></app-board>
+  </mat-nav-list>
+</div>
