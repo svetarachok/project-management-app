@@ -1,19 +1,31 @@
-:host{
-  width: 17rem;
-  min-width: 17rem;
-  padding: 10px;
-  border: dashed 1px rgb(36, 36, 36);
+:host {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  width: 17rem;
+  min-width: 17rem;
+  padding: 10px;
+  margin-bottom: 10px;
+
   box-sizing: border-box;
   cursor: move;
   font-size: 14px;
-  background-color: #f3f5fb;
+  border-radius: 4px;
+  background: linear-gradient(#efefef, #e6f4ff) no-repeat;
+
+  @media (max-width: 760px) {
+    width: 13rem;
+    min-width: 13rem;
+  }
 }
 
 .column-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
   &_wrapper {
     display: flex;
     justify-content: space-between;
@@ -21,7 +33,7 @@
     width: 100%;
   }
   &_header {
-    width: 100%; 
+    width: 100%;
     font-weight: 600;
     font-size: 14px;
     margin-top: -0.2em;
@@ -61,8 +73,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 0.2rem;
-  height: 60vh;
+  row-gap: 0.4rem;
+  height: 50vh;
   overflow-y: hidden;
   &:hover {
     overflow-y: auto;
