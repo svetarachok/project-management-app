@@ -15,6 +15,8 @@ import { getUser } from 'src/app/core/store/selectors/user.selectors';
 import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { Observable, Subscription } from 'rxjs';
+import { getErrorMessage } from 'src/app/core/store/selectors/boards.selectors';
+import { SnackBarService } from 'src/app/core/services/snack-bar.service';
 
 @Component({
   selector: 'app-create-board',
@@ -34,7 +36,8 @@ export class CreateBoardComponent implements OnInit, OnDestroy {
     private store: Store<BoardsState>,
     private userStore: Store<UserState>,
     private modalsService: ModalsService,
-    private userService: UserService
+    private userService: UserService,
+    public snackBarService: SnackBarService
   ) {}
 
   ngOnInit(): void {
@@ -65,6 +68,11 @@ export class CreateBoardComponent implements OnInit, OnDestroy {
           users: this.usersSelect?.value,
         })
       );
+      this.store.select(getErrorMessage).subscribe(message => {
+        if (message !== '') {
+          this.snackBarService.openSnackBar(message);
+        }
+      });
       this.createBoardForm.reset();
       formDirective.resetForm();
       this.modalsService.showCreateBoardModal = false;
