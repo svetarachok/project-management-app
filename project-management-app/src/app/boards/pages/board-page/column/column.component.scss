@@ -48,7 +48,7 @@
     width: 75%;
     font-weight: 600;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
   &_buttons {
     position: absolute;
@@ -76,6 +76,7 @@
   row-gap: 0.4rem;
   height: 50vh;
   overflow-y: hidden;
+  margin-bottom: auto;
   &:hover {
     overflow-y: auto;
   }

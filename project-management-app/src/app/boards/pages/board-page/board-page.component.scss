@@ -11,6 +11,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    &_users {
+      display: flex;
+      gap: 1rem;
+    }
   }
   &_users {
     display: flex;

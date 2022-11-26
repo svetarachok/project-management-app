@@ -5,7 +5,7 @@
 @import '@angular/material/theming';
 
 $custom-typography: mat-typography-config(
-  $font-family: '"Open Sans", sans-serif;',
+  $font-family: '"Montserrat", sans-serif;',
 );
 @include mat.core($custom-typography);
 
