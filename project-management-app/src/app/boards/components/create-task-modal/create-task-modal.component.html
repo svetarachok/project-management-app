@@ -26,7 +26,9 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <button mat-raised-button color="primary" type="submit">Create task</button>
+  <button mat-raised-button color="primary" type="submit">
+    {{ 'CREATE_TASK_MODAL.title' | translate }}
+  </button>
   <button mat-icon-button (click)="onClose()" class="close-modal-btn">
     <mat-icon>close</mat-icon>
   </button>

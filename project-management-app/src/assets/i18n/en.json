@@ -134,7 +134,9 @@
     "formTitleErr": "Please enter a task title",
     "labelDescription": "Description",
     "formDescriptionErr": "Please enter a task description",
-    "save": "Save"
+    "save": "Save",
+    "assignUsers": "Assign users",
+    "assignedUsers": "Assigned users"
   },
   "API_ERRORS": {
     "loginExist": "Login already exist",
