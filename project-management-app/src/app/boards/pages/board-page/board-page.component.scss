@@ -1,5 +1,5 @@
 :host {
-  height: 100%;
+  height: calc(100% - 218px);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -10,12 +10,22 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+
+  h1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  button {
+    min-width: 128px;
+  }
 }
 
 .columns {
   &_container {
     min-width: 100%;
-    min-height: 94%;
+    min-height: calc(100% - 34px);
     display: flex;
     padding: 0;
     gap: 5px;

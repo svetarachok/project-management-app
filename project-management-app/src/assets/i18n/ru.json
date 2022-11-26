@@ -1,6 +1,6 @@
 {
   "FOOTER": {
-    "github": "Github разработчиков",
+    "github": "Github разрабов",
     "person1": "Светлана",
     "person2": "Виталий"
   },
@@ -15,7 +15,7 @@
   },
   "MAIN_PAGE": {
     "main_title": "Доски",
-    "new_board_btn": "Создать новую доску",
+    "new_board_btn": "Создать доску",
     "no_boards": "У вас еще нет ни одной доски"
   },
   "NOT_FOUND": {
@@ -37,13 +37,19 @@
     },
     "about-section": {
       "title": "О нас",
-      "description": "Приложение разработано в рамках курса Angular в школе Rolling Scopes.",
+      "description": "Приложение разработано в рамках курса Angular 2022Q3 в школе Rolling Scopes.",
       "person1_title": "Светлана",
       "person1_descr1": "Deploy backend",
-      "person1_descr2": "Main, Board pages",
+      "person1_descr2": "Main page",
+      "person1_descr3": "Board page",
+      "person1_descr4": "DragNdrop",
+      "person1_descr5": "Search page",
+      "person1_descr6": "Additional functionality",
       "person2_title": "Виталий",
       "person2_descr1": "Welcome page",
-      "person2_descr2": "Login, Sign Up pages"
+      "person2_descr2": "Login, Sign Up pages",
+      "person2_descr3": "Profile page",
+      "person2_descr4": "Localization"
     }
   },
   "FORM": {
@@ -90,13 +96,13 @@
     "createColBtn": "Создать колонку"
   },
   "CREATE_BOARD_MODAL": {
-    "title": "Создать новую доску",
+    "title": "Создать доску",
     "label": "Заголовок",
     "formError": "Пожалуйста, введите название доски",
     "btn": "Создать"
   },
   "CREATE_COL_MODAL": {
-    "title": "Создать новую колонку",
+    "title": "Создать колонку",
     "label": "Заголовок",
     "formError": "Пожалуйста, введите название колонки",
     "btn": "Создать"
