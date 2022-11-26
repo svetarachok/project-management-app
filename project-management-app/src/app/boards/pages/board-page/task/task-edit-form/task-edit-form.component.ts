@@ -9,7 +9,6 @@ import * as taskActions from '../../../../../core/store/actions/tasks.actions';
 import { ColumnsState } from 'src/app/core/store/state/columns.state';
 import { User } from 'src/app/core/models/user.model';
 import { getCurrentBoardUsers } from 'src/app/core/store/selectors/columns.selectors';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-task-edit-form',
@@ -20,6 +19,8 @@ export class TaskEditFormComponent implements OnInit {
   task!: Task;
 
   formTask!: FormGroup;
+
+  boardUsersObjects: User[] = [];
 
   assignedUsersObjects: User[] = [];
 
@@ -35,16 +36,11 @@ export class TaskEditFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.task = this.data;
-    this.columnsStore
-      .select(getCurrentBoardUsers)
-      .pipe(
-        map(users => users.filter(user => this.task.users.includes(user._id)))
-      )
-      .subscribe(users => (this.assignedUsersObjects = users));
-    this.assignedUsersIds = [...this.task.users];
+    this.getAssignedUsers();
     this.formTask = new FormGroup({
       title: new FormControl(`${this.task.title}`, [Validators.required]),
       description: new FormControl(`${this.task.description}`),
+      usersSelect: new FormControl(''),
     });
   }
 
@@ -56,10 +52,26 @@ export class TaskEditFormComponent implements OnInit {
     return this.formTask.get('description');
   }
 
+  get usersSelect() {
+    return this.formTask.get('usersSelect');
+  }
+
   get titleErrorMessage(): string {
     return this.title!.hasError('required')
       ? FormErrors.TASK_TITLE_REQUIRED
       : '';
+  }
+
+  getAssignedUsers() {
+    this.columnsStore.select(getCurrentBoardUsers).subscribe(users => {
+      this.boardUsersObjects = [...users].filter(
+        user => !this.task.users.includes(user._id)
+      );
+      this.assignedUsersObjects = [...users].filter(user =>
+        this.task.users.includes(user._id)
+      );
+    });
+    this.assignedUsersIds = [...this.task.users];
   }
 
   onTaskDataChanged(): void {
@@ -70,7 +82,7 @@ export class TaskEditFormComponent implements OnInit {
         columnId: this.task.columnId,
         description: this.description!.value,
         userId: this.task.userId,
-        users: this.assignedUsersIds,
+        users: [...this.assignedUsersIds, ...this.usersSelect?.value],
       };
       this.taskStore.dispatch(
         taskActions.updateTask({

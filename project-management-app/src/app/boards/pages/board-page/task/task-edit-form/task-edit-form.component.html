@@ -41,6 +41,14 @@
           'TASK.formDescriptionErr' | translate
         }}</mat-error>
       </mat-form-field>
+      <mat-form-field class="task-form_filed">
+        <p>Assign users:</p>
+        <mat-select formControlName="usersSelect" multiple>
+          <mat-option *ngFor="let user of boardUsersObjects" [value]="user._id">
+            {{ user.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <div class="task-form_users-assigned">
         <p><b>Assigned users:</b></p>
         <div class="task-form_users-assigned_container">
