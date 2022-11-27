@@ -14,6 +14,10 @@
     font-size: 0.9rem;
     font-weight: 600;
     margin: 0;
+
+    @media (max-width: 912px) {
+      font-size: 0.8rem;
+    }
   }
   &_delete-btn {
     &__icon {

@@ -35,4 +35,9 @@
   .author {
     font-weight: 700;
   }
+
+  @media (max-width: 425px) {
+    gap: 0.2rem;
+    font-size: 0.8rem;
+  }
 }

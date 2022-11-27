@@ -1,5 +1,5 @@
 :host {
-  height: calc(100% - 218px);
+  height: calc(100% - 218px - 1rem);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -11,27 +11,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 1rem;
+
     &_users {
       display: flex;
       gap: 1rem;
-    }
+      align-items: center;
 
-    h1 {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: 80%;
-      margin: 0;
-
-      @media (max-width: 760px) {
-        width: 50%;
+      @media (max-width: 460px) {
+        gap: 0.2rem;
       }
     }
 
     .add-col {
       display: block;
 
-      @media (max-width: 760px) {
+      @media (max-width: 912px) {
         display: none;
       }
     }
@@ -39,11 +34,66 @@
     .add-col-mob {
       display: none;
 
-      @media (max-width: 760px) {
+      @media (max-width: 912px) {
         display: block;
+      }
+
+      @media (max-width: 460px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 29px;
+        height: 29px;
       }
     }
   }
+
+  &_title {
+    display: flex;
+    align-items: center;
+    width: 70%;
+
+    h1 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 0;
+      margin-right: 15px;
+
+      @media (max-width: 912px) {
+        margin-right: 10px;
+        font-size: 1.1rem;
+      }
+
+      @media (max-width: 460px) {
+        font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 1280px) {
+      width: 55%;
+    }
+
+    @media (max-width: 460px) {
+      width: 50%;
+    }
+  }
+
+  &_controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+
+    @media (max-width: 1280px) {
+      width: 45%;
+    }
+
+    @media (max-width: 460px) {
+      width: 50%;
+    }
+  }
+
   &_users {
     display: flex;
     .assign-user {
@@ -61,6 +111,17 @@
       background-color: #3f51b5;
       line-height: 36px;
       margin-left: -10px;
+
+      @media (max-width: 912px) {
+        width: 30px;
+        height: 30px;
+        line-height: 14px;
+      }
+
+      @media (max-width: 460px) {
+        width: 27px;
+        height: 27px;
+      }
     }
   }
 }

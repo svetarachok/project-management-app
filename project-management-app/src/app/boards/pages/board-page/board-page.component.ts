@@ -2,7 +2,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, map } from 'rxjs/operators';
 import { ColumnsState } from '../../../core/store/state/columns.state';
@@ -54,7 +54,8 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     private tasksStore: Store<TasksState>,
     public dialog: Dialog,
     private snackBarService: SnackBarService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -154,6 +155,10 @@ export class BoardPageComponent implements OnInit, OnDestroy {
     this.boardsStore.dispatch(
       boardsActions.upadteBoard({ board: updatedBoard, boardId: this.boardId })
     );
+  }
+
+  backToMain() {
+    this.router.navigateByUrl('');
   }
 
   ngOnDestroy(): void {

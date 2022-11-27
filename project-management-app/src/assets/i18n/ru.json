@@ -39,17 +39,17 @@
       "title": "О нас",
       "description": "Приложение разработано в рамках курса Angular 2022Q3 в школе Rolling Scopes.",
       "person1_title": "Светлана",
-      "person1_descr1": "Deploy backend",
-      "person1_descr2": "Main page",
-      "person1_descr3": "Board page",
-      "person1_descr4": "DragNdrop",
-      "person1_descr5": "Search page",
-      "person1_descr6": "Additional functionality",
+      "person1_descr1": "Деплой бэкенда",
+      "person1_descr2": "Главная страница",
+      "person1_descr3": "Страница доски",
+      "person1_descr4": "ДрагНдроп",
+      "person1_descr5": "Поиск",
+      "person1_descr6": "Дополнительный функционал",
       "person2_title": "Виталий",
-      "person2_descr1": "Welcome page",
-      "person2_descr2": "Login, Sign Up pages",
-      "person2_descr3": "Profile page",
-      "person2_descr4": "Localization"
+      "person2_descr1": "Страница приветствия",
+      "person2_descr2": "Страницы логина и регистрации",
+      "person2_descr3": "Страница профиля",
+      "person2_descr4": "Перевод"
     }
   },
   "FORM": {
