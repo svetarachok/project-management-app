@@ -2,7 +2,7 @@ import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { BoardsState } from 'src/app/core/store/state/boards.state';
@@ -34,6 +34,7 @@ export class AssignUsersComponent implements OnInit, OnDestroy {
     this.userId = this.data.board.owner;
     this.userSubscription = this.userService
       .getUsers()
+      .pipe(map(users => users.filter(u => u._id !== this.data.board.owner)))
       .subscribe(
         users =>
           (this.restUsers = users.filter(
