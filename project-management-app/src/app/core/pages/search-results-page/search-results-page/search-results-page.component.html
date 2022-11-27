@@ -1,6 +1,6 @@
-<ng-template #noSearch>{{
-  'SEARCH.start-your-search' | translate
-}}</ng-template>
+<ng-template #noSearch>
+  <span class="no-results">{{ 'SEARCH.start-your-search' | translate }}</span>
+</ng-template>
 <div *ngIf="isSearchStarted; else noSearch" class="search-results">
   <p>
     {{ 'SEARCH.search-results' | translate }} <b>{{ searchRequest }}</b>

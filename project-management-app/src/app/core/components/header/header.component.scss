@@ -24,8 +24,8 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #b0b0b0;
-  @media (max-width: 768px) {
-    padding: 1rem;
+  @media (max-width: 780px) {
+    padding: 0.8rem;
   }
   &_logo {
     display: flex;
@@ -35,7 +35,7 @@
     font-size: 1.6rem;
     font-weight: 700;
     text-transform: uppercase;
-    @media (max-width: 768px) {
+    @media (max-width: 800px) {
       min-width: 120px;
       font-size: 1.2rem;
     }
@@ -68,7 +68,7 @@
     }
 
     @media (max-width: 1000px) {
-      margin-right: 1rem;
+      margin-right: 0.5rem;
     }
   }
   &_search-bar {
@@ -113,6 +113,15 @@
 }
 
 .mobile-menu {
+  display: none;
+
+  @media (max-width: 760px) {
+    display: block;
+  }
+}
+
+.mobile-search-bar {
+  position: relative;
   display: none;
 
   @media (max-width: 760px) {
