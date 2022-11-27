@@ -15,6 +15,10 @@
   }
 
   @media (max-width: 960px) {
-    width: 10rem;
+    width: 12rem;
+  }
+
+  @media (max-width: 425px) {
+    width: 9rem;
   }
 }

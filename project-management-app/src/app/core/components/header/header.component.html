@@ -60,7 +60,7 @@
       </ng-template>
     </div>
   </div>
-  <div class="mobile-search-bar">
+  <div *ngIf="isUserAuthorized" class="mobile-search-bar">
     <app-search-bar></app-search-bar>
   </div>
   <div class="mobile-menu">
