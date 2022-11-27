@@ -1,4 +1,12 @@
 :host {
-  height: 100%;
   padding: 1.5rem 4rem;
+
+  @media (max-width: 760px) {
+    padding: 1rem;
+  }
+}
+
+.no-results {
+  position: absolute;
+  top: 15%;
 }

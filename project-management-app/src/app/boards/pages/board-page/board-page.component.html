@@ -3,11 +3,19 @@
     {{ 'BOARD_PAGE.title' | translate }}: <b>{{ board.title }}</b>
   </h1>
   <button
+    class="add-col"
     mat-raised-button
     color="accent"
     type="button"
     (click)="onColumnCreateClick()">
     {{ 'BOARD_PAGE.createColBtn' | translate }}
+  </button>
+  <button
+    class="add-col-mob"
+    mat-mini-fab
+    aria-label="add column"
+    (click)="onColumnCreateClick()">
+    <mat-icon>add</mat-icon>
   </button>
   <div class="board_header_users">
     <div class="assign-user">

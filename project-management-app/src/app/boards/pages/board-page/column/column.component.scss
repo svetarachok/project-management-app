@@ -39,6 +39,11 @@
     margin-bottom: 0;
     margin-left: 10px;
   }
+
+  &__menu {
+    align-self: baseline;
+  }
+
   &_form {
     display: flex;
     position: relative;

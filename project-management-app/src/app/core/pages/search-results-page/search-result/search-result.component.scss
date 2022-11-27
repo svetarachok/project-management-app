@@ -20,11 +20,19 @@
         margin-right: 0.5rem;
       }
     }
+
+    &__task,
+    &__description {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
   }
   &_users {
     &_list {
-    display: flex;
-    gap: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
     }
   }
 }
