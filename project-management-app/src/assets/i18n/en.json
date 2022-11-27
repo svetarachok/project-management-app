@@ -123,6 +123,7 @@
   "ASSIGN_USERS_MODAL": {
     "title": "Assign users to board",
     "selectLabel": "All users",
+    "noUsers": "There are no more users registered in this app",
     "btn": "Assign selected users"
   },
   "CONFIRM_MODAL": {
