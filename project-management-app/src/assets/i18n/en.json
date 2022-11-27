@@ -165,6 +165,7 @@
     "search-results": "Your search request:",
     "taskLabel": "Task",
     "descLabel": "Description",
-    "openBoard": "Open Task Board"
+    "openBoard": "Open Task Board",
+    "users": "Users"
   }
 }

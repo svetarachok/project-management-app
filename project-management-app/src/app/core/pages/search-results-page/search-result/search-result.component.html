@@ -31,7 +31,9 @@
     </div>
   </div>
   <div *ngIf="result.users.length !== 0" class="result_users">
-    <p mat-card-subtitle class="result_item__task-sub">Users:</p>
+    <p mat-card-subtitle class="result_item__task-sub">
+      {{ 'SEARCH.users' | translate }}:
+    </p>
     <div class="result_users_list">
       <p mat-card-content *ngFor="let user of taskUsersObjects; index as i">
         {{ taskUsersObjects[i].name }} |
