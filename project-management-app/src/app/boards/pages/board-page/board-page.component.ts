@@ -93,9 +93,9 @@ export class BoardPageComponent implements OnInit, OnDestroy {
       .getUsers()
       .pipe(filter(users => !!users))
       .subscribe(users => {
-        this.boardUsers = [...users]
-          // .filter(u => u._id !== this.board.owner)
-          .filter(user => this.board?.users?.includes(user._id));
+        this.boardUsers = [...users].filter(user =>
+          this.board?.users?.includes(user._id)
+        );
         this.columnStore.dispatch(
           columnsActions.getBoardUsersToStore({
             boardUsers: this.boardUsers,
