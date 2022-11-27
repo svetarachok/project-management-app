@@ -23,6 +23,7 @@ export class ColumnsEffects {
           .createColumn(action.title, action.order, action.boardId!)
           .pipe(
             map(column => {
+              window.location.reload();
               return columnsActions.createNewColumnSuccess({ column });
             }),
             catchError(resp => {
