@@ -165,6 +165,7 @@
     "search-results": "Вы искали:",
     "taskLabel": "Задача",
     "descLabel": "Описание",
-    "openBoard": "Открыть доску с задачей"
+    "openBoard": "Открыть доску",
+    "users": "Пользователи"
   }
 }
